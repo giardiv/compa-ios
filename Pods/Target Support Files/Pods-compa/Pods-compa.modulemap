@@ -1,0 +1,6 @@
+framework module Pods_compa {
+  umbrella header "Pods-compa-umbrella.h"
+
+  export *
+  module * { export * }
+}

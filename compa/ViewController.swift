@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
 
@@ -21,16 +22,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        GETAPIRequest(
-            url: "https://jsonplaceholder.typicode.com/posts/1",
-            success: { data in
-                print(data)
+        
+        //GETAPIRequest(
+       //     url: "https://jsonplaceholder.typicode.com/posts/1",
+        //    success: { data in
+       //         print(data)
 
-            },
-            error: { data in
-                print(data)
-            })
+       //     },
+       //     error: { data in
+       //         print(data)
+       //     })
 
     }
 
