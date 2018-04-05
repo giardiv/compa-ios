@@ -18,6 +18,17 @@ class ViewController: UIViewController {
         case GET
     }
     
+    
+    @IBAction func getLocation(_ sender: Any) {
+        Alamofire.request("http://localhost:8080/location").responseJSON { response in
+            if(response.result.isSuccess){
+            if let json = response.result.value {
+                print("JSON: \(json)") // serialized json response
+                }
+            }
+        }
+        print("yo")
+    }
     let session = URLSession.shared //singleton with default behavior
     
     override func viewDidLoad() {
