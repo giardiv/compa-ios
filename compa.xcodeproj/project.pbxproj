@@ -14,6 +14,8 @@
 		D63F2B67207FA14500DC6BCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63F2B65207FA14500DC6BCB /* LaunchScreen.storyboard */; };
 		D63F2B72207FA14500DC6BCB /* compaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B71207FA14500DC6BCB /* compaTests.swift */; };
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
+		D6A197E7208B7E030023A17D /* RegisterPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A197E6208B7E030023A17D /* RegisterPageViewController.swift */; };
+		D6A197E9208B861D0023A17D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A197E8208B861D0023A17D /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		D63F2B78207FA14500DC6BCB /* compaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = compaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63F2B7C207FA14500DC6BCB /* compaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = compaUITests.swift; sourceTree = "<group>"; };
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6A197E6208B7E030023A17D /* RegisterPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPageViewController.swift; sourceTree = "<group>"; };
+		D6A197E8208B861D0023A17D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				D63F2B63207FA14500DC6BCB /* Assets.xcassets */,
 				D63F2B65207FA14500DC6BCB /* LaunchScreen.storyboard */,
 				D63F2B68207FA14500DC6BCB /* Info.plist */,
+				D6A197E6208B7E030023A17D /* RegisterPageViewController.swift */,
+				D6A197E8208B861D0023A17D /* LoginViewController.swift */,
 			);
 			path = compa;
 			sourceTree = "<group>";
@@ -259,8 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6A197E9208B861D0023A17D /* LoginViewController.swift in Sources */,
 				D63F2B5F207FA14500DC6BCB /* ViewController.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,
+				D6A197E7208B7E030023A17D /* RegisterPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,6 +515,7 @@
 				D63F2B83207FA14500DC6BCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D63F2B84207FA14500DC6BCB /* Build configuration list for PBXNativeTarget "compaTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +524,7 @@
 				D63F2B86207FA14500DC6BCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D63F2B87207FA14500DC6BCB /* Build configuration list for PBXNativeTarget "compaUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +533,7 @@
 				D63F2B89207FA14500DC6BCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

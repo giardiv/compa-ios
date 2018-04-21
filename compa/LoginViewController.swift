@@ -10,6 +10,10 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var userEmailTextField: UITextField!
+    @IBOutlet weak var userPasswordTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,14 +26,24 @@ class LoginViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func loginButtonTapped(_ sender: Any) {
+        let userEmail = userEmailTextField.text;
+        let userPasswprd = userPasswordTextField.text;
+        
+        let userEmailStored = UserDefaults.standard.string(forKey: "userEmail");
+        let userPasswordStored = UserDefaults.standard.string(forKey: "userPassword");
+        
+        if(userEmailStored == userEmail)
+        {
+            if(userPasswordStored == userPasswprd)
+            {
+             //login is successfull
+                UserDefaults.standard.set(true, forKey: "isUserLoggedIn");
+                UserDefaults.standard.synchronize();
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
     }
-    */
 
 }
