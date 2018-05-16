@@ -9,7 +9,8 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     let regionRadius: CLLocationDistance = 1000
     let locationManager = CLLocationManager()
@@ -19,15 +20,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         map.showsUserLocation = true
         locationManager.delegate = self
+        map.delegate = self
+        
         locationManager.requestWhenInUseAuthorization()
+        
+        let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        
+        for (date, location) in locations {
+    
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location.coordinate
+            annotation.title = dateFormatter.string(from: date)
+            map.addAnnotation(annotation)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func locationManager(_ manager: CLLocationManager,
-                         didChangeAuthorization status: CLAuthorizationStatus) {
+   /* func mapView(aMapView: MKMapView!, viewForAnnotation annotation: CustomMapPinAnnotation!) -> MKAnnotationView! {
+        
+    }*/
+    
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
             case .restricted, .denied:
                 alert("why not :(")
@@ -39,15 +60,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
+                break
         }
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        centerMapOnLocation(location: locations[locations.count], regionRadius: regionRadius)
 
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        print("update location")
+        print(locations)
+        //centerMapOnLocation(location: locations[locations.count], regionRadius: regionRadius)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error){
+        print("failed update location")
         alert(error.localizedDescription)
     }
     

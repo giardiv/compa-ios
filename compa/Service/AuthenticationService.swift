@@ -25,7 +25,7 @@ class AuthenticationService {
             result("el_token")
         }
         else{
-            error("no login biatch")
+            error("nope")
         }
         
     }
