@@ -20,23 +20,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidAppear(_ animated: Bool)
-    {
-        let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
-        
-        if(!isUserLoggedIn)
-        {
-            self.performSegue(withIdentifier:"loginView", sender: self)
-        }
-        
-    }
 
-    @IBAction func logoutButtonTapped(_ sender: Any) {
-        UserDefaults.standard.set(false, forKey: "isUserLoggedIn");
-        UserDefaults.standard.synchronize();
-        
-        self.performSegue(withIdentifier:"loginView", sender: self)
-    }
 
 }
 
