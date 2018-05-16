@@ -25,8 +25,11 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func registerButtonTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "loginToRegister", sender: self)
+    }
 
-    @IBAction func loginButtonTapped(_ sender: Any) {
+    @IBAction func loginButtonTapped(_ sender: UIButton) {
         let login = userEmailTextField.text!;
         let pwd = userPasswordTextField.text!;
         
@@ -36,13 +39,15 @@ class LoginViewController: UIViewController {
             pwd: pwd,
             result: { token -> Void in
                 print(token)
-                UserDefaults.standard.set(true, forKey: "isUserLoggedIn");
-                UserDefaults.standard.synchronize();
-                self.dismiss(animated: true, completion: nil)
+                //UserDefaults.standard.set(true, forKey: "isUserLoggedIn");
+                //UserDefaults.standard.synchronize();
+                self.performSegue(withIdentifier: "loginToMap", sender: self)
 
             },
             error: { msg -> Void in
-                print(msg)
+                let myAlert = UIAlertController(title:"Could not log in", message: msg, preferredStyle: UIAlertControllerStyle.alert);
+                myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default));
+                self.present(myAlert, animated:true, completion:nil);
             }
         )
         

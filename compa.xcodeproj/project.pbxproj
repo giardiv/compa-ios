@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D61E165A20A9A411003EB242 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165820A9A411003EB242 /* MapController.swift */; };
-		D61E165B20A9A411003EB242 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165920A9A411003EB242 /* ViewController.swift */; };
+		D61E165A20A9A411003EB242 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165820A9A411003EB242 /* MapViewController.swift */; };
+		D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165920A9A411003EB242 /* MainViewController.swift */; };
 		D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165D20A9A442003EB242 /* HTTPService.swift */; };
 		D61E166120A9A455003EB242 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E166020A9A455003EB242 /* User.swift */; };
 		D61E166520A9A482003EB242 /* AbstractRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E166320A9A482003EB242 /* AbstractRepository.swift */; };
@@ -20,7 +20,7 @@
 		D63F2B72207FA14500DC6BCB /* compaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B71207FA14500DC6BCB /* compaTests.swift */; };
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
 		D665FCDB20AC411B00B81545 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD820AC411B00B81545 /* LoginViewController.swift */; };
-		D665FCDC20AC411B00B81545 /* RegisterPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterPageViewController.swift */; };
+		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
 		D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCDE20AC489700B81545 /* AuthenticationService.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,8 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D61E165820A9A411003EB242 /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
-		D61E165920A9A411003EB242 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D61E165820A9A411003EB242 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		D61E165920A9A411003EB242 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D61E165D20A9A442003EB242 /* HTTPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		D61E166020A9A455003EB242 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D61E166320A9A482003EB242 /* AbstractRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractRepository.swift; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 		D63F2B7C207FA14500DC6BCB /* compaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = compaUITests.swift; sourceTree = "<group>"; };
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D665FCD820AC411B00B81545 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		D665FCD920AC411B00B81545 /* RegisterPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPageViewController.swift; sourceTree = "<group>"; };
+		D665FCD920AC411B00B81545 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		D665FCDE20AC489700B81545 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,9 +94,9 @@
 			isa = PBXGroup;
 			children = (
 				D665FCD820AC411B00B81545 /* LoginViewController.swift */,
-				D665FCD920AC411B00B81545 /* RegisterPageViewController.swift */,
-				D61E165820A9A411003EB242 /* MapController.swift */,
-				D61E165920A9A411003EB242 /* ViewController.swift */,
+				D665FCD920AC411B00B81545 /* RegisterViewController.swift */,
+				D61E165820A9A411003EB242 /* MapViewController.swift */,
+				D61E165920A9A411003EB242 /* MainViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -315,12 +315,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D61E165A20A9A411003EB242 /* MapController.swift in Sources */,
-				D61E165B20A9A411003EB242 /* ViewController.swift in Sources */,
+				D61E165A20A9A411003EB242 /* MapViewController.swift in Sources */,
+				D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */,
 				D61E166620A9A482003EB242 /* UserRepository.swift in Sources */,
 				D61E166120A9A455003EB242 /* User.swift in Sources */,
 				D665FCDB20AC411B00B81545 /* LoginViewController.swift in Sources */,
-				D665FCDC20AC411B00B81545 /* RegisterPageViewController.swift in Sources */,
+				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,
 				D61E166520A9A482003EB242 /* AbstractRepository.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterPageViewController: UIViewController {
+class RegisterViewController: UIViewController {
 
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
@@ -26,34 +26,34 @@ class RegisterPageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func displayMyAlertMessage(userMessage:String, handler: ((UIAlertAction) -> Void)? = nil){
-        
+    func alert(userMessage:String, handler: ((UIAlertAction) -> Void)? = nil){
         let myAlert = UIAlertController(title:"Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
         myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default, handler: handler));
         self.present(myAlert, animated:true, completion:nil);
-        
     }
     
+    @IBAction func loginButtonTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "registerToLogin", sender:self)
+    }
+    
+    
     @IBAction func registerButtonTapped(_ sender: Any) {
-        let userEmail = userEmailTextField.text;
-        let userPassword = userPasswordTextField.text;
-        let userRepeatPassword = repeatPasswordTextField.text;
+        let userEmail = userEmailTextField.text
+        let userPassword = userPasswordTextField.text
+        let userRepeatPassword = repeatPasswordTextField.text
         
         
-        //Check for empty fields
-        if((userEmail?.isEmpty)! || (userPassword?.isEmpty)! || (userRepeatPassword?.isEmpty)!){
-            displayMyAlertMessage(userMessage: "All field are required");
-            return;
+        guard (userEmail?.isEmpty)! || (userPassword?.isEmpty)! || (userRepeatPassword?.isEmpty)! else {
+            alert(userMessage: "All field are required")
+            return
         }
         
-        //Check if password match
-        if(userPassword != userRepeatPassword){
-            displayMyAlertMessage(userMessage: "Passwords do not match");
-            return;
+        guard userPassword != userRepeatPassword else {
+            alert(userMessage: "Passwords do not match")
+            return
         }
 
         let dict = ["login" : userEmail!, "password" : userPassword!]
-        
         let ctrl  = self
         
         auth.register(
@@ -61,20 +61,21 @@ class RegisterPageViewController: UIViewController {
             credentials: dict,
             result: { token -> Void in
                 
-                ctrl.displayMyAlertMessage(userMessage: "Registration is successful. Thank you!", handler: {ACTION in
+                ctrl.alert(userMessage: "Registration is successful. Thank you!", handler: {ACTION in
                     self.dismiss(animated: true, completion: nil)
                 })
 
             },
             error: { msg -> Void in
 
-                ctrl.displayMyAlertMessage(userMessage: msg)
+                ctrl.alert(userMessage: msg)
                 
             }
         )
         
     }
     
+  
     /*
     // MARK: - Navigation
 
