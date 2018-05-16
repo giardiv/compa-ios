@@ -25,9 +25,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.requestWhenInUseAuthorization()
         
         let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))
+        //locations = locations.sorted(by: <)
+        //print(locations)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        
+        
         
         for (date, location) in locations {
     
@@ -38,6 +42,55 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
         }
     }
+    
+    func test(){
+        
+        let sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)
+        let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let sourceAnnotation = MKPointAnnotation()
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        
+        let destinationLocation = CLLocationCoordinate2D(latitude: 40.748441, longitude: -73.985564)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        let destinationAnnotation = MKPointAnnotation()
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+        
+        //self.map.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+        
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            
+            let route = response.routes[0]
+            self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads)
+            
+            let rect = route.polyline.boundingMapRect
+            self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+        }
+        
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
