@@ -26,7 +26,7 @@ class UserRepository : AbstractRepository {
     
     func get( identifier:Int ) -> User?{
         let serializedObj = ""; //async func....
-        return User(dictionary: serializedObj!)
+        return nil//User(dictionary: serializedObj)
     }
 
     func create( object: User ) -> Bool{
