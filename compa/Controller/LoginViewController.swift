@@ -13,10 +13,10 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
     
-    
+    let auth: AuthenticationService = AuthenticationService()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
@@ -27,22 +27,24 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func loginButtonTapped(_ sender: Any) {
-        let userEmail = userEmailTextField.text;
-        let userPasswprd = userPasswordTextField.text;
+        let login = userEmailTextField.text!;
+        let pwd = userPasswordTextField.text!;
         
-        let userEmailStored = UserDefaults.standard.string(forKey: "userEmail");
-        let userPasswordStored = UserDefaults.standard.string(forKey: "userPassword");
-        
-        if(userEmailStored == userEmail)
-        {
-            if(userPasswordStored == userPasswprd)
-            {
-             //login is successfull
+        auth.checkAuth(
+            
+            login: login,
+            pwd: pwd,
+            result: { token -> Void in
+                print(token)
                 UserDefaults.standard.set(true, forKey: "isUserLoggedIn");
                 UserDefaults.standard.synchronize();
                 self.dismiss(animated: true, completion: nil)
+
+            },
+            error: { msg -> Void in
+                print(msg)
             }
-        }
+        )
         
     }
 

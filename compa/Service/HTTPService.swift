@@ -28,6 +28,11 @@ class HTTPService {
         return APIRequest(url: url, method: Method.GET.rawValue, successHandler:success, errorHandler:error);
     }
     
+    
+    func post(url : String, data : Dictionary<String, AnyObject>, success: @escaping (_ data: Dictionary<String, AnyObject> )->Void, error: @escaping (_ data: Error )->Void ) {
+        return APIRequest(url: url, method: Method.POST.rawValue, successHandler:success, errorHandler:error);
+    }
+    
     private func APIRequest(url: String, method: String, successHandler: @escaping (_ data: Dictionary<String, AnyObject> )->Void, errorHandler: @escaping (_ data: Error )->Void)  {
         
         var request = URLRequest(url: URL(string: url)!)

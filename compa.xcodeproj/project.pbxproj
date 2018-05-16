@@ -21,6 +21,7 @@
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
 		D665FCDB20AC411B00B81545 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD820AC411B00B81545 /* LoginViewController.swift */; };
 		D665FCDC20AC411B00B81545 /* RegisterPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterPageViewController.swift */; };
+		D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCDE20AC489700B81545 /* AuthenticationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D665FCD820AC411B00B81545 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D665FCD920AC411B00B81545 /* RegisterPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterPageViewController.swift; sourceTree = "<group>"; };
+		D665FCDE20AC489700B81545 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				D61E165D20A9A442003EB242 /* HTTPService.swift */,
+				D665FCDE20AC489700B81545 /* AuthenticationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,
 				D61E166520A9A482003EB242 /* AbstractRepository.swift in Sources */,
+				D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

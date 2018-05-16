@@ -12,35 +12,31 @@ class UserRepository : AbstractRepository {
 
     typealias model = User
     
-    
     let http: HTTPService
     
     init(http: HTTPService = HTTPService()) {
         self.http = http
     }
     
-    
-    func getAll() -> [User] {
-        return [User()]
+    func getAll(result: @escaping (_ data: [User] )->Void)  {
+        result([User()])
     }
     
-    func get( identifier:Int ) -> User?{
-        let serializedObj = ""; //async func....
-        return nil//User(dictionary: serializedObj)
+    func get( identifier:Int, result: @escaping (_ data: User )->Void) {
+        result(User())
     }
 
-    func create( object: User ) -> Bool{
-        return true
+    func create( object: User, result: @escaping (_ data: Bool )->Void ) {
+        result(true)
     }
 
-    func update( object: User) -> Bool{
-        return true
+    func update( object: User, result: @escaping (_ data: Bool )->Void) {
+        result(true)
     }
 
-    func delete( object: User ) -> Bool{
-        return true
+    func delete( object: User, result: @escaping (_ data: Bool )->Void ) {
+        result(true)
     }
-    
     
 }
 
