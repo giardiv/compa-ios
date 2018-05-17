@@ -38,7 +38,8 @@ class LoginViewController: UIViewController {
             login: login,
             pwd: pwd,
             result: { token -> Void in
-                print(token)
+                print(token) //TODO store it somewhere
+                
                 //UserDefaults.standard.set(true, forKey: "isUserLoggedIn");
                 //UserDefaults.standard.synchronize();
                 self.performSegue(withIdentifier: "loginToMap", sender: self)

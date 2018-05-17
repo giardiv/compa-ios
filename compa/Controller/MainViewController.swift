@@ -30,9 +30,9 @@ class MainViewController: UIViewController {
         }
     }
     
-    
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier:"mainToLogin", sender: self)
+        print(User(dictionary:User.test))
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIButton) {

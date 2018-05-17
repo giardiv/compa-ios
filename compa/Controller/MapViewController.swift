@@ -32,7 +32,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         
         
-        
         for (date, location) in locations {
     
             let annotation = MKPointAnnotation()
@@ -43,7 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    func test(){
+    /*func test(){
         
         let sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)
         let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
@@ -88,7 +87,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
         }
         
-    }
+    }*/
     
     
     
