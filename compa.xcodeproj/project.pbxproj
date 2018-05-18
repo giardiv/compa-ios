@@ -23,6 +23,7 @@
 		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
 		D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCDE20AC489700B81545 /* AuthenticationService.swift */; };
 		D6E9154920AC994100B5ADE8 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9154820AC994100B5ADE8 /* Friendship.swift */; };
+		D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		D665FCD920AC411B00B81545 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		D665FCDE20AC489700B81545 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		D6E9154820AC994100B5ADE8 /* Friendship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
+		D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				D665FCD920AC411B00B81545 /* RegisterViewController.swift */,
 				D61E165820A9A411003EB242 /* MapViewController.swift */,
 				D61E165920A9A411003EB242 /* MainViewController.swift */,
+				D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				D6E9154920AC994100B5ADE8 /* Friendship.swift in Sources */,
 				D61E166120A9A455003EB242 /* User.swift in Sources */,
 				D665FCDB20AC411B00B81545 /* LoginViewController.swift in Sources */,
+				D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */,
 				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,

@@ -42,6 +42,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    @IBAction func profileButtonTapped(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "mapToProfile", sender: self)
+    }
     /*func test(){
         
         let sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)
