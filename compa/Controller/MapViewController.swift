@@ -12,6 +12,7 @@ import MapKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     let regionRadius: CLLocationDistance = 1000
     let locationManager = CLLocationManager()
     @IBOutlet weak var map: MKMapView!
