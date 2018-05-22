@@ -24,25 +24,19 @@ class User {
         self.lastLocation = location
     }
     
-    convenience init?(dictionary: Dictionary<String, AnyObject>) {
-        let name = dictionary["username"]! as! String
-        
-        let location = Location(dictionary: dictionary["location"]! as! Dictionary<String, AnyObject>)
-        
-        //User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092)) // to change
-       
-        let friendsDic = dictionary["friends"]! as! Dictionary<String, AnyObject>
-        //let friends = friendsDic.map { User(dictionary: $0 as! [String:AnyObject]!) }
-        
-        //self.init(username: name, location: location, friends: friends)
+    convenience init?(dictionary: [String:Any]) {
+        let name: String = dictionary["username"]! as! String
+        let location = Location(dictionary: dictionary["location"]! as! [String:Any])
+        let friendsDic = dictionary["friends"]! as! [String:Any]
+        let friends = friendsDic.map { User(dictionary: $0.1 as! [String:Any])! } //problem
+        self.init(username: name, location: location, friends: friends)
     }
     
-    convenience init(){
-        self.init(username:"soMysterious", location: Location(), friends: [User]())
-    }
     
- 
-    static func getMockLocationsFor(_ location: CLLocation) -> Dictionary<Date, CLLocation> {
+    //User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092)) // to change
+    
+    
+    static func getMockLocationsFor(_ location: CLLocation) -> [Date:CLLocation] {
         
         func getBase(number: Double) -> Double {
             return round(number * 1000)/1000
@@ -51,15 +45,15 @@ class User {
             return Double(arc4random_uniform(140)) * 0.0001
         }
         
-        var dic = Dictionary<Date, CLLocation>();
+        var dic = [Date:CLLocation]();
         
         let baseLatitude = getBase(number: location.coordinate.latitude - 0.007)
         let baseLongitude = getBase(number: location.coordinate.longitude - 0.008)
         
         for i in stride(from: -10000, to: 10000, by: 1000) {
             let date = Date(timeIntervalSinceNow: Double(i));
-            let randomLat = baseLatitude + randomCoordinate()
-            let randomLong = baseLongitude + randomCoordinate()
+            let randomLat: Double = baseLatitude + randomCoordinate()
+            let randomLong: Double = baseLongitude + randomCoordinate()
             dic[date] = CLLocation(latitude: randomLat, longitude: randomLong)
         }
         

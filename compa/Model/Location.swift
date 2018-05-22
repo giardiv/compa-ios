@@ -11,14 +11,17 @@ import Foundation
 
 class Location {
     
-    let latitude, longitude:Double
+    let latitude, longitude: Double
     let date : Date
     
-    init(dictionary: Dictionary<String, AnyObject>){
-    
-    }
-    
-    init(){
+    init(dictionary: Dictionary<String, Any>){
+        latitude = dictionary["latitude"] as! Double
+        longitude = dictionary["longitude"] as! Double
         
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let date: Date = dateFormatterGet.date(from: dictionary["date"] as! String)!
+        self.date = date
     }
+    
 }

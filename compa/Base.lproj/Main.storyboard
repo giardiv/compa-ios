@@ -298,7 +298,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Bf-kW-GH7" id="hWD-E6-fXX">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person-profile" translatesAutoresizingMaskIntoConstraints="NO" id="Vg5-s8-mb1">
@@ -479,7 +479,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-ar-FEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="985" y="697"/>
-
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5rK-XR-HgB">
@@ -504,10 +503,8 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6L1-hS-Su1"/>
+        <segue reference="ZzN-LT-qGr"/>
         <segue reference="3dl-p5-R8B"/>
-
         <segue reference="N7e-Bk-iOK"/>
-        <segue reference="3dl-p5-R8B"/>
     </inferredMetricsTieBreakers>
 </document>

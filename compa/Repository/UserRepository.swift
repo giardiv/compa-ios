@@ -14,16 +14,25 @@ class UserRepository : AbstractRepository {
     
     let http: HTTPService
     
+    let root:String
+    
+    
     init(http: HTTPService = HTTPService()) {
         self.http = http
+        
+        let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
+        let dict = NSDictionary(contentsOfFile: path)!
+        root = dict["root"] as! String
+        print(root)
+        
     }
     
     func getAll(result: @escaping (_ data: [User] )->Void)  {
-        result([User()])
+        result([User(dictionary: [:])!])
     }
     
     func get( identifier:Int, result: @escaping (_ data: User )->Void) {
-        result(User())
+        result(User(dictionary: [:])!)
     }
 
     func create( object: User, result: @escaping (_ data: Bool )->Void ) {
@@ -36,6 +45,21 @@ class UserRepository : AbstractRepository {
 
     func delete( object: User, result: @escaping (_ data: Bool )->Void ) {
         result(true)
+    }
+    
+    func getAuthUser(result: @escaping (_ data: Bool )->Void){
+        
+        http.get(
+            url: root + "/user/profile",
+            success: { data in
+                result(User(dictionary:data))
+            },
+            
+            error: { error in
+            
+            }
+    
+        )
     }
     
 }

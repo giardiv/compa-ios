@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool){
-        self.performSegue(withIdentifier:"mainToMap", sender: self)
+        //self.performSegue(withIdentifier:"mainToMap", sender: self)
     }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {

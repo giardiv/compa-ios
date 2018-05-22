@@ -30,25 +30,43 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
-        let login = userEmailTextField.text!;
-        let pwd = userPasswordTextField.text!;
+       
+        guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
+            //errorHighlightTextField(userEmailTextField)
+            return
+        }
+    
+        
+        guard (userPasswordTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "" ) else {
+            //errorHighlightTextField(userPasswordTextField)
+            return
+        }
+        
+        
+        let login = userEmailTextField.text;
+        let pwd = userPasswordTextField.text;
+        
         
         auth.checkAuth(
             
-            login: login,
-            pwd: pwd,
+            login: login!,
+            pwd: pwd!,
             result: { token -> Void in
-                print(token) //TODO store it somewhere
                 
-                //UserDefaults.standard.set(true, forKey: "isUserLoggedIn");
-                //UserDefaults.standard.synchronize();
-                self.performSegue(withIdentifier: "loginToMap", sender: self)
-
+                
+                UserDefaults.standard.set(token, forKey: "token");
+                UserDefaults.standard.synchronize();
+                DispatchQueue.main.async(execute: {
+                    self.performSegue(withIdentifier: "loginToMap", sender: self)
+                })
             },
             error: { msg -> Void in
-                let myAlert = UIAlertController(title:"Could not log in", message: msg, preferredStyle: UIAlertControllerStyle.alert);
-                myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default));
-                self.present(myAlert, animated:true, completion:nil);
+                DispatchQueue.main.async(execute: {
+                    let myAlert = UIAlertController(title:"Could not log in", message: msg, preferredStyle: UIAlertControllerStyle.alert);
+                    myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default));
+                    self.present(myAlert, animated:true, completion:nil);
+                })
+                
             }
         )
         

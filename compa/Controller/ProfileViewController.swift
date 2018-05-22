@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
     func updateUIView() {
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
         //TODO initialisé en récupérant le login et l'image de profil de l'user connecter
-        let curentUser =  User()
+        let curentUser =  User(dictionary:[:])!
         self.profileImage.image = #imageLiteral(resourceName: "images")
         //self.profileImage.image = curentUser.profileImage
         self.login.text = curentUser.username
