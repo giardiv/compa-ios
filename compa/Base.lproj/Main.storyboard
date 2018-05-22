@@ -287,7 +287,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ProfileName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNT-2e-SYb">
-                                <rect key="frame" x="135" y="244" width="105" height="21"/>
+                                <rect key="frame" x="135" y="244" width="105" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="ajH-Nc-cGO"/>
                                 </constraints>
@@ -296,7 +296,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qDy-bB-edq">
-                                <rect key="frame" x="0.0" y="326" width="375" height="341"/>
+                                <rect key="frame" x="0.0" y="325.5" width="375" height="341.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="0Bf-kW-GH7" customClass="ProfileTableViewCell" customModule="compa">
@@ -348,19 +348,20 @@
                                     <outlet property="dataSource" destination="Q1v-WK-usy" id="EQu-Ql-bii"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVE-wB-rCO">
-                                <rect key="frame" x="0.0" y="282" width="375" height="44"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DVE-wB-rCO">
+                                <rect key="frame" x="0.0" y="281.5" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem style="plain" id="wbS-Rg-R5q">
-                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="FriendUsername" textAlignment="natural" minimumFontSize="17" id="gIE-Ro-GXy">
-                                            <rect key="frame" x="16" y="7" width="317" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <barButtonItem style="plain" id="XSU-0a-0ky">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Friend" textAlignment="natural" minimumFontSize="17" id="RHm-Ws-o4w">
+                                            <rect key="frame" x="16" y="7" width="310" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </barButtonItem>
-                                    <barButtonItem systemItem="add" id="vQ2-Rz-hiT"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="C9a-YF-PKs"/>
+                                    <barButtonItem style="plain" systemItem="add" id="vQ2-Rz-hiT"/>
                                 </items>
                             </toolbar>
                         </subviews>
