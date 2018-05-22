@@ -191,13 +191,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pZu-5P-VVs">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pZu-5P-VVs">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NM3-LG-gzg">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NM3-LG-gzg">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" id="xrC-7V-VhB">
                                         <searchBar key="customView" opaque="NO" contentMode="redraw" text="" id="FGe-PK-4dl">
@@ -221,6 +219,15 @@
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NM3-LG-gzg" firstAttribute="leading" secondItem="Fuj-Ne-Epk" secondAttribute="leading" id="59B-8G-4UA"/>
+                            <constraint firstItem="NM3-LG-gzg" firstAttribute="top" secondItem="5ZI-5B-FpC" secondAttribute="bottom" id="LsR-ow-RLh"/>
+                            <constraint firstAttribute="trailing" secondItem="NM3-LG-gzg" secondAttribute="trailing" id="UFg-6b-7X5"/>
+                            <constraint firstItem="pZu-5P-VVs" firstAttribute="top" secondItem="5ZI-5B-FpC" secondAttribute="bottom" id="Yd7-ih-b5w"/>
+                            <constraint firstItem="pZu-5P-VVs" firstAttribute="leading" secondItem="Fuj-Ne-Epk" secondAttribute="leading" id="aS9-2T-F0B"/>
+                            <constraint firstAttribute="trailing" secondItem="pZu-5P-VVs" secondAttribute="trailing" id="q2J-Oc-h7b"/>
+                            <constraint firstItem="gWC-AK-YWZ" firstAttribute="top" secondItem="pZu-5P-VVs" secondAttribute="bottom" id="uDI-4F-tjc"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="map" destination="pZu-5P-VVs" id="RSF-MI-TnN"/>
@@ -487,7 +494,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jpu-mg-cO2" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="oaz-Xf-AuI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oaz-Xf-AuI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
