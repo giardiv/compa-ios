@@ -17,6 +17,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     @IBOutlet weak var map: MKMapView!
     
+    static let dateFormatter = { () -> DateFormatter in
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss" //TODO Determine format of date string
+        return dateFormatter
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         map.showsUserLocation = true
@@ -26,21 +32,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.requestWhenInUseAuthorization()
         
         let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))
-        //locations = locations.sorted(by: <)
-        //print(locations)
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        /*locations = locations.sorted(by: {
+            return $0.0 > $1.0
+        })
+
+        print(locations)*/
         
         
         for (date, location) in locations {
-    
             let annotation = MKPointAnnotation()
             annotation.coordinate = location.coordinate
-            annotation.title = dateFormatter.string(from: date)
+            annotation.title = MapViewController.dateFormatter.string(from:date)
             map.addAnnotation(annotation)
-            
         }
+        
     }
     
     @IBAction func profileButtonTapped(_ sender: UIButton) {
@@ -99,7 +105,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.didReceiveMemoryWarning()
     }
     
-   /* func mapView(aMapView: MKMapView!, viewForAnnotation annotation: CustomMapPinAnnotation!) -> MKAnnotationView! {
+    /*func mapView(aMapView: MKMapView!, viewForAnnotation annotation: CustomMapPinAnnotation!) -> MKAnnotationView! {
         
     }*/
     
