@@ -21,18 +21,11 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool){
-        
-        if(!UserDefaults.standard.bool(forKey: "isUserLoggedIn") ){
-            self.performSegue(withIdentifier:"mainToLogin", sender: self)
-        }
-        else{
-            
-        }
+        self.performSegue(withIdentifier:"mainToMap", sender: self)
     }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier:"mainToLogin", sender: self)
-        print(User(dictionary:User.test))
     }
     
     @IBAction func logoutButtonTapped(_ sender: UIButton) {

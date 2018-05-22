@@ -12,37 +12,35 @@ import CoreLocation
 class User {
     
     let username : String
-    let friendships : [Friendship]
-    let locations : Dictionary<Date, CLLocation>
+    let friends : [User]
+    let lastLocation : Location
     
-    static let test = { () ->  Dictionary<String, AnyObject> in
-        var dic = Dictionary<String, AnyObject>()
-        dic["username"] = "main" as AnyObject
-        dic["friendships"] = Friendship.test as AnyObject
-        return dic
-    }()
+    //let imageURL, firstName, lastName:String
+    //let dob:Date
     
-    init(username: String, locations: Dictionary<Date, CLLocation>, friendships: [Friendship]){
+    init(username: String, location:Location, friends: [User]){
         self.username = username
-        self.friendships = friendships
-        self.locations = locations
+        self.friends = friends
+        self.lastLocation = location
     }
     
     convenience init?(dictionary: Dictionary<String, AnyObject>) {
         let name = dictionary["username"]! as! String
         
-        let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092)) //to change
-       
-        let friendshipsDic = dictionary["friendship"]! as! Dictionary<String, AnyObject>
-        let friendships = friendshipsDic.map { Friendship(dictionary: $0.1 as! Dictionary<String, AnyObject>) }
+        let location = Location(dictionary: dictionary["location"]! as! Dictionary<String, AnyObject>)
         
-        self.init(username: name, locations: locations, friendships: friendships)
+        //User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092)) // to change
+       
+        let friendsDic = dictionary["friends"]! as! Dictionary<String, AnyObject>
+        //let friends = friendsDic.map { User(dictionary: $0 as! [String:AnyObject]!) }
+        
+        //self.init(username: name, location: location, friends: friends)
     }
     
     convenience init(){
-        self.init(username:"soMysterious", locations: User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092)),
-                  friendships: [Friendship]())
+        self.init(username:"soMysterious", location: Location(), friends: [User]())
     }
+    
  
     static func getMockLocationsFor(_ location: CLLocation) -> Dictionary<Date, CLLocation> {
         
@@ -58,7 +56,7 @@ class User {
         let baseLatitude = getBase(number: location.coordinate.latitude - 0.007)
         let baseLongitude = getBase(number: location.coordinate.longitude - 0.008)
         
-        for i in stride(from: -10000, to: 10000, by: 100) {
+        for i in stride(from: -10000, to: 10000, by: 1000) {
             let date = Date(timeIntervalSinceNow: Double(i));
             let randomLat = baseLatitude + randomCoordinate()
             let randomLong = baseLongitude + randomCoordinate()

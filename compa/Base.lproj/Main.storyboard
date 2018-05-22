@@ -66,6 +66,7 @@
                     <connections>
                         <segue destination="Bld-gP-MPd" kind="presentation" identifier="mainToLogin" id="PFK-4q-5Qg"/>
                         <segue destination="f9l-de-wJk" kind="presentation" identifier="mainToRegister" id="dl2-hW-yBp"/>
+                        <segue destination="1jO-S9-3jx" kind="presentation" identifier="mainToMap" id="JFp-YO-U8U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -176,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fo6-Ju-QvD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1881" y="-109"/>
+            <point key="canvasLocation" x="1930" y="255"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="5N6-LE-vdL">
@@ -328,7 +329,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-ar-FEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1026" y="675"/>
+            <point key="canvasLocation" x="1036" y="800"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5rK-XR-HgB">
@@ -350,7 +351,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="PFK-4q-5Qg"/>
+        <segue reference="JFp-YO-U8U"/>
         <segue reference="N7e-Bk-iOK"/>
+        <segue reference="3dl-p5-R8B"/>
     </inferredMetricsTieBreakers>
 </document>
