@@ -29,7 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         map.delegate = self
         
-        UserDefaults.standard.string("token")
+        UserDefaults.standard.string(forKey: "token")
         
         
         locationManager.requestWhenInUseAuthorization()

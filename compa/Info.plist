@@ -28,7 +28,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>http://b4b689be.ngrok.io</key>
+			<key>http://e2b30d31.ngrok.io</key>
 			<dict/>
 			<key>NSIncludesSubdomains</key>
 			<true/>
@@ -58,6 +58,6 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Required for displaying your location on the map</string>
 	<key>root</key>
-	<string>http://b4b689be.ngrok.io</string>
+	<string>http://e2b30d31.ngrok.io</string>
 </dict>
 </plist>

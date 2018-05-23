@@ -35,6 +35,7 @@ class HTTPService {
     
     private func APIRequest(url: String, method: String, data: [String:Any]? = nil, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: Error )->Void) {
         
+        print(url)
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

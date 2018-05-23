@@ -31,16 +31,16 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
        
-        guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
-            //errorHighlightTextField(userEmailTextField)
-            return
-        }
-    
-        
-        guard (userPasswordTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "" ) else {
-            //errorHighlightTextField(userPasswordTextField)
-            return
-        }
+//        guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
+//            //errorHighlightTextField(userEmailTextField)
+//            return
+//        }
+//    
+//        
+//        guard (userPasswordTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "" ) else {
+//            //errorHighlightTextField(userPasswordTextField)
+//            return
+//        }
         
         
         let login = userEmailTextField.text;

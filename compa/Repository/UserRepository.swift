@@ -52,7 +52,7 @@ class UserRepository : AbstractRepository {
         http.get(
             url: root + "/user/profile",
             success: { data in
-                result(User(dictionary:data))
+                result((User(dictionary:data) != nil))
             },
             
             error: { error in

@@ -25,7 +25,7 @@ class User {
     }
     
     convenience init?(dictionary: [String:Any]) {
-        let name: String = dictionary["username"]! as! String
+        let name: String = dictionary["name"]! as! String
         let location = Location(dictionary: dictionary["location"]! as! [String:Any])
         let friendsDic = dictionary["friends"]! as! [String:Any]
         let friends = friendsDic.map { User(dictionary: $0.1 as! [String:Any])! } //problem
