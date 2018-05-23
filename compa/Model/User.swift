@@ -23,7 +23,7 @@ class User {
         self.friends = friends
         self.lastLocation = location
     }
-    
+    /*
     convenience init?(dictionary: Dictionary<String, AnyObject>) {
         let name = dictionary["username"]! as! String
         
@@ -35,7 +35,7 @@ class User {
         //let friends = friendsDic.map { User(dictionary: $0 as! [String:AnyObject]!) }
         
         //self.init(username: name, location: location, friends: friends)
-    }
+    }*/
     
     convenience init(){
         self.init(username:"soMysterious", location: Location(), friends: [User]())

@@ -15,10 +15,14 @@ class Location {
     let date : Date
     
     init(dictionary: Dictionary<String, AnyObject>){
-    
+        self.latitude = 0.0
+        self.longitude = 0.0
+        self.date = Date.init()
     }
     
     init(){
-        
+        self.latitude = 0.0
+        self.longitude = 0.0
+        self.date = Date.init()
     }
 }
