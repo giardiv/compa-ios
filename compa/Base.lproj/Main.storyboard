@@ -272,7 +272,11 @@
                                                         <action selector="mapButtonTapped:" destination="Q1v-WK-usy" id="BKy-1i-5AG"/>
                                                     </connections>
                                                 </barButtonItem>
-                                                <barButtonItem key="rightBarButtonItem" systemItem="edit" id="u5f-dW-08j"/>
+                                                <barButtonItem key="rightBarButtonItem" systemItem="edit" id="u5f-dW-08j">
+                                                    <connections>
+                                                        <segue destination="lMW-kr-bl0" kind="presentation" id="B4t-f0-hiW"/>
+                                                    </connections>
+                                                </barButtonItem>
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
@@ -303,7 +307,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Bf-kW-GH7" id="hWD-E6-fXX">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tui-YC-fmG">
@@ -312,10 +316,6 @@
                                                         <constraint firstAttribute="width" constant="28" id="yaD-V8-K8F"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1R-bI-lNl">
-                                                    <rect key="frame" x="339" y="8" width="28" height="28"/>
-                                                    <state key="normal" title="🗑"/>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FriendName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfO-Wc-WqK">
                                                     <rect key="frame" x="44" y="12" width="287" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -324,16 +324,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="O1R-bI-lNl" firstAttribute="trailing" secondItem="hWD-E6-fXX" secondAttribute="trailingMargin" id="LXZ-kz-kLb"/>
                                                 <constraint firstItem="Tui-YC-fmG" firstAttribute="top" secondItem="hWD-E6-fXX" secondAttribute="topMargin" id="M38-Zr-8pc"/>
-                                                <constraint firstItem="O1R-bI-lNl" firstAttribute="leading" secondItem="KfO-Wc-WqK" secondAttribute="trailing" constant="8" symbolic="YES" id="Mtt-EO-Sqx"/>
                                                 <constraint firstItem="KfO-Wc-WqK" firstAttribute="centerX" secondItem="hWD-E6-fXX" secondAttribute="centerX" id="RCm-K5-Aeb"/>
                                                 <constraint firstItem="KfO-Wc-WqK" firstAttribute="leading" secondItem="Tui-YC-fmG" secondAttribute="trailing" constant="8" symbolic="YES" id="XRM-wk-H6X"/>
-                                                <constraint firstItem="O1R-bI-lNl" firstAttribute="trailing" secondItem="hWD-E6-fXX" secondAttribute="trailingMargin" id="Xm1-0e-BcA"/>
-                                                <constraint firstItem="Tui-YC-fmG" firstAttribute="top" secondItem="O1R-bI-lNl" secondAttribute="top" id="ccF-Up-VOI"/>
-                                                <constraint firstItem="O1R-bI-lNl" firstAttribute="trailing" secondItem="hWD-E6-fXX" secondAttribute="trailingMargin" id="dGK-Vs-U9r"/>
                                                 <constraint firstItem="Tui-YC-fmG" firstAttribute="centerY" secondItem="hWD-E6-fXX" secondAttribute="centerY" id="emS-vm-7jT"/>
-                                                <constraint firstItem="Tui-YC-fmG" firstAttribute="bottom" secondItem="O1R-bI-lNl" secondAttribute="bottom" id="fQT-r6-QqW"/>
                                                 <constraint firstItem="Tui-YC-fmG" firstAttribute="leading" secondItem="hWD-E6-fXX" secondAttribute="leadingMargin" id="kLc-LK-GuL"/>
                                                 <constraint firstItem="Tui-YC-fmG" firstAttribute="centerY" secondItem="KfO-Wc-WqK" secondAttribute="centerY" id="zG0-59-Wav"/>
                                             </constraints>
@@ -341,6 +335,7 @@
                                         <connections>
                                             <outlet property="friendImage" destination="Tui-YC-fmG" id="Vog-jJ-Rtj"/>
                                             <outlet property="friendName" destination="KfO-Wc-WqK" id="ex3-O1-rv2"/>
+                                            <segue destination="L59-FY-dpG" kind="presentation" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -349,7 +344,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DVE-wB-rCO">
-                                <rect key="frame" x="0.0" y="281.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="281" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="XSU-0a-0ky">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Friend" textAlignment="natural" minimumFontSize="17" id="RHm-Ws-o4w">
@@ -361,7 +356,11 @@
                                         </textField>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="C9a-YF-PKs"/>
-                                    <barButtonItem style="plain" systemItem="add" id="vQ2-Rz-hiT"/>
+                                    <barButtonItem style="plain" systemItem="add" id="vQ2-Rz-hiT">
+                                        <connections>
+                                            <action selector="addFriendButtonTapped:" destination="Q1v-WK-usy" id="WQt-ta-evt"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -385,6 +384,7 @@
                     </view>
                     <connections>
                         <outlet property="login" destination="VNT-2e-SYb" id="QGE-KJ-jl6"/>
+                        <outlet property="newFriendUsername" destination="RHm-Ws-o4w" id="CRS-Ga-JNb"/>
                         <outlet property="profileImage" destination="p6e-35-6MZ" id="Gq6-Ii-xAP"/>
                         <outlet property="searchDisplayController" destination="4Wq-hF-Fat" id="IGX-kJ-Yby"/>
                         <segue destination="1jO-S9-3jx" kind="presentation" identifier="profileToMap" id="6L1-hS-Su1"/>
@@ -401,6 +401,73 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="3677.5999999999999" y="-109.29535232383809"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="Dpr-cx-aal">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcw-Xe-UF5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="L59-FY-dpG" customClass="FriendProfileViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DSm-xW-fvR"/>
+                        <viewControllerLayoutGuide type="bottom" id="dSh-tg-GFB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mPB-HQ-xh8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtY-fP-hgC">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Friend profile" id="9DO-mC-XBa">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ziY-4S-K99">
+                                            <connections>
+                                                <segue destination="Q1v-WK-usy" kind="presentation" id="p3l-ST-qsv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="t4Z-CR-Ja0"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="4473" y="254"/>
+        </scene>
+        <!--Edit Profile View Controller-->
+        <scene sceneID="RW8-Yf-Zby">
+            <objects>
+                <viewController id="lMW-kr-bl0" customClass="EditProfileViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iJl-dQ-OYE"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Mh-vJ-Rwo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hop-IT-kbF" customClass="EditProfileViewController">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QPB-c5-OaE">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Edit" id="eJ4-a2-T6U">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="t6b-z4-ZhR">
+                                            <connections>
+                                                <segue destination="Q1v-WK-usy" kind="presentation" id="yx9-cV-ftn"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lds-cX-ySW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5266" y="-109"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="p5q-lT-Ifi">
@@ -545,8 +612,9 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6L1-hS-Su1"/>
         <segue reference="N7e-Bk-iOK"/>
         <segue reference="PFK-4q-5Qg"/>
+        <segue reference="yx9-cV-ftn"/>
+        <segue reference="6L1-hS-Su1"/>
     </inferredMetricsTieBreakers>
 </document>

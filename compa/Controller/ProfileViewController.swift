@@ -13,9 +13,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var login: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     
+    @IBOutlet weak var newFriendUsername: UITextField!
+    
     let list = ["Jean", "Franck", "Marc"]
     
-    @IBOutlet weak var friendName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -57,6 +58,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.profileImage.image = #imageLiteral(resourceName: "images")
         //self.profileImage.image = curentUser.profileImage
         self.login.text = curentUser.username
+    }
+    
+    @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {
+        //TODO tester si le field n'est pas vide, envoyer une requète en base pour ajouter le nouvelle amis. En param user.login, friendUsername.
+        //Si tout est bon afficher une popup "votre demande d'ami à bien été envoyer."
+        //Sinon afficher une popup "utilisateur introuvable, veuillez réesayer."
+        let friendUsername = self.newFriendUsername?.text
     }
     
     @IBAction func mapButtonTapped(_ sender: UIBarButtonItem) {

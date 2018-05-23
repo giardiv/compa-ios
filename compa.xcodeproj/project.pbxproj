@@ -25,6 +25,8 @@
 		D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCDE20AC489700B81545 /* AuthenticationService.swift */; };
 		D676FA2920B45C0A00B46CCF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D676FA2820B45C0A00B46CCF /* Location.swift */; };
 		D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */; };
+		D6FA2B0820B582B30009686E /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */; };
+		D6FA2B0A20B588350009686E /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FA2B0920B588350009686E /* EditProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		D665FCDE20AC489700B81545 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		D676FA2820B45C0A00B46CCF /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
+		D6FA2B0920B588350009686E /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 				D61E165920A9A411003EB242 /* MainViewController.swift */,
 				D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */,
 				D661934320B476AD00C634DE /* ProfileTableViewCell.swift */,
+				D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */,
+				D6FA2B0920B588350009686E /* EditProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -326,11 +332,13 @@
 			files = (
 				D61E165A20A9A411003EB242 /* MapViewController.swift in Sources */,
 				D676FA2920B45C0A00B46CCF /* Location.swift in Sources */,
+				D6FA2B0820B582B30009686E /* FriendProfileViewController.swift in Sources */,
 				D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */,
 				D61E166620A9A482003EB242 /* UserRepository.swift in Sources */,
 				D61E166120A9A455003EB242 /* User.swift in Sources */,
 				D665FCDB20AC411B00B81545 /* LoginViewController.swift in Sources */,
 				D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */,
+				D6FA2B0A20B588350009686E /* EditProfileViewController.swift in Sources */,
 				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D661934420B476AD00C634DE /* ProfileTableViewCell.swift in Sources */,
