@@ -29,6 +29,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         map.delegate = self
         
+        UserDefaults.standard.string("token")
+        
+        
         locationManager.requestWhenInUseAuthorization()
         
         let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))

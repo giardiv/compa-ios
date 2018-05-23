@@ -13,32 +13,58 @@ class AuthenticationService {
     
     
     let http: HTTPService
+    let root: String
     
     init(http: HTTPService = HTTPService()) {
         self.http = http
+        
+        let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
+        let dict = NSDictionary(contentsOfFile: path)!
+        root = dict["root"] as! String
     }
     
     func checkAuth(login : String, pwd : String, result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
-        //http.get(url: <#T##String#>, success: <#T##(Dictionary<String, AnyObject>) -> Void#>, error: <#T##(Error) -> Void#>)
-
-        if(arc4random_uniform(2) == 0){
-            result("el_token")
-        }
-        else{
-            error("nope")
-        }
+        
+        http.post(
+            url: root + "/user/login",
+            data: ["login": login, "password": pwd],
+            success: { data in
+                
+                if let errorMsg = data["error"]{
+                    error(errorMsg as! String)
+                }
+                else{
+                    result(data["token"] as! String)
+                }
+            },
+            error: { data in
+                print("error in post request")
+                //error(data)
+            }
+        )       
         
     }
     
     func register(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
-        //http.post(url: <#T##String#>, data: credentials, success: (Dictionary<String, AnyObject>) -> Void, error: <#T##(Error) -> Void#>)
         
-        if(arc4random_uniform(2) == 0){
-            result("el_token")
-        }
-        else{
-            error("can't register")
-        }
+        http.post(
+            url: root + "/user/register",
+            data: credentials,
+            success: { data in
+                
+                if let errorMsg = data["detailMessage"]{
+                    error(errorMsg as! String)
+                }
+                else{
+                    result(data["token"] as! String)
+                }
+                
+            },
+            error: { data in
+        
+            }
+        )
+
     }
     
 }
