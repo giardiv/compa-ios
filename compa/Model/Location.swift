@@ -22,6 +22,7 @@ class Location {
         dateFormatterGet.dateFormat = "dd-MM-yyyy HH:mm:ss"
         let date: Date = dateFormatterGet.date(from: dictionary["date"] as! String)!
         self.date = date
+
     }
     
 }

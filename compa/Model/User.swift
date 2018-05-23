@@ -31,6 +31,7 @@ class User {
         let friends = friendsDic.map { User(dictionary: $0.1 as! [String:Any])! } //problem
         self.init(username: name, location: location, friends: friends)
     }
+
     
     
     //User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092)) // to change
