@@ -31,8 +31,25 @@ class UserRepository : AbstractRepository {
         result([User(dictionary: [:])!])
     }
     
-    func get( identifier:Int, result: @escaping (_ data: User )->Void) {
-        result(User(dictionary: [:])!)
+    func get(identifier:String, result: @escaping (_ data: User )->Void) {
+        
+        var url = root + "/user"
+        if identifier != "" {
+            url += identifier
+        }
+        
+        http.get(
+            isAuthenticated: true,
+            url: url,
+            success: { data in
+                result(User(dictionary:data)!)
+            },
+            
+            error: { error in
+                
+            }
+        )
+        
     }
 
     func create( object: User, result: @escaping (_ data: Bool )->Void ) {
@@ -47,19 +64,8 @@ class UserRepository : AbstractRepository {
         result(true)
     }
     
-    func getAuthUser(result: @escaping (_ data: Bool )->Void){
-        
-        http.get(
-            url: root + "/user/profile",
-            success: { data in
-                result(User(dictionary:data))
-            },
-            
-            error: { error in
-            
-            }
-    
-        )
+    func getAuthUser(result: @escaping (_ data: User )->Void){
+          get(identifier: "", result:result)
     }
     
 }

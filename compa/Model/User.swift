@@ -12,24 +12,24 @@ import CoreLocation
 class User {
     
     let username : String
-    let friends : [User]
+    //let friends : [User]
     let lastLocation : Location
     
     //let imageURL, firstName, lastName:String
     //let dob:Date
     
-    init(username: String, location:Location, friends: [User]){
+    init(username: String, location:Location/*,friends: [User]*/){
         self.username = username
-        self.friends = friends
+        //self.friends = friends
         self.lastLocation = location
     }
     
     convenience init?(dictionary: [String:Any]) {
-        let name: String = dictionary["username"]! as! String
+        let name: String = dictionary["name"]! as! String
         let location = Location(dictionary: dictionary["location"]! as! [String:Any])
-        let friendsDic = dictionary["friends"]! as! [String:Any]
-        let friends = friendsDic.map { User(dictionary: $0.1 as! [String:Any])! } //problem
-        self.init(username: name, location: location, friends: friends)
+        //let friendsDic = dictionary["friends"]! as! [String:Any]
+        //let friends = friendsDic.map { User(dictionary: $0.1 as! [String:Any])! } //problem
+        self.init(username: name, location: location/*, friends: friends*/)
     }
 
     
