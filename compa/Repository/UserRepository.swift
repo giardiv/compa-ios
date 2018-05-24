@@ -14,25 +14,30 @@ class UserRepository : AbstractRepository {
     
     let http: HTTPService
     
-    let root:String
-    
     
     init(http: HTTPService = HTTPService()) {
         self.http = http
-        
-        let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
-        let dict = NSDictionary(contentsOfFile: path)!
-        root = dict["root"] as! String
-        print(root)
-        
     }
     
     func getAll(result: @escaping (_ data: [User] )->Void)  {
         result([User(dictionary: [:])!])
     }
     
-    func get( identifier:Int, result: @escaping (_ data: User )->Void) {
-        result(User(dictionary: [:])!)
+    func get(identifier:String, result: @escaping (_ data: User )->Void) {
+        
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/user" + identifier,
+            success: { data in
+                result(User(dictionary:data)!)
+            },
+            
+            error: { error in
+                
+            }
+        )
+        
     }
 
     func create( object: User, result: @escaping (_ data: Bool )->Void ) {
@@ -47,19 +52,8 @@ class UserRepository : AbstractRepository {
         result(true)
     }
     
-    func getAuthUser(result: @escaping (_ data: Bool )->Void){
-        
-        http.get(
-            url: root + "/user/profile",
-            success: { data in
-                result((User(dictionary:data) != nil))
-            },
-            
-            error: { error in
-            
-            }
-    
-        )
+    func getAuthUser(result: @escaping (_ data: User )->Void){
+          get(identifier: "", result:result)
     }
     
 }

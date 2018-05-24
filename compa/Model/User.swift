@@ -11,25 +11,25 @@ import CoreLocation
 
 class User {
     
-    let username : String
-    let friends : [User]
+    let id, login, name : String
     let lastLocation : Location
     
     //let imageURL, firstName, lastName:String
     //let dob:Date
     
-    init(username: String, location:Location, friends: [User]){
-        self.username = username
-        self.friends = friends
+    init(login: String, location:Location, name:String, id:String){
+        self.login = login
+        self.name = name
+        self.id = id
         self.lastLocation = location
     }
     
     convenience init?(dictionary: [String:Any]) {
         let name: String = dictionary["name"]! as! String
-        let location = Location(dictionary: dictionary["location"]! as! [String:Any])
-        let friendsDic = dictionary["friends"]! as! [String:Any]
-        let friends = friendsDic.map { User(dictionary: $0.1 as! [String:Any])! } //problem
-        self.init(username: name, location: location, friends: friends)
+        let login = dictionary["login"]! as! String
+        let id = dictionary["id"]! as! String
+        let location = Location(dictionary: dictionary["lastLocation"]! as! [String:Any])
+        self.init(login:login, location: location, name:name, id:id)
     }
 
     
@@ -42,6 +42,7 @@ class User {
         func getBase(number: Double) -> Double {
             return round(number * 1000)/1000
         }
+        
         func randomCoordinate() -> Double {
             return Double(arc4random_uniform(140)) * 0.0001
         }
