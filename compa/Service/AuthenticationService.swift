@@ -13,21 +13,17 @@ class AuthenticationService {
     
     
     let http: HTTPService
-    let root: String
     
     init(http: HTTPService = HTTPService()) {
         self.http = http
-        
-        let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
-        let dict = NSDictionary(contentsOfFile: path)!
-        root = dict["root"] as! String
     }
     
     func checkAuth(login : String, pwd : String, result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
     
         http.post(
+            isRelative: true,
             isAuthenticated: false,
-            url: root + "/login",
+            url: "/login",
             data: ["login": login, "password": pwd],
             success: { data in
                 if let token  = data["token"] as? String {
@@ -53,8 +49,9 @@ class AuthenticationService {
     func register(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
         
         http.post(
+            isRelative: true,
             isAuthenticated: false,
-            url: root + "/register",
+            url: "/register",
             data: credentials,
             success: { data in
                 if let token  = data["token"] as? String {

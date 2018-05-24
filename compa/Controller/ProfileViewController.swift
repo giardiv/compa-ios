@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 ctrl.profileImage.image = #imageLiteral(resourceName: "images")
                 //ctrl.profileImage.image = curentUser.profileImage
-                ctrl.login.text = user.username
+                ctrl.login.text = user.name
                 
             })
         

@@ -13,6 +13,14 @@ class HTTPService {
     
     let baseURL = "https://jsonplaceholder.typicode.com/posts/1"
     
+    let root: String
+    
+    init(){
+        let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
+        let dict = NSDictionary(contentsOfFile: path)!
+        root = dict["root"] as! String
+    }
+    
     /*get(
      url: ,
      success: { data in
@@ -24,19 +32,20 @@ class HTTPService {
      })*/
     
     
-    func get(isAuthenticated: Bool, authToken: String? = nil, url : String, success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+    func get(isRelative:Bool, isAuthenticated: Bool, authToken: String? = nil, url : String, success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
-        return APIRequest(isAuthenticated: isAuthenticated, url: url, method: Method.GET.rawValue, successHandler:success, errorHandler:error);
+        return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.GET.rawValue, successHandler:success, errorHandler:error);
     }
     
     
-    func post(isAuthenticated: Bool, url : String, data : [String:Any], success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
-        return APIRequest(isAuthenticated: isAuthenticated, url: url, method: Method.POST.rawValue,  data:data, successHandler:success, errorHandler:error);
+    func post(isRelative:Bool, isAuthenticated: Bool, url : String, data : [String:Any], success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.POST.rawValue,  data:data, successHandler:success, errorHandler:error);
     }
     
     
-    private func APIRequest(isAuthenticated: Bool, url: String, method: String, data: [String:Any]? = nil, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: [String:Any] )->Void) {
+    private func APIRequest(isRelative: Bool, isAuthenticated: Bool, url: String, method: String, data: [String:Any]? = nil, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: [String:Any] )->Void) {
 
+        let url = isRelative ? root + url : url
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -47,7 +56,7 @@ class HTTPService {
                 return
             }
             
-            request.addValue(token, forHTTPHeaderField: "")
+            request.addValue(token, forHTTPHeaderField: "Authorization")
         }
         
         
@@ -72,6 +81,8 @@ class HTTPService {
                 
             else{
                 do {
+            
+                    print(String(data: data!, encoding: String.Encoding.utf8)!)
                     
                     let json = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
                     let handler = statusCode >= 400 ? errorHandler : successHandler

@@ -14,17 +14,9 @@ class UserRepository : AbstractRepository {
     
     let http: HTTPService
     
-    let root:String
-    
     
     init(http: HTTPService = HTTPService()) {
         self.http = http
-        
-        let path = Bundle.main.path(forResource: "Info", ofType: "plist")!
-        let dict = NSDictionary(contentsOfFile: path)!
-        root = dict["root"] as! String
-        print(root)
-        
     }
     
     func getAll(result: @escaping (_ data: [User] )->Void)  {
@@ -33,14 +25,10 @@ class UserRepository : AbstractRepository {
     
     func get(identifier:String, result: @escaping (_ data: User )->Void) {
         
-        var url = root + "/user"
-        if identifier != "" {
-            url += identifier
-        }
-        
         http.get(
+            isRelative: true,
             isAuthenticated: true,
-            url: url,
+            url: "/user" + identifier,
             success: { data in
                 result(User(dictionary:data)!)
             },
