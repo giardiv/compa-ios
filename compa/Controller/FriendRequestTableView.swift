@@ -19,14 +19,12 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProfileTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestCell", for: indexPath) as? EditProfileFriendRequestCell  else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
-        //TODO récupéré la liste des friends de User
-        //let friends = User.getFriends()[indexPath.row] ?
-        //friends.username; user.image
-        cell.friendName?.text = list[indexPath.row]
-        cell.friendImage?.image = #imageLiteral(resourceName: "person-profile")
+        
+        cell.friendRequestUsername?.text = list[indexPath.row]
+        cell.friendRequestImage?.image = #imageLiteral(resourceName: "person-profile")
         
         return cell
     }

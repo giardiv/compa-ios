@@ -10,7 +10,7 @@ import UIKit
 
 class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    let list = ["Toto", "Tata", "Titi"]
+    let list = ["Tom", "Tam", "Tim"]
     
     //TableView
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -19,9 +19,12 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProfileTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BlockedUsersCell", for: indexPath) as? EditProfileBlockedCell  else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
+        
+        cell.blockedName?.text = list[indexPath.row]
+        cell.blockedImage?.image = #imageLiteral(resourceName: "person-profile")
         
         return cell
     }

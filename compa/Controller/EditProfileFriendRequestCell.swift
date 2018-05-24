@@ -12,7 +12,7 @@ class EditProfileFriendRequestCell: UITableViewCell {
     
 
     @IBOutlet weak var friendRequestImage: UIImageView!
-    @IBOutlet weak var firendRequestUsername: UILabel!
+    @IBOutlet weak var friendRequestUsername: UILabel!
     
     
     @IBAction func confirmFriendRequestTapped(_ sender: Any) {
