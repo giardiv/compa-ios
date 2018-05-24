@@ -16,7 +16,7 @@ protocol AbstractRepository {
     var http: HTTPService { get }
      
     func getAll(result: @escaping (_ data: [T] )->Void)
-    func get(identifier:Int, result: @escaping (_ data: T )->Void)
+    func get(identifier:String, result: @escaping (_ data: T )->Void)
     func create(object: T, result: @escaping (_ data: Bool )->Void)
     func update(object: T, result: @escaping (_ data: Bool )->Void)
     func delete(object: T, result: @escaping (_ data: Bool )->Void)

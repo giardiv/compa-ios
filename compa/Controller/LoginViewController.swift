@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
        
-        guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
+        /*guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
             //errorHighlightTextField(userEmailTextField)
             return
         }
@@ -40,7 +40,7 @@ class LoginViewController: UIViewController {
         guard (userPasswordTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "" ) else {
             //errorHighlightTextField(userPasswordTextField)
             return
-        }
+        }*/
         
         
         let login = userEmailTextField.text;
@@ -51,8 +51,7 @@ class LoginViewController: UIViewController {
             
             login: login!,
             pwd: pwd!,
-            result: { token -> Void in
-                
+            result: { token in
                 
                 UserDefaults.standard.set(token, forKey: "token");
                 UserDefaults.standard.synchronize();
@@ -60,9 +59,9 @@ class LoginViewController: UIViewController {
                     self.performSegue(withIdentifier: "loginToMap", sender: self)
                 })
             },
-            error: { msg -> Void in
+            error: { error in
                 DispatchQueue.main.async(execute: {
-                    let myAlert = UIAlertController(title:"Could not log in", message: msg, preferredStyle: UIAlertControllerStyle.alert);
+                    let myAlert = UIAlertController(title:"Could not log in", message: error, preferredStyle: UIAlertControllerStyle.alert);
                     myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default));
                     self.present(myAlert, animated:true, completion:nil);
                 })

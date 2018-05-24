@@ -54,10 +54,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func updateUIView() {
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
         //TODO initialisé en récupérant le login et l'image de profil de l'user connecter
-        let curentUser =  User(dictionary:[:])!
-        self.profileImage.image = #imageLiteral(resourceName: "images")
-        //self.profileImage.image = curentUser.profileImage
-        self.login.text = curentUser.username
+        
+        let repo = UserRepository()
+        
+        let ctrl = self
+        
+        repo.getAuthUser(result: {user in
+    
+            
+            DispatchQueue.main.async(execute: {
+                
+                ctrl.profileImage.image = #imageLiteral(resourceName: "images")
+                //ctrl.profileImage.image = curentUser.profileImage
+                ctrl.login.text = user.name
+                
+            })
+        
+            
+        })
+        
+        
+        
     }
     
     @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {
