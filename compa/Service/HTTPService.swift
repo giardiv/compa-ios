@@ -84,9 +84,19 @@ class HTTPService {
             
                     print(String(data: data!, encoding: String.Encoding.utf8)!)
                     
-                    let json = try JSONSerialization.jsonObject(with: data!) as! [String:Any]
+                    let json = try JSONSerialization.jsonObject(with: data!) //MIGHT BE AN ARRAY AND NOT A DIC
                     let handler = statusCode >= 400 ? errorHandler : successHandler
-                    handler(json)
+                    
+                    if let json = json as? NSArray {
+                        //handler(json as! [String])
+                    }
+                    else{
+                        handler(json as! [String:Any])
+                    }
+            
+                    
+                 
+                    
                     
                 } catch {
                     let dic = ["message" : "invalid json format", "code" : 400] as [String:Any]

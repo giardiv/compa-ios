@@ -23,6 +23,31 @@ class UserRepository : AbstractRepository {
         result([User(dictionary: [:])!])
     }
     
+    func getFriends(result: @escaping (_ data: [User]) -> Void) {
+        
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/fake/friend",
+            success: { data in
+                var users = [User]()
+        
+                for (index, userDic) in data {
+                    let user = User(dictionary: userDic as! [String : Any])!
+                    users.append(user)
+                }
+        
+                result(users)
+        
+            },
+        
+            error: { error in
+        
+            }
+        )
+        
+    }
+    
     func get(identifier:String, result: @escaping (_ data: User )->Void) {
         
         http.get(

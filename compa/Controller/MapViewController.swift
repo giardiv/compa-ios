@@ -48,6 +48,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             map.addAnnotation(annotation)
         }
         
+        
     }
     
     @IBAction func profileButtonTapped(_ sender: UIButton) {

@@ -61,7 +61,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         repo.getAuthUser(result: {user in
     
-            
             DispatchQueue.main.async(execute: {
                 
                 ctrl.profileImage.image = #imageLiteral(resourceName: "images")
@@ -73,6 +72,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         })
         
+        repo.getFriends { data in
+            print(data)
+        }
         
         
     }
