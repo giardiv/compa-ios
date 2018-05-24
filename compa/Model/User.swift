@@ -28,7 +28,6 @@ class User {
         let name: String = dictionary["name"]! as! String
         let login = dictionary["login"]! as! String
         let id = dictionary["id"]! as! String
-        
         let location = Location(dictionary: dictionary["lastLocation"]! as! [String:Any])
         self.init(login:login, location: location, name:name, id:id)
     }

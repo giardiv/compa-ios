@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
        
+
         /*guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
             //errorHighlightTextField(userEmailTextField)
             return
@@ -41,7 +42,6 @@ class LoginViewController: UIViewController {
             //errorHighlightTextField(userPasswordTextField)
             return
         }*/
-        
         
         let login = userEmailTextField.text;
         let pwd = userPasswordTextField.text;

@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let list = ["Jean", "Franck", "Marc"]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,7 +29,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.updateUIView()
+        //self.updateUIView()
     }
     
     //TableView
@@ -37,6 +38,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProfileTableViewCell  else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
@@ -54,6 +57,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func updateUIView() {
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
         //TODO initialisé en récupérant le login et l'image de profil de l'user connecter
+
         
         let repo = UserRepository()
         
@@ -73,8 +77,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         })
         
-        
-        
+               
     }
     
     @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {
