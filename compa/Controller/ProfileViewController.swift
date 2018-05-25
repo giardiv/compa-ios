@@ -29,7 +29,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //self.updateUIView()
+        self.updateUIView()
     }
     
     //TableView
@@ -59,23 +59,23 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         //TODO initialisé en récupérant le login et l'image de profil de l'user connecter
 
         
-        let repo = UserRepository()
-        
-        let ctrl = self
-        
-        repo.getAuthUser(result: {user in
-    
-            
-            DispatchQueue.main.async(execute: {
-                
-                ctrl.profileImage.image = #imageLiteral(resourceName: "images")
-                //ctrl.profileImage.image = curentUser.profileImage
-                ctrl.login.text = user.name
-                
-            })
-        
-            
-        })
+//        let repo = UserRepository()
+//        
+//        let ctrl = self
+//        
+//        repo.getAuthUser(result: {user in
+//    
+//            
+//            DispatchQueue.main.async(execute: {
+//                
+//                ctrl.profileImage.image = #imageLiteral(resourceName: "images")
+//                //ctrl.profileImage.image = curentUser.profileImage
+//                ctrl.login.text = user.name
+//                
+//            })
+//        
+//            
+//        })
         
                
     }
