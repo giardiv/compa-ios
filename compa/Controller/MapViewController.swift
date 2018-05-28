@@ -19,7 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss" //TODO Determine format of date string
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         return dateFormatter
     }()
     
@@ -54,6 +54,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBAction func profileButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "mapToProfile", sender: self)
     }
+    
     /*func test(){
         
         let sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)

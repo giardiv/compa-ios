@@ -28,12 +28,12 @@ class UserRepository : AbstractRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/fake/friend",
+            url: "/friendship/friends/pending",
             success: { data in
                 var users = [User]()
         
-                for (index, userDic) in data {
-                    let user = User(dictionary: userDic as! [String : Any])!
+                for (_, value) in data {
+                    let user = User(dictionary: value as! [String : Any])!
                     users.append(user)
                 }
         

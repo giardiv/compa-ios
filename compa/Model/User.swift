@@ -48,6 +48,7 @@ class User {
             return Double(arc4random_uniform(140)) * 0.0001
         }
         
+        
         var dic = [Date:CLLocation]();
         
         let baseLatitude = getBase(number: location.coordinate.latitude - 0.007)

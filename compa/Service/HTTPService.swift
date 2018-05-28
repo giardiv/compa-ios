@@ -82,13 +82,13 @@ class HTTPService {
             else{
                 do {
             
-                    print(String(data: data!, encoding: String.Encoding.utf8)!)
+                    //print(String(data: data!, encoding: String.Encoding.utf8)!)
                     
                     let json = try JSONSerialization.jsonObject(with: data!) //MIGHT BE AN ARRAY AND NOT A DIC
                     let handler = statusCode >= 400 ? errorHandler : successHandler
                     
-                    if let json = json as? NSArray {
-                        //handler(json as! [String])
+                    if let json = json as? Array<Any> {
+                        handler(json.toDictionary())
                     }
                     else{
                         handler(json as! [String:Any])
@@ -113,3 +113,13 @@ class HTTPService {
     
 }
 
+
+extension Array {
+    public func toDictionary() -> [String:Any] {
+        var dict = [String:Any]()
+        for (index, element) in self.enumerated() {
+            dict[String(index)] = element
+        }
+        return dict
+    }
+}

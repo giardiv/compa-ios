@@ -307,7 +307,6 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Bf-kW-GH7" id="hWD-E6-fXX">
-
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -336,7 +335,7 @@
                                         <connections>
                                             <outlet property="friendImage" destination="Tui-YC-fmG" id="Vog-jJ-Rtj"/>
                                             <outlet property="friendName" destination="KfO-Wc-WqK" id="ex3-O1-rv2"/>
-                                            <segue destination="L59-FY-dpG" kind="presentation" id="2Bf-pI-RUP"/>
+                                            <segue destination="L59-FY-dpG" kind="presentation" identifier="profileToFriend" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -388,6 +387,7 @@
                         <outlet property="newFriendUsername" destination="RHm-Ws-o4w" id="CRS-Ga-JNb"/>
                         <outlet property="profileImage" destination="p6e-35-6MZ" id="Gq6-Ii-xAP"/>
                         <outlet property="searchDisplayController" destination="4Wq-hF-Fat" id="IGX-kJ-Yby"/>
+                        <outlet property="table" destination="qDy-bB-edq" id="j7r-Zl-rvo"/>
                         <segue destination="1jO-S9-3jx" kind="presentation" identifier="profileToMap" id="6L1-hS-Su1"/>
                     </connections>
                 </viewController>
@@ -406,7 +406,6 @@
         <!--Title-->
         <scene sceneID="Dpr-cx-aal">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcw-Xe-UF5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="L59-FY-dpG" customClass="FriendProfileViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DSm-xW-fvR"/>
@@ -434,6 +433,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="t4Z-CR-Ja0"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bcw-Xe-UF5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4473" y="254"/>
         </scene>
@@ -613,11 +613,9 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-
-        <segue reference="N7e-Bk-iOK"/>
-        <segue reference="PFK-4q-5Qg"/>
-        <segue reference="yx9-cV-ftn"/>
+        <segue reference="p3l-ST-qsv"/>
         <segue reference="6L1-hS-Su1"/>
-
+        <segue reference="PFK-4q-5Qg"/>
+        <segue reference="N7e-Bk-iOK"/>
     </inferredMetricsTieBreakers>
 </document>
