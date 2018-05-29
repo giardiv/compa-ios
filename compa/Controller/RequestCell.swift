@@ -8,11 +8,11 @@
 
 import UIKit
 
-class EditProfileFriendRequestCell: UITableViewCell {
+class RequestCell: UITableViewCell {
     
 
-    @IBOutlet weak var friendRequestImage: UIImageView!
-    @IBOutlet weak var friendRequestUsername: UILabel!
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var cellName: UILabel!
     
     
     @IBAction func confirmFriendRequestTapped(_ sender: Any) {
