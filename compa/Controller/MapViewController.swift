@@ -49,10 +49,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    @IBAction func profileButtonTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "mapToProfile", sender: self)
-    }
-    
     
     @IBAction func centerTapped(_ sender: Any) {
         map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)
