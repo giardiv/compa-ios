@@ -26,4 +26,8 @@ class EditProfileViewController: UIViewController{
     @IBAction func updateUserImageTapped(_ sender: Any) {
         print("todo")
     }
+    
+    @IBAction func onCancelButtonTapped(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }

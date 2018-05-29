@@ -33,5 +33,8 @@ class FriendProfileViewController: UIViewController {
         //self.performSegue(withIdentifier:"mainToMap", sender: self)
     }
 
+    @IBAction func onCancelButtonTapped(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
 }
