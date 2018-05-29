@@ -19,7 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss" //TODO Determine format of date string
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         return dateFormatter
     }()
     
@@ -47,12 +47,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             map.addAnnotation(annotation)
         }
         
+        
     }
     
     
     @IBAction func centerTapped(_ sender: Any) {
         map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)
     }
+    
     /*func test(){
         
         let sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)

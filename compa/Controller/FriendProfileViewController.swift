@@ -9,19 +9,29 @@
 import UIKit
 
 class FriendProfileViewController: UIViewController {
-    
+       
     @IBOutlet weak var friendName: UILabel!
     @IBOutlet weak var friendLastLocation: UILabel!
     @IBOutlet weak var friendStatus: UILabel!
     @IBOutlet weak var friendImage: UIImageView!
+
+    var friendId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.updateUIView()
+        print(friendId)
+        self.friendImage.layer.cornerRadius = self.friendImage.frame.size.width / 2
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func updateUIView(){
-        self.friendImage.layer.cornerRadius = self.friendImage.frame.size.width / 2
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
+    
+    override func viewDidAppear(_ animated: Bool){
+        //self.performSegue(withIdentifier:"mainToMap", sender: self)
+    }
+
+
 }

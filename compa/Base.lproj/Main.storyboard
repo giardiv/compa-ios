@@ -545,6 +545,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Bf-kW-GH7" id="hWD-E6-fXX">
+
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -571,7 +572,7 @@
                                         <connections>
                                             <outlet property="friendImage" destination="Tui-YC-fmG" id="Vog-jJ-Rtj"/>
                                             <outlet property="friendName" destination="KfO-Wc-WqK" id="ex3-O1-rv2"/>
-                                            <segue destination="L59-FY-dpG" kind="show" id="RCZ-Yl-0i3"/>
+                                            <segue destination="L59-FY-dpG" kind="presentation" identifier="profileToFriend" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -624,9 +625,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Friends" id="HC4-mS-Bin"/>
                     <connections>
+
                         <outlet property="login" destination="VNT-2e-SYb" id="WFa-uw-v3U"/>
                         <outlet property="newFriendUsername" destination="RHm-Ws-o4w" id="9F5-tv-yXY"/>
                         <outlet property="profileImage" destination="p6e-35-6MZ" id="JsW-yd-7Mi"/>
+
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fxU-6y-au5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1185,10 +1188,12 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
+
         <segue reference="F4P-vl-YWr"/>
         <segue reference="ez5-bb-eRE"/>
         <segue reference="5LN-nT-Qab"/>
         <segue reference="N7e-Bk-iOK"/>
         <segue reference="3dl-p5-R8B"/>
+
     </inferredMetricsTieBreakers>
 </document>

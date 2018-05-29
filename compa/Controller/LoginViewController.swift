@@ -31,21 +31,15 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
        
-
-        /*guard (userEmailTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "") else {
-            //errorHighlightTextField(userEmailTextField)
+        guard (!(userEmailTextField?.text!.isEmpty)!) || (!(userPasswordTextField?.text!.isEmpty)!) else {
+            alert(userMessage: "All field are required")
             return
         }
-    
-        
-        guard (userPasswordTextField.text?.trimmingCharacters(in: CharacterSet.whitespaces) == "" ) else {
-            //errorHighlightTextField(userPasswordTextField)
-            return
-        }*/
         
         let login = userEmailTextField.text;
         let pwd = userPasswordTextField.text;
         
+        let sv = UIViewController.displaySpinner(onView: self.view)
         
         auth.checkAuth(
             
@@ -56,14 +50,14 @@ class LoginViewController: UIViewController {
                 UserDefaults.standard.set(token, forKey: "token");
                 UserDefaults.standard.synchronize();
                 DispatchQueue.main.async(execute: {
+                    UIViewController.removeSpinner(spinner: sv)
                     self.performSegue(withIdentifier: "loginToMap", sender: self)
                 })
             },
             error: { error in
                 DispatchQueue.main.async(execute: {
-                    let myAlert = UIAlertController(title:"Could not log in", message: error, preferredStyle: UIAlertControllerStyle.alert);
-                    myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default));
-                    self.present(myAlert, animated:true, completion:nil);
+                    UIViewController.removeSpinner(spinner: sv)
+                    self.alert(userMessage: error)
                 })
                 
             }

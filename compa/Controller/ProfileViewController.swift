@@ -13,9 +13,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var login: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     
+    @IBOutlet weak var table: UITableView!
     @IBOutlet weak var newFriendUsername: UITextField!
     
-    let list = ["Jean", "Franck", "Marc"]
+    let repo = UserRepository()
+    
+    var userArray : [User] = []
     
     
     override func viewDidLoad() {
@@ -34,7 +37,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //TableView
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return userArray.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -42,40 +45,60 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProfileTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+            fatalError("not sure what's happening.")
         }
-        //TODO récupéré la liste des friends de User
-        //let friends = User.getFriends()[indexPath.row] ?
-        //friends.username; user.image
-        cell.friendName?.text = list[indexPath.row]
-        cell.friendImage?.image = #imageLiteral(resourceName: "person-profile")
+        
+        cell.friendName?.text = userArray[indexPath.row].name
+        cell.friendImage?.image = #imageLiteral(resourceName: "person-profile") //TODO
         
         return cell
     }
+    
+    
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let selectedFriend = userArray[indexPath.row]
+        let vc = FriendProfileViewController()
+        vc.friendId = selectedFriend.id
+        DispatchQueue.main.async(execute: {
+            self.performSegue(withIdentifier: "profileToFriend", sender: self)
+        })
+
+
+    }
+
+    
     //Fin Table
     
     func updateUIView() {
+        let sv = UIViewController.displaySpinner(onView: self.view)
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
-        //TODO initialisé en récupérant le login et l'image de profil de l'user connecter
+        //TODO initialisé en récupérant le login et l'image de profil de l'user connecté
 
+        let ctrl = self
         
-//        let repo = UserRepository()
-//        
-//        let ctrl = self
-//        
-//        repo.getAuthUser(result: {user in
-//    
-//            
-//            DispatchQueue.main.async(execute: {
-//                
-//                ctrl.profileImage.image = #imageLiteral(resourceName: "images")
-//                //ctrl.profileImage.image = curentUser.profileImage
-//                ctrl.login.text = user.name
-//                
-//            })
-//        
-//            
-//        })
+        repo.getAuthUser(result: {user in
+    
+            DispatchQueue.main.async(execute: {
+                ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
+                ctrl.login.text = user.name
+                
+            })
+            
+        })
+     
+        repo.getFriends { data in
+            //check error
+            self.userArray = data
+    
+            DispatchQueue.main.async(execute: {
+                self.table.reloadData()
+                UIViewController.removeSpinner(spinner: sv)
+            })
+            
+        }
+
         
                
     }
