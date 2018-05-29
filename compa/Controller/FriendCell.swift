@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ProfileTableViewCell: UITableViewCell {
+class FriendCell: UITableViewCell {
     
     //MARK: Properties
-    
-    @IBOutlet weak var friendImage: UIImageView!
-    @IBOutlet weak var friendName: UILabel!
+   
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var cellName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

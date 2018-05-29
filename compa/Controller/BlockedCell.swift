@@ -8,12 +8,12 @@
 
 import UIKit
 
-class EditProfileBlockedCell : UITableViewCell {
+class BlockedCell : UITableViewCell {
     
     
     
-    @IBOutlet weak var blockedImage: UIImageView!
-    @IBOutlet weak var blockedName: UILabel!
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var cellName: UILabel!
     
     
     @IBAction func deblockUserTapped(_ sender: UIButton) {

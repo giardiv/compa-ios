@@ -17,9 +17,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     @IBOutlet weak var map: MKMapView!
     
+<<<<<<< HEAD
+    static let dateFormatter = { () -> DateFormatter in
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss" //TODO Determine format of date string
+=======
+    
+    let repo = UserRepository()
+    
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+>>>>>>> 9d6a185ce5f5cad5fdc1ee2bc72f1b218c58881a
         return dateFormatter
     }()
     
@@ -30,11 +39,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         map.delegate = self
         
         locationManager.requestWhenInUseAuthorization()
-    }
-    
-    override func viewDidAppear(_ animated: Bool){
+<<<<<<< HEAD
         
         let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))
+        
+        /*locations = locations.sorted(by: {
+            return $0.0 > $1.0
+        })
+
+        print(locations)*/
+        
         
         for (date, location) in locations {
             let annotation = MKPointAnnotation()
@@ -42,12 +56,39 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             annotation.title = MapViewController.dateFormatter.string(from:date)
             map.addAnnotation(annotation)
         }
+        
+=======
+    }
+    
+    override func viewDidAppear(_ animated: Bool){
+
+        repo.getFriends { data in
+            //check error
+            
+          
+            DispatchQueue.main.async(execute: {
+                
+                for user in data {
+                    
+                    let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
+                    
+                    print(lastLocation)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = lastLocation
+                    annotation.title = user.name
+                    self.map.addAnnotation(annotation)
+                }
+                
+            })
+            
+        }
 
     }
     
     
     @IBAction func centerTapped(_ sender: Any) {
         map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)
+>>>>>>> 9d6a185ce5f5cad5fdc1ee2bc72f1b218c58881a
     }
     
     /*func test(){
