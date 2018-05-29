@@ -10,23 +10,68 @@ import UIKit
 
 class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
-    let list = ["Toto", "Tata", "Titi"]
+    @IBOutlet weak var table: UITableView!
+    
+    let repo = UserRepository()
+    
+    var userArray : [User] = []
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        
+        repo.getAwaiting { data in
+            //check error
+            self.userArray = data
+            
+            DispatchQueue.main.async(execute: {
+                self.table.reloadData()
+                UIViewController.removeSpinner(spinner: sv)
+            })
+            
+        }
+    }
+
     
     //TableView
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return userArray.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestCell", for: indexPath) as? EditProfileFriendRequestCell  else {
-            fatalError("The dequeued cell is not an instance of MealTableViewCell.")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "requestCell", for: indexPath) as? RequestCell  else {
+            fatalError("not sure what's happening.")
         }
         
-        cell.friendRequestUsername?.text = list[indexPath.row]
-        cell.friendRequestImage?.image = #imageLiteral(resourceName: "person-profile")
+        cell.cellName?.text = userArray[indexPath.row].name
+        cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
         
         return cell
     }
-    //Fin Table
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let selectedFriend = userArray[indexPath.row]
+        let vc = FriendProfileViewController()
+        vc.friendId = selectedFriend.id
+        DispatchQueue.main.async(execute: {
+            self.performSegue(withIdentifier: "profileToFriend", sender: self)
+        })
+        
+        
+    }
+    
+    
 }

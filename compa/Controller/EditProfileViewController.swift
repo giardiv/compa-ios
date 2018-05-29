@@ -26,4 +26,5 @@ class EditProfileViewController: UIViewController{
     @IBAction func updateUserImageTapped(_ sender: Any) {
         print("todo")
     }
+    
 }
