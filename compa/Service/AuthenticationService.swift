@@ -19,26 +19,59 @@ class AuthenticationService {
     }
     
     func checkAuth(login : String, pwd : String, result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
-        //http.get(url: <#T##String#>, success: <#T##(Dictionary<String, AnyObject>) -> Void#>, error: <#T##(Error) -> Void#>)
-
-        if(arc4random_uniform(2) == 0){
-            result("el_token")
-        }
-        else{
-            error("nope")
-        }
+    
+        http.post(
+            isRelative: true,
+            isAuthenticated: false,
+            url: "/login",
+            data: ["login": login, "password": pwd],
+            success: { data in
+                if let token  = data["token"] as? String {
+                    result(token)
+                }
+                else{
+                    error("Something went wrong")
+                }
+            },
+            error: { errorObj in
+                
+                if let errorMsg = errorObj["message"] as? String {
+                    error(errorMsg)
+                }
+                else{
+                    error("Something went wrong")
+                }
+            }
+        )       
         
     }
     
     func register(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
-        //http.post(url: <#T##String#>, data: credentials, success: (Dictionary<String, AnyObject>) -> Void, error: <#T##(Error) -> Void#>)
         
-        if(arc4random_uniform(2) == 0){
-            result("el_token")
-        }
-        else{
-            error("can't register")
-        }
+        http.post(
+            isRelative: true,
+            isAuthenticated: false,
+            url: "/register",
+            data: credentials,
+            success: { data in
+                if let token  = data["token"] as? String {
+                  result(token)
+                }
+                else{
+                    error("Something went wrong")
+                }
+            },
+            error: { errorObj in
+                
+                if let errorMsg = errorObj["message"] as? String {
+                    error(errorMsg)
+                }
+                else{
+                    error("Something went wrong")
+                }
+            }
+        )
+
     }
     
 }

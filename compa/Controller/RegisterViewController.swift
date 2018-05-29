@@ -26,29 +26,23 @@ class RegisterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func alert(userMessage:String, handler: ((UIAlertAction) -> Void)? = nil){
-        let myAlert = UIAlertController(title:"Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
-        myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default, handler: handler));
-        self.present(myAlert, animated:true, completion:nil);
-    }
-    
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier: "registerToLogin", sender:self)
     }
     
     
-    @IBAction func registerButtonTapped(_ sender: Any) {
+    @IBAction func registerButtonTapped(_ sender: UIButton) {
         let userEmail = userEmailTextField.text
         let userPassword = userPasswordTextField.text
         let userRepeatPassword = repeatPasswordTextField.text
         
         
-        guard (userEmail?.isEmpty)! || (userPassword?.isEmpty)! || (userRepeatPassword?.isEmpty)! else {
+        guard (!(userEmail?.isEmpty)!) || (!(userPassword?.isEmpty)!) || (!(userRepeatPassword?.isEmpty)!) else {
             alert(userMessage: "All field are required")
             return
         }
         
-        guard userPassword != userRepeatPassword else {
+        guard userPassword == userRepeatPassword else {
             alert(userMessage: "Passwords do not match")
             return
         }
@@ -61,14 +55,21 @@ class RegisterViewController: UIViewController {
             credentials: dict,
             result: { token -> Void in
                 
-                ctrl.alert(userMessage: "Registration is successful. Thank you!", handler: {ACTION in
-                    self.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.set(token, forKey: "token");
+                UserDefaults.standard.synchronize();
+
+                DispatchQueue.main.async(execute: {
+                    ctrl.alert(userMessage: "Registration is successful. Thank you!", handler: {ACTION in
+                        self.dismiss(animated: true, completion: nil)
+                    })
                 })
 
             },
             error: { msg -> Void in
-
-                ctrl.alert(userMessage: msg)
+                
+                DispatchQueue.main.async(execute: {
+                    ctrl.alert(userMessage: msg)
+                })
                 
             }
         )
