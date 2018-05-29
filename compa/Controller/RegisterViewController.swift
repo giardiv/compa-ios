@@ -10,10 +10,12 @@ import UIKit
 
 class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var userLoginTextField: UITextField!
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
     @IBOutlet weak var repeatPasswordTextField: UITextField!
-
+    
     let auth: AuthenticationService = AuthenticationService()
     
     override func viewDidLoad() {
@@ -32,12 +34,14 @@ class RegisterViewController: UIViewController {
     
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
+        let userName = userNameTextField.text
+        let userLogin = userLoginTextField.text
         let userEmail = userEmailTextField.text
         let userPassword = userPasswordTextField.text
         let userRepeatPassword = repeatPasswordTextField.text
         
         
-        guard (!(userEmail?.isEmpty)!) || (!(userPassword?.isEmpty)!) || (!(userRepeatPassword?.isEmpty)!) else {
+        guard (!(userName?.isEmpty)!) || (!(userLogin?.isEmpty)!) || (!(userPassword?.isEmpty)!) || (!(userRepeatPassword?.isEmpty)!) else {
             alert(userMessage: "All field are required")
             return
         }
@@ -47,7 +51,7 @@ class RegisterViewController: UIViewController {
             return
         }
 
-        let dict = ["login" : userEmail!, "password" : userPassword!]
+        let dict = ["name" : userName!, "email" : userEmail!,  "login" : userEmail!, "password" : userPassword!]
         let ctrl  = self
         
         auth.register(
