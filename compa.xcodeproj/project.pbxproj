@@ -292,6 +292,7 @@
 				TargetAttributes = {
 					D63F2B58207FA14500DC6BCB = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 5T2568Z7V9;
 						ProvisioningStyle = Automatic;
 					};
 					D63F2B6C207FA14500DC6BCB = {
@@ -533,6 +534,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5T2568Z7V9;
 				INFOPLIST_FILE = compa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dant.compa;
@@ -545,6 +547,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5T2568Z7V9;
 				INFOPLIST_FILE = compa/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dant.compa;

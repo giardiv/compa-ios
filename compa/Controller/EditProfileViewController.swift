@@ -27,4 +27,9 @@ class EditProfileViewController: UIViewController{
         print("todo")
     }
     
+
+    @IBAction func onCancelButtonTapped(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
 }
