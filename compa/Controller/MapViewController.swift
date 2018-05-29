@@ -30,15 +30,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         map.delegate = self
         
         locationManager.requestWhenInUseAuthorization()
+    }
+    
+    override func viewDidAppear(_ animated: Bool){
         
         let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))
-        
-        /*locations = locations.sorted(by: {
-            return $0.0 > $1.0
-        })
-
-        print(locations)*/
-        
         
         for (date, location) in locations {
             let annotation = MKPointAnnotation()
@@ -46,8 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             annotation.title = MapViewController.dateFormatter.string(from:date)
             map.addAnnotation(annotation)
         }
-        
-        
+
     }
     
     
