@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var userArray : [User] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -40,6 +41,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProfileTableViewCell  else {
             fatalError("not sure what's happening.")
@@ -95,8 +98,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             })
             
         }
+
         
-        
+               
     }
     
     @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {

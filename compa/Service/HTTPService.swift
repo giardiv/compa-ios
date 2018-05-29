@@ -42,11 +42,10 @@ class HTTPService {
         return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.POST.rawValue,  data:data, successHandler:success, errorHandler:error);
     }
     
-    
     private func APIRequest(isRelative: Bool, isAuthenticated: Bool, url: String, method: String, data: [String:Any]? = nil, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: [String:Any] )->Void) {
 
         let url = isRelative ? root + url : url
-        var request = URLRequest(url: URL(string: url)!)
+       var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 

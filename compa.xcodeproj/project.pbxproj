@@ -19,6 +19,10 @@
 		D63F2B67207FA14500DC6BCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63F2B65207FA14500DC6BCB /* LaunchScreen.storyboard */; };
 		D63F2B72207FA14500DC6BCB /* compaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B71207FA14500DC6BCB /* compaTests.swift */; };
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
+		D65CF99C20B6DA3A009CC9CD /* EditProfileBlockedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF99B20B6DA3A009CC9CD /* EditProfileBlockedCell.swift */; };
+		D65CF99E20B6DC27009CC9CD /* EditProfileFriendRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF99D20B6DC27009CC9CD /* EditProfileFriendRequestCell.swift */; };
+		D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */; };
+		D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */; };
 		D661934420B476AD00C634DE /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661934320B476AD00C634DE /* ProfileTableViewCell.swift */; };
 		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
 		D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCDE20AC489700B81545 /* AuthenticationService.swift */; };
@@ -66,6 +70,10 @@
 		D63F2B78207FA14500DC6BCB /* compaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = compaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63F2B7C207FA14500DC6BCB /* compaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = compaUITests.swift; sourceTree = "<group>"; };
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D65CF99B20B6DA3A009CC9CD /* EditProfileBlockedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileBlockedCell.swift; sourceTree = "<group>"; };
+		D65CF99D20B6DC27009CC9CD /* EditProfileFriendRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileFriendRequestCell.swift; sourceTree = "<group>"; };
+		D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestTableView.swift; sourceTree = "<group>"; };
+		D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersTableView.swift; sourceTree = "<group>"; };
 		D661934320B476AD00C634DE /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		D665FCD820AC411B00B81545 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D665FCD920AC411B00B81545 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +121,10 @@
 				D661934320B476AD00C634DE /* ProfileTableViewCell.swift */,
 				D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */,
 				D6FA2B0920B588350009686E /* EditProfileViewController.swift */,
+				D65CF99B20B6DA3A009CC9CD /* EditProfileBlockedCell.swift */,
+				D65CF99D20B6DC27009CC9CD /* EditProfileFriendRequestCell.swift */,
+				D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */,
+				D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -335,11 +347,14 @@
 			files = (
 				D61E165A20A9A411003EB242 /* MapViewController.swift in Sources */,
 				D676FA2920B45C0A00B46CCF /* Location.swift in Sources */,
+				D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */,
 				D6FA2B0820B582B30009686E /* FriendProfileViewController.swift in Sources */,
+				D65CF99E20B6DC27009CC9CD /* EditProfileFriendRequestCell.swift in Sources */,
 				D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */,
 				D61E166620A9A482003EB242 /* UserRepository.swift in Sources */,
 				D61E166120A9A455003EB242 /* User.swift in Sources */,
 				D68116E920BC869F00E41866 /* UIViewControllerExtension.swift in Sources */,
+				D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */,
 				D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */,
 				D6FA2B0A20B588350009686E /* EditProfileViewController.swift in Sources */,
 				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,
@@ -347,6 +362,7 @@
 				D661934420B476AD00C634DE /* ProfileTableViewCell.swift in Sources */,
 				D68116EA20BC87A300E41866 /* LoginViewController.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,
+				D65CF99C20B6DA3A009CC9CD /* EditProfileBlockedCell.swift in Sources */,
 				D61E166520A9A482003EB242 /* AbstractRepository.swift in Sources */,
 				D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */,
 			);

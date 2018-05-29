@@ -36,7 +36,6 @@ class LoginViewController: UIViewController {
             return
         }
         
-        
         let login = userEmailTextField.text;
         let pwd = userPasswordTextField.text;
         
