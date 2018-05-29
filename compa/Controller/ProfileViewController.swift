@@ -32,7 +32,34 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.updateUIView()
+        
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
+        //TODO initialisé en récupérant le login et l'image de profil de l'user connecté
+        
+        let ctrl = self
+        
+        repo.getAuthUser(result: {user in
+            
+            DispatchQueue.main.async(execute: {
+                ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
+                ctrl.login.text = user.name
+                
+            })
+            
+        })
+        
+        
+        repo.getFriends { data in
+            //check error
+            self.userArray = data
+            
+            DispatchQueue.main.async(execute: {
+                self.table.reloadData()
+                UIViewController.removeSpinner(spinner: sv)
+            })
+            
+        }
     }
     
     //TableView
@@ -42,14 +69,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ProfileTableViewCell  else {
-            fatalError("not sure what's happening.")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendCell  else {
+            fatalError()
         }
         
-        cell.friendName?.text = userArray[indexPath.row].name
-        cell.friendImage?.image = #imageLiteral(resourceName: "person-profile") //TODO
+     
+        cell.cellName?.text = userArray[indexPath.row].name
+        cell.cellImage?.image = #imageLiteral(resourceName: "person-profile") //TODO
         
         return cell
     }
@@ -67,41 +93,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
 
     }
-
     
     //Fin Table
     
-    func updateUIView() {
-        let sv = UIViewController.displaySpinner(onView: self.view)
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
-        //TODO initialisé en récupérant le login et l'image de profil de l'user connecté
-
-        let ctrl = self
-        
-        repo.getAuthUser(result: {user in
-    
-            DispatchQueue.main.async(execute: {
-                ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
-                ctrl.login.text = user.name
-                
-            })
-            
-        })
-     
-        repo.getFriends { data in
-            //check error
-            self.userArray = data
-    
-            DispatchQueue.main.async(execute: {
-                self.table.reloadData()
-                UIViewController.removeSpinner(spinner: sv)
-            })
-            
-        }
-
-        
-               
-    }
     
     @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {
         //TODO tester si le field n'est pas vide, envoyer une requète en base pour ajouter le nouvelle amis. En param user.login, friendUsername.

@@ -48,6 +48,84 @@ class UserRepository : AbstractRepository {
         
     }
     
+    func getBlocked(result: @escaping (_ data: [User]) -> Void) {
+        
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/friendship/friends/blocked",
+            success: { data in
+                var users = [User]()
+                
+                for (_, value) in data {
+                    let user = User(dictionary: value as! [String : Any])!
+                    users.append(user)
+                }
+                
+                result(users)
+                
+            },
+            
+            error: { error in
+                
+            }
+        )
+        
+    }
+    //request I have received
+    func getPending(result: @escaping (_ data: [User]) -> Void) {
+        
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/friendship/friends/pending",
+            success: { data in
+                var users = [User]()
+                
+                for (_, value) in data {
+                    let user = User(dictionary: value as! [String : Any])!
+                    users.append(user)
+                }
+                
+                result(users)
+                
+            },
+            
+            error: { error in
+                
+            }
+        )
+        
+    }
+    
+    //request I have made
+    func getAwaiting(result: @escaping (_ data: [User]) -> Void) {
+        
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/friendship/friends/awaiting",
+            success: { data in
+                var users = [User]()
+                
+                for (_, value) in data {
+                    let user = User(dictionary: value as! [String : Any])!
+                    users.append(user)
+                }
+                
+                result(users)
+                
+        },
+            
+            error: { error in
+                
+        }
+        )
+        
+    }
+    
+    
+    
     func get(identifier:String, result: @escaping (_ data: User )->Void) {
         
         http.get(

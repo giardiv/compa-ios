@@ -17,6 +17,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     @IBOutlet weak var map: MKMapView!
     
+    
+    let repo = UserRepository()
+    
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
@@ -33,14 +36,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     override func viewDidAppear(_ animated: Bool){
-        
-        let locations = User.getMockLocationsFor(CLLocation(latitude:51.509865, longitude:-0.118092))
-        
-        for (date, location) in locations {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location.coordinate
-            annotation.title = MapViewController.dateFormatter.string(from:date)
-            map.addAnnotation(annotation)
+
+        repo.getFriends { data in
+            //check error
+            
+          
+            DispatchQueue.main.async(execute: {
+                
+                for user in data {
+                    
+                    let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
+                    
+                    print(lastLocation)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = lastLocation
+                    annotation.title = user.name
+                    self.map.addAnnotation(annotation)
+                }
+                
+            })
+            
         }
 
     }
