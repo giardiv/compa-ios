@@ -31,16 +31,21 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
         
         let sv = UIViewController.displaySpinner(onView: self.view)
         
-        repo.getBlocked { data in
-            //check error
-            self.userArray = data
+        repo.getBlocked(
+            result: { data in
+                //check error
+                self.userArray = data
+                
+                DispatchQueue.main.async(execute: {
+                    self.table.reloadData()
+                    UIViewController.removeSpinner(spinner: sv)
+                })
+                
+            },
+            error: { error in
             
-            DispatchQueue.main.async(execute: {
-                self.table.reloadData()
-                UIViewController.removeSpinner(spinner: sv)
-            })
-            
-        }
+            }
+        )
     }
     
     

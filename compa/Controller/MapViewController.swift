@@ -36,26 +36,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidAppear(_ animated: Bool){
 
-        repo.getFriends { data in
-            //check error
-            
-          
-            DispatchQueue.main.async(execute: {
-                
-                for user in data {
+        repo.getFriends (
+            result: { data in
+                //check error
+                DispatchQueue.main.async(execute: {
                     
-                    let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
+                    for user in data {
+                        
+                        let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
+                        
+                        print(lastLocation)
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = lastLocation
+                        annotation.title = user.name
+                        self.map.addAnnotation(annotation)
+                    }
                     
-                    print(lastLocation)
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = lastLocation
-                    annotation.title = user.name
-                    self.map.addAnnotation(annotation)
-                }
+                })
+            },
+            error: {error in
                 
-            })
-            
-        }
+            }
+        )
 
     }
     
@@ -125,7 +127,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
             case .restricted, .denied:
-                alert("why not :(")
+                self.alert("why not :(")
                 break
             
             case .authorizedWhenInUse,.authorizedAlways:
@@ -146,13 +148,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error){
         print("failed update location")
-        alert(error.localizedDescription)
-    }
-    
-    private func alert(_ userMessage:String, handler: ((UIAlertAction) -> Void)? = nil){
-        let myAlert = UIAlertController(title:"Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
-        myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default, handler: handler));
-        self.present(myAlert, animated:true, completion:nil);
+        self.alert(error.localizedDescription)
     }
     
     private func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance) {

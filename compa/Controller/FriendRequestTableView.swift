@@ -31,16 +31,21 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         
         let sv = UIViewController.displaySpinner(onView: self.view)
         
-        repo.getAwaiting { data in
-            //check error
-            self.userArray = data
-            
-            DispatchQueue.main.async(execute: {
-                self.table.reloadData()
-                UIViewController.removeSpinner(spinner: sv)
-            })
-            
-        }
+        repo.getAwaiting (
+            result: { data in
+                //check error
+                self.userArray = data
+                
+                DispatchQueue.main.async(execute: {
+                    self.table.reloadData()
+                    UIViewController.removeSpinner(spinner: sv)
+                })
+                
+            },
+            error: {error in
+                
+            }
+        )
     }
 
     

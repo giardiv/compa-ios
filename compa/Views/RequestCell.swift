@@ -1,5 +1,5 @@
 //
-//  EditProfileBlockedCell.swift
+//  RequestCell.swift
 //  compa
 //
 //  Created by m2sar on 24/05/2018.
@@ -8,14 +8,17 @@
 
 import UIKit
 
-class BlockedCell : UITableViewCell {
+class RequestCell: UITableViewCell {
     
-    
-    
+
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellName: UILabel!
     
     
-    @IBAction func deblockUserTapped(_ sender: UIButton) {
+    @IBAction func confirmFriendRequestTapped(_ sender: Any) {
+    }
+    
+    
+    @IBAction func rejectFriendRequestTapped(_ sender: Any) {
     }
 }

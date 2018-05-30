@@ -39,27 +39,41 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let ctrl = self
         
-        repo.getAuthUser(result: {user in
+        repo.getAuthUser(
+            result: { user in
             
-            DispatchQueue.main.async(execute: {
-                ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
-                ctrl.login.text = user.name
+                DispatchQueue.main.async(execute: {
+                    ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
+                    ctrl.login.text = user.name
+                    
+                })
                 
-            })
+            },
+            error: {error in
             
-        })
+            }
+        )
         
         
-        repo.getFriends { data in
-            //check error
-            self.userArray = data
+        repo.getFriends (
+            result: { data in
+                self.userArray = data
+                
+                DispatchQueue.main.async(execute: {
+                    self.table.reloadData()
+                    UIViewController.removeSpinner(spinner: sv)
+                })
             
-            DispatchQueue.main.async(execute: {
-                self.table.reloadData()
-                UIViewController.removeSpinner(spinner: sv)
-            })
-            
-        }
+            },
+            error: {error in
+                
+                DispatchQueue.main.async(execute: {
+                    UIViewController.removeSpinner(spinner: sv)
+                    self.alert("error getting friends") //TODO check error msg
+                })
+                
+            }
+        )
     }
     
     //TableView

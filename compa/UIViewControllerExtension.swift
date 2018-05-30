@@ -31,7 +31,7 @@ extension UIViewController {
         }
     }
     
-    func alert(userMessage:String, handler: ((UIAlertAction) -> Void)? = nil){
+    func alert(_ userMessage:String, handler: ((UIAlertAction) -> Void)? = nil){
         let myAlert = UIAlertController(title:"Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
         myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default, handler: handler));
         self.present(myAlert, animated:true, completion:nil);

@@ -8,37 +8,22 @@
 
 import Foundation
 
-class UserRepository : AbstractRepository {
+class UserRepository {
 
-    typealias model = User
+    let http: HTTPService = HTTPService()
     
-    let http: HTTPService
-    
-    
-    init(http: HTTPService = HTTPService()) {
-        self.http = http
-    }
-    
-    func getAll(result: @escaping (_ data: [User] )->Void)  {
+    func getAll(result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void )  {
         result([User(dictionary: [:])!])
     }
     
-    func getFriends(result: @escaping (_ data: [User]) -> Void) {
+    func getFriends(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friendship/friends/pending",
+            url: "/friend/pending",
             success: { data in
-                var users = [User]()
-        
-                for (_, value) in data {
-                    let user = User(dictionary: value as! [String : Any])!
-                    users.append(user)
-                }
-        
-                result(users)
-        
+                result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
         
             error: { error in
@@ -48,22 +33,14 @@ class UserRepository : AbstractRepository {
         
     }
     
-    func getBlocked(result: @escaping (_ data: [User]) -> Void) {
+    func getBlocked(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friendship/friends/blocked",
+            url: "/friend/blocked",
             success: { data in
-                var users = [User]()
-                
-                for (_, value) in data {
-                    let user = User(dictionary: value as! [String : Any])!
-                    users.append(user)
-                }
-                
-                result(users)
-                
+              result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
             
             error: { error in
@@ -73,22 +50,14 @@ class UserRepository : AbstractRepository {
         
     }
     //request I have received
-    func getPending(result: @escaping (_ data: [User]) -> Void) {
+    func getPending(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friendship/friends/pending",
+            url: "/friend/pending",
             success: { data in
-                var users = [User]()
-                
-                for (_, value) in data {
-                    let user = User(dictionary: value as! [String : Any])!
-                    users.append(user)
-                }
-                
-                result(users)
-                
+               result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
             
             error: { error in
@@ -99,34 +68,26 @@ class UserRepository : AbstractRepository {
     }
     
     //request I have made
-    func getAwaiting(result: @escaping (_ data: [User]) -> Void) {
+    func getAwaiting(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friendship/friends/awaiting",
+            url: "/friend/awaiting",
             success: { data in
-                var users = [User]()
-                
-                for (_, value) in data {
-                    let user = User(dictionary: value as! [String : Any])!
-                    users.append(user)
-                }
-                
-                result(users)
-                
-        },
+                result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
+            },
             
             error: { error in
                 
-        }
+            }
         )
         
     }
     
     
     
-    func get(identifier:String, result: @escaping (_ data: User )->Void) {
+    func get(identifier:String, result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
         http.get(
             isRelative: true,
@@ -143,20 +104,16 @@ class UserRepository : AbstractRepository {
         
     }
 
-    func create( object: User, result: @escaping (_ data: Bool )->Void ) {
+    func update( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
         result(true)
     }
 
-    func update( object: User, result: @escaping (_ data: Bool )->Void) {
-        result(true)
-    }
-
-    func delete( object: User, result: @escaping (_ data: Bool )->Void ) {
+    func delete( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void  ) {
         result(true)
     }
     
-    func getAuthUser(result: @escaping (_ data: User )->Void){
-          get(identifier: "", result:result)
+    func getAuthUser(result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ){
+        get(identifier: "", result:result, error:error)
     }
     
 }

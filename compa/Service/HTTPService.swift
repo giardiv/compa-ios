@@ -21,25 +21,20 @@ class HTTPService {
         root = dict["root"] as! String
     }
     
-    /*get(
-     url: ,
-     success: { data in
-     print(data)
-     
-     },
-     error: { data in
-     print(data)
-     })*/
-    
-    
     func get(isRelative:Bool, isAuthenticated: Bool, authToken: String? = nil, url : String, success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
-        
         return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.GET.rawValue, successHandler:success, errorHandler:error);
     }
     
-    
     func post(isRelative:Bool, isAuthenticated: Bool, url : String, data : [String:Any], success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
         return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.POST.rawValue,  data:data, successHandler:success, errorHandler:error);
+    }
+    
+    func put(isRelative:Bool, isAuthenticated: Bool, url : String, data : [String:Any], success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.PUT.rawValue,  data:data, successHandler:success, errorHandler:error);
+    }
+    
+    func delete(isRelative:Bool, isAuthenticated: Bool, url : String, data : [String:Any], success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        return APIRequest(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.DELETE.rawValue,  data:data, successHandler:success, errorHandler:error);
     }
     
     private func APIRequest(isRelative: Bool, isAuthenticated: Bool, url: String, method: String, data: [String:Any]? = nil, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: [String:Any] )->Void) {
