@@ -11,18 +11,6 @@ import Foundation
 
 class Location {
     
-<<<<<<< HEAD
-    let latitude, longitude:Double
-    let date : Date
-    
-    init(dictionary: Dictionary<String, AnyObject>){
-    
-    }
-    
-    init(){
-        
-    }
-=======
     let latitude, longitude: Double
     let date : Date
     
@@ -37,5 +25,4 @@ class Location {
 
     }
     
->>>>>>> 9d6a185ce5f5cad5fdc1ee2bc72f1b218c58881a
 }
