@@ -11,10 +11,7 @@ import Foundation
 class UserRepository {
 
     let http: HTTPService = HTTPService()
-    
-    func getAll(result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void )  {
-        result([User(dictionary: [:])!])
-    }
+
     
     func getFriends(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
         
@@ -26,9 +23,7 @@ class UserRepository {
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
         
-            error: { error in
-        
-            }
+            error: error
         )
         
     }
@@ -43,9 +38,7 @@ class UserRepository {
               result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
             
-            error: { error in
-                
-            }
+            error: error
         )
         
     }
@@ -60,9 +53,7 @@ class UserRepository {
                result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
             
-            error: { error in
-                
-            }
+            error: error
         )
         
     }
@@ -78,13 +69,10 @@ class UserRepository {
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
             
-            error: { error in
-                
-            }
+            error: error
         )
         
     }
-    
     
     
     func get(identifier:String, result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
@@ -97,9 +85,7 @@ class UserRepository {
                 result(User(dictionary:data)!)
             },
             
-            error: { error in
-                
-            }
+            error: error
         )
         
     }

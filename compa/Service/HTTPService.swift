@@ -69,13 +69,11 @@ class HTTPService {
             let statusCode = httpResponse.statusCode
             
             if let error = error {
-                let dic = ["message" : error.localizedDescription, "code" : statusCode] as [String:Any]
-                errorHandler(dic)
+                errorHandler(["message" : error.localizedDescription, "code" : statusCode] as [String:Any])
             }
                 
             else{
                 do {
-            
                     //print(String(data: data!, encoding: String.Encoding.utf8)!)
                     
                     let json = try JSONSerialization.jsonObject(with: data!) //MIGHT BE AN ARRAY AND NOT A DIC
@@ -87,15 +85,11 @@ class HTTPService {
                     else{
                         handler(json as! [String:Any])
                     }
-            
-                    
-                 
-                    
-                    
+
                 } catch {
-                    let dic = ["message" : "invalid json format", "code" : 400] as [String:Any]
-                    errorHandler(dic)
+                    errorHandler(["message" : "invalid json format", "code" : 400] as [String:Any])
                 }
+                
             }
             
         })

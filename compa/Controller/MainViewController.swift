@@ -27,12 +27,6 @@ class MainViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier:"mainToLogin", sender: self)
     }
-    
-    @IBAction func logoutButtonTapped(_ sender: UIButton) {
-        UserDefaults.standard.set(false, forKey: "isUserLoggedIn");
-        UserDefaults.standard.synchronize();
-        //self.performSegue(withIdentifier:"loginView", sender: self)
-    }
 
     @IBAction func registerButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier:"mainToRegister", sender: self)

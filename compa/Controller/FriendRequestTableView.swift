@@ -43,7 +43,14 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                 
             },
             error: {error in
-                
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
             }
         )
     }
