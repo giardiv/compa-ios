@@ -16,6 +16,11 @@
 		D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165D20A9A442003EB242 /* HTTPService.swift */; };
 		D61E166120A9A455003EB242 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E166020A9A455003EB242 /* User.swift */; };
 		D61E166620A9A482003EB242 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E166420A9A482003EB242 /* UserRepository.swift */; };
+		D6289B0520C05F21000C1DF1 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6289B0420C05F21000C1DF1 /* PinView.swift */; };
+		D6289B1020C07501000C1DF1 /* UserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6289B0E20C07501000C1DF1 /* UserAnnotation.swift */; };
+		D6289B1120C07501000C1DF1 /* UserAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6289B0F20C07501000C1DF1 /* UserAnnotationView.swift */; };
+		D63DEB1220C0760700C54FA4 /* UserDetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63DEB1020C0760700C54FA4 /* UserDetailMapView.swift */; };
+		D63DEB1320C0760700C54FA4 /* UserDetailMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D63DEB1120C0760700C54FA4 /* UserDetailMapView.xib */; };
 		D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B5C207FA14500DC6BCB /* AppDelegate.swift */; };
 		D63F2B62207FA14500DC6BCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D63F2B60207FA14500DC6BCB /* Main.storyboard */; };
 		D63F2B64207FA14500DC6BCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D63F2B63207FA14500DC6BCB /* Assets.xcassets */; };
@@ -61,6 +66,11 @@
 		D61E165D20A9A442003EB242 /* HTTPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		D61E166020A9A455003EB242 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D61E166420A9A482003EB242 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		D6289B0420C05F21000C1DF1 /* PinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		D6289B0E20C07501000C1DF1 /* UserAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAnnotation.swift; path = ../UserAnnotation.swift; sourceTree = "<group>"; };
+		D6289B0F20C07501000C1DF1 /* UserAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserAnnotationView.swift; path = ../UserAnnotationView.swift; sourceTree = "<group>"; };
+		D63DEB1020C0760700C54FA4 /* UserDetailMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDetailMapView.swift; path = ../UserDetailMapView.swift; sourceTree = "<group>"; };
+		D63DEB1120C0760700C54FA4 /* UserDetailMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = UserDetailMapView.xib; path = ../UserDetailMapView.xib; sourceTree = "<group>"; };
 		D63F2B59207FA14500DC6BCB /* compa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = compa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D63F2B5C207FA14500DC6BCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D63F2B61207FA14500DC6BCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -113,9 +123,14 @@
 		26E697F520BF137900E1DA8B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D63DEB1020C0760700C54FA4 /* UserDetailMapView.swift */,
+				D63DEB1120C0760700C54FA4 /* UserDetailMapView.xib */,
+				D6289B0E20C07501000C1DF1 /* UserAnnotation.swift */,
+				D6289B0F20C07501000C1DF1 /* UserAnnotationView.swift */,
 				26E697F620BF137900E1DA8B /* BlockedCell.swift */,
 				26E697F720BF137900E1DA8B /* FriendCell.swift */,
 				26E697F820BF137900E1DA8B /* RequestCell.swift */,
+				D6289B0420C05F21000C1DF1 /* PinView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -328,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D63F2B67207FA14500DC6BCB /* LaunchScreen.storyboard in Resources */,
+				D63DEB1320C0760700C54FA4 /* UserDetailMapView.xib in Resources */,
 				D63F2B64207FA14500DC6BCB /* Assets.xcassets in Resources */,
 				D63F2B62207FA14500DC6BCB /* Main.storyboard in Resources */,
 			);
@@ -354,8 +370,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6289B1120C07501000C1DF1 /* UserAnnotationView.swift in Sources */,
 				D61E165A20A9A411003EB242 /* MapViewController.swift in Sources */,
 				26E697FA20BF137900E1DA8B /* FriendCell.swift in Sources */,
+				D63DEB1220C0760700C54FA4 /* UserDetailMapView.swift in Sources */,
+				D6289B0520C05F21000C1DF1 /* PinView.swift in Sources */,
 				D676FA2920B45C0A00B46CCF /* Location.swift in Sources */,
 				D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */,
 				D6FA2B0820B582B30009686E /* FriendProfileViewController.swift in Sources */,
@@ -365,6 +384,7 @@
 				D68116E920BC869F00E41866 /* UIViewControllerExtension.swift in Sources */,
 				26E697FD20BF1A7600E1DA8B /* LocationRepository.swift in Sources */,
 				D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */,
+				D6289B1020C07501000C1DF1 /* UserAnnotation.swift in Sources */,
 				D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */,
 				D6FA2B0A20B588350009686E /* EditProfileViewController.swift in Sources */,
 				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,

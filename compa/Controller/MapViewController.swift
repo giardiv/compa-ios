@@ -10,17 +10,21 @@ import UIKit
 import MapKit
 
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+private let kUserAnnotationName = "kUserAnnotationName"
+
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UserDetailMapViewDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var map: MKMapView!
     
-    weak var mapUpdateTimer, locationUpdateTimer: Timer?
+    var mapUpdateTimer: Timer?
     
     let userRep = UserRepository()
     let locationRep = LocationRepository()
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 10000
+    var lastUpdatedTime = Date()
+    var selectedUser: User?
     
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
@@ -41,75 +45,35 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         let ctrl = self
         mapUpdateTimer?.invalidate()
-        
-        mapUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
-            print("updating map")
-            ctrl.userRep.getFriends (
-                result: { data in
-                    DispatchQueue.main.async(execute: {
-              
-                        for user in data {
-                            
-                            let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
-   
-                            let annotation = MKPointAnnotation()
-                            annotation.coordinate = lastLocation
-                            annotation.title = user.name
-                            ctrl.map.addAnnotation(annotation)
-                        }
-                        
-                    })
-                },
 
-                error: {error in
+        DispatchQueue.main.async {
+            
+            self.mapUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
+                print("updating map")
+                ctrl.userRep.getFriends (
+                    result: { data in
+                        DispatchQueue.main.async(execute: {
+                     
+                            let annotations = data.map {UserAnnotation(user:$0)}
+                            self.map.removeAnnotations(self.map.annotations)
+                            self.map.addAnnotations(annotations)
+                        
+                        })
+                    },
+
+                    error: { error in
                     
-                    if (ctrl.checkToken(error: error)) {
-                        ctrl.alert(error["message"] as! String)
-                    }
-                    
-                }
-            )
-            
-        }
-        
-        mapUpdateTimer?.fire()
-    }
-    
-    func startLocUpdateTimer(){
-        let ctrl = self
-        locationUpdateTimer?.invalidate()
-        
-        if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
-            print("not ghosted")
-            
-            
-            if let location = locationManager.location {
-                
-                print("new loc")
-                
-                let obj = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, date: Date())
-                
-                
-                locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
-                    ctrl.locationRep.create(
-                        object: obj,
-                        result: { data in
-                            print("updated location heto")
-                        },
-                        error: { error in
-                            if (ctrl.checkToken(error: error)) {
-                                ctrl.alert(error["message"] as! String)
-                            }
+                        if (ctrl.checkToken(error: error)) {
+                            ctrl.alert(error["message"] as! String)
                         }
-                    )
                     
-                }
-                
-                locationUpdateTimer?.fire() //Check if it works
+                    }
+                )
+            
             }
-     
+            
+            self.mapUpdateTimer!.fire()
         }
-   
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,7 +82,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         userRep.getAuthUser(
             result: { user in
-                
+        
                 UserDefaults.standard.set(user.ghostMode, forKey: "ghostMode");
                 UserDefaults.standard.synchronize();
                 ctrl.startMapTimer()
@@ -133,7 +97,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 }
             }
         )
-        
+  
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -144,14 +108,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBAction func centerTapped(_ sender: Any) {
         map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)
     }
-       override func didReceiveMemoryWarning() {
+    
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    /*func mapView(aMapView: MKMapView!, viewForAnnotation annotation: CustomMapPinAnnotation!) -> MKAnnotationView! {
-        
-    }*/
-    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
@@ -164,7 +124,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             case .authorizedWhenInUse,.authorizedAlways:
                 
                 locationManager.requestLocation()
-                self.startLocUpdateTimer()
                 break
                 
             case .notDetermined:
@@ -177,6 +136,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        
+        
+        let ctrl = self
+        if let location = locations.last {
+            print(location)
+            if(Int(self.lastUpdatedTime.timeIntervalSinceNow) > 15){
+                
+                self.lastUpdatedTime = Date()
+                
+                if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
+                    print("not ghosted")
+                    
+                    let obj = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, date: Date())
+                    
+                    locationRep.create(
+                        object: obj,
+                        result: { data in
+                            print("updated location heto")
+                        },
+                        error: { error in
+                            if (ctrl.checkToken(error: error)) {
+                                ctrl.alert(error["message"] as! String)
+                            }
+                        }
+                    )
+                    
+                }
+                
+            }
+
+        }
+        
         
     }
     
@@ -191,59 +182,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    private func centerMapOnLocation(location: CLLocation, regionRadius: CLLocationDistance) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius, regionRadius)
-        map.setRegion(coordinateRegion, animated: true)
+    private func centerMapOnLocation(location: CLLocationCoordinate2D) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
+        map.setRegion(map.regionThatFits(coordinateRegion), animated: true)
+    }
+
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        centerMapOnLocation(location: userLocation.coordinate)
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: kUserAnnotationName)
+        
+        if annotationView == nil {
+            annotationView = UserWishListAnnotationView(annotation: annotation, reuseIdentifier: kUserAnnotationName)
+            (annotationView as! UserWishListAnnotationView).UserDetailDelegate = self
+        } else {
+            annotationView!.annotation = annotation
+        }
+        
+        return annotationView
+        
+    }
     
-    /*func test(){
-     
-     let sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)
-     let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
-     let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-     let sourceAnnotation = MKPointAnnotation()
-     if let location = sourcePlacemark.location {
-     sourceAnnotation.coordinate = location.coordinate
-     }
-     
-     
-     let destinationLocation = CLLocationCoordinate2D(latitude: 40.748441, longitude: -73.985564)
-     let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
-     let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-     let destinationAnnotation = MKPointAnnotation()
-     if let location = destinationPlacemark.location {
-     destinationAnnotation.coordinate = location.coordinate
-     }
-     
-     //self.map.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
-     
-     let directionRequest = MKDirectionsRequest()
-     directionRequest.source = sourceMapItem
-     directionRequest.destination = destinationMapItem
-     directionRequest.transportType = .automobile
-     let directions = MKDirections(request: directionRequest)
-     
-     directions.calculate {
-     (response, error) -> Void in
-     
-     guard let response = response else {
-     if let error = error {
-     print("Error: \(error)")
-     }
-     
-     return
-     }
-     
-     let route = response.routes[0]
-     self.map.add((route.polyline), level: MKOverlayLevel.aboveRoads)
-     
-     let rect = route.polyline.boundingMapRect
-     self.map.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
-     }
-     
-     }*/
+    func detailsRequestedForUser(User: User) {
+        self.selectedUser = User
+        self.performSegue(withIdentifier: "UserDetails", sender: nil)
+    }
     
 }
+
 
