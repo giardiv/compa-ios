@@ -44,7 +44,7 @@ class EditProfileViewController: UIViewController{
         }, error: { error in
             DispatchQueue.main.async(execute: {
                 UIViewController.removeSpinner(spinner: sv)
-                self.alert(error)
+                self.alert(error["message"] as! String)
                 print(error)
             })
         })

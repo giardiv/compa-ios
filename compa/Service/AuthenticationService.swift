@@ -58,22 +58,19 @@ class AuthenticationService {
 
     }
     
-    func logout(result: @escaping (_ data: String) -> Void, error: @escaping(_ data : String) -> Void) {
-        http.put(isRelative: true,
-                isAuthenticated: true,
-                url: "/user/logout",
-                data: [:],
-                success: { data in
-                    print("you are disconected !")
-                },
-                error: { errorObj in
-                    if let errorMsg = errorObj["message"] as? String {
-                        error(errorMsg)
-                    }
-                    else{
-                        error("Something went wrong")
-                    }
-                })
+    func logout(result: @escaping (_ data: String) -> Void, error: @escaping(_ data : [String:Any]) -> Void) {
+       
+        http.put(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/logout",
+            data: [:],
+            success: { data in
+                print("you are disconected !")
+            },
+            
+            error: error
+        )
     }
     
 }

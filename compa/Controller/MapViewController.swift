@@ -215,13 +215,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
-    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         if(!locations.isEmpty) {
             centerMapOnLocation(location: locations[locations.count-1], regionRadius: regionRadius)
             
         }
         
-    }*/
+    }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error){
         print("failed update location")

@@ -76,11 +76,10 @@ class UserRepository {
     
     
     func get(identifier:String, result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
-        var url:String
-        if(identifier == "") {
-            url = "/user"
-        } else {
-            url = "/user/" + identifier
+        var url = "/user"
+        
+        if(identifier != "") {
+            url += "/" + identifier
         }
         
         http.get(
