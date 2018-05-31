@@ -13,12 +13,5 @@ class RequestCell: UITableViewCell {
 
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellName: UILabel!
-    
-    
-    @IBAction func confirmFriendRequestTapped(_ sender: Any) {
-    }
-    
-    
-    @IBAction func rejectFriendRequestTapped(_ sender: Any) {
-    }
+    @IBOutlet weak var confirmButton: UIButton!
 }
