@@ -33,9 +33,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         
         repo.getAwaiting (
             result: { data in
-                //check error
                 self.userArray = data
-                
                 DispatchQueue.main.async(execute: {
                     self.table.reloadData()
                     UIViewController.removeSpinner(spinner: sv)
@@ -44,7 +42,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
             },
             error: {error in
                 if( self.checkToken(error: error, spinner:sv) ) {
-                    
+                    //check error
                     DispatchQueue.main.async(execute: {
                         UIViewController.removeSpinner(spinner: sv)
                         self.alert(error["message"] as! String)

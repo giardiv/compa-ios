@@ -13,11 +13,12 @@ import MapKit
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 10000
     let locationManager = CLLocationManager()
     @IBOutlet weak var map: MKMapView!
     
-    let repo = UserRepository()
+    let userRep = UserRepository()
+    let locationRep = LocationRepository()
     
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
@@ -30,18 +31,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         map.showsUserLocation = true
         locationManager.delegate = self
         map.delegate = self
-        
         locationManager.requestWhenInUseAuthorization()
     }
     
     
-    weak var timer: Timer?
+    weak var mapUpdateTimer: Timer?
+    weak var locationUpdateTimer: Timer?
     
-    func startTimer() {
+    func startMapTimer() {
         let ctrl = self
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
-            ctrl.repo.getFriends (
+        mapUpdateTimer?.invalidate()
+        
+        mapUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            ctrl.userRep.getFriends (
                 result: { data in
                     DispatchQueue.main.async(execute: {
                         print(data)
@@ -64,27 +66,75 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     if (ctrl.checkToken(error: error)) {
                         ctrl.alert(error["message"] as! String)
                     }
-
                     
                 }
             )
             
         }
         
-        timer?.fire()
+        mapUpdateTimer?.fire() //Check if it works
+    }
+    
+    func startLocUpdateTimer(){
+        let ctrl = self
+        locationUpdateTimer?.invalidate()
+        
+        if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
+            print("not ghosted")
+            
+            if let location = locationManager.location {
+                
+                let obj = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, date: Date())
+                
+                locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+                    ctrl.locationRep.create(
+                        object: obj,
+                        result: { data in
+                            print("updated location heto")
+                        },
+                        error: { error in
+                            if (ctrl.checkToken(error: error)) {
+                                ctrl.alert(error["message"] as! String)
+                            }
+                        }
+                    )
+                    
+                }
+                
+                locationUpdateTimer?.fire() //Check if it works
+            }
+     
+        }
+   
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        startTimer()
-        print("started")
-    
+        let ctrl = self
+        
+        userRep.getAuthUser(
+            result: { user in
+                
+                UserDefaults.standard.set(user.ghostMode, forKey: "ghostMode");
+                UserDefaults.standard.synchronize();
+                ctrl.startMapTimer()
+                
+            },
+            
+            error: {error in
+                if( self.checkToken(error: error) ) {
+                    DispatchQueue.main.async(execute: {
+                        self.alert(error["message"] as! String)
+                    })
+                }
+            }
+        )
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        timer?.invalidate()
-        
+        mapUpdateTimer?.invalidate()
     }
     
     @IBAction func centerTapped(_ sender: Any) {
@@ -165,11 +215,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        print("update location")
-        print(locations)
-        //centerMapOnLocation(location: locations[locations.count], regionRadius: regionRadius)
-    }
+    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        if(!locations.isEmpty) {
+            centerMapOnLocation(location: locations[locations.count-1], regionRadius: regionRadius)
+            
+        }
+        
+    }*/
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error){
         print("failed update location")
