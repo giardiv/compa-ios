@@ -65,10 +65,8 @@ class AuthenticationService {
             isAuthenticated: true,
             url: "/logout",
             data: [:],
-            success: { data in
-                print("you are disconected !")
-            },
-            
+            success: {data in
+                result("")},
             error: error
         )
     }

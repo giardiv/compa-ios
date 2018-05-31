@@ -847,15 +847,17 @@
                                 </connections>
                             </button>
                             <button alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqk-TU-1AY">
-                                <rect key="frame" x="125" y="165" width="125" height="125"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="125.5" y="165" width="125" height="125"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="1p3-bo-WGT"/>
                                     <constraint firstAttribute="height" constant="125" id="ZwD-dR-3UD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="📷Modify"/>
+                                <state key="normal" title="📷Modify" backgroundImage="images">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="updateUserImageTapped:" destination="lMW-kr-bl0" eventType="touchUpInside" id="azR-DL-feY"/>
                                 </connections>
@@ -886,6 +888,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="editNameField" destination="X4S-Az-ZcL" id="lho-eP-ps8"/>
+                        <outlet property="ghostMode" destination="H0w-qa-Hk7" id="CqY-W7-IS1"/>
                         <outlet property="updateUserImage" destination="bqk-TU-1AY" id="FBV-qK-Mle"/>
                     </connections>
                 </viewController>
@@ -1068,13 +1072,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="images" width="225" height="225"/>
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-
-        <segue reference="ZzN-LT-qGr"/>
         <segue reference="PFK-4q-5Qg"/>
-        <segue reference="N7e-Bk-iOK"/>
-
+        <segue reference="JFp-YO-U8U"/>
+        <segue reference="dl2-hW-yBp"/>
     </inferredMetricsTieBreakers>
 </document>
