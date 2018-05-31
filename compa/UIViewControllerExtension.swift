@@ -50,7 +50,6 @@ extension UIViewController {
             }
             return false
         }
-        print(code)
         return true
     
     }
