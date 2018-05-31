@@ -10,9 +10,7 @@ class HTTPService {
     }
     
     let session = URLSession.shared //singleton with default behavior
-    
-    let baseURL = "https://jsonplaceholder.typicode.com/posts/1"
-    
+
     let root: String
     
     init(){
@@ -40,7 +38,7 @@ class HTTPService {
     private func APIRequest(isRelative: Bool, isAuthenticated: Bool, url: String, method: String, data: [String:Any]? = nil, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: [String:Any] )->Void) {
 
         let url = isRelative ? root + url : url
-       var request = URLRequest(url: URL(string: url)!)
+        var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -76,7 +74,7 @@ class HTTPService {
                 do {
                     //print(String(data: data!, encoding: String.Encoding.utf8)!)
                     
-                    let json = try JSONSerialization.jsonObject(with: data!) //MIGHT BE AN ARRAY AND NOT A DIC
+                    let json = try JSONSerialization.jsonObject(with: data!)
                     let handler = statusCode >= 400 ? errorHandler : successHandler
                     
                     if let json = json as? Array<Any> {
@@ -87,7 +85,7 @@ class HTTPService {
                     }
 
                 } catch {
-                    errorHandler(["message" : "invalid json format", "code" : 400] as [String:Any])
+                    errorHandler(["message" : "an error occured with the request", "code" : 400] as [String:Any])
                 }
                 
             }
