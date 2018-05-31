@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 DispatchQueue.main.async(execute: {
                     ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
                     ctrl.login.text = user.name
-                    
+                    UIViewController.removeSpinner(spinner: sv)
                 })
                 
             },
@@ -97,15 +97,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let selectedFriend = userArray[indexPath.row]
-        let vc = FriendProfileViewController()
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
         vc.friendId = selectedFriend.id
-        DispatchQueue.main.async(execute: {
-            self.performSegue(withIdentifier: "profileToFriend", sender: self)
-        })
-
-
+        vc.status = "Accepted"
+        self.present(vc, animated: true, completion: nil)
     }
     
     //Fin Table
