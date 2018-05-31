@@ -67,6 +67,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         
         cell.cellName?.text = userArray[indexPath.row].name
         cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
+        cell.confirmButton?.setValue(userArray[indexPath.row].id, forKey: "friendId")
         
         return cell
     }
@@ -81,5 +82,9 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         self.present(vc, animated: true, completion: nil)
     }
     
+    @IBAction func onConfirmButtonTapped(_ sender: UIButton) {
+        let friendId = sender.value(forKey: "friendId")
+        print(friendId)
+    }
     
 }

@@ -126,6 +126,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             alert("All fields are required")
             return
         }
+        
         let friendName = newFriendUsername?.text
         
     }

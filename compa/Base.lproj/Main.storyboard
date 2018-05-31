@@ -309,9 +309,6 @@
                                                         <constraint firstAttribute="width" constant="28" id="1hs-7W-tjw"/>
                                                     </constraints>
                                                     <state key="normal" title="❌"/>
-                                                    <connections>
-                                                        <action selector="rejectFriendRequestTapped:" destination="VHT-J8-2by" eventType="touchUpInside" id="cjN-aJ-RmK"/>
-                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dpy-3g-OsV">
                                                     <rect key="frame" x="303" y="7" width="28" height="28"/>
@@ -320,7 +317,7 @@
                                                     </constraints>
                                                     <state key="normal" title="✅"/>
                                                     <connections>
-                                                        <action selector="confirmFriendRequestTapped:" destination="VHT-J8-2by" eventType="touchUpInside" id="6qd-zc-PIV"/>
+                                                        <action selector="onConfirmButtonTapped:" destination="a8g-AU-1RK" eventType="touchUpInside" id="Jxp-vN-4SV"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQt-nJ-jml">
@@ -348,6 +345,7 @@
                                         <connections>
                                             <outlet property="cellImage" destination="whu-b5-Y1e" id="9bZ-Hv-9Fu"/>
                                             <outlet property="cellName" destination="jQt-nJ-jml" id="BHg-s8-StV"/>
+                                            <outlet property="confirmButton" destination="Dpy-3g-OsV" id="zke-in-N2r"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
