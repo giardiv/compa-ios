@@ -20,16 +20,22 @@ class Location {
         return dateFormatter
     }()
     
-    init(dictionary: Dictionary<String, Any>){
-        latitude = dictionary["latitude"] as! Double
-        longitude = dictionary["longitude"] as! Double
+    convenience init(dictionary: Dictionary<String, Any>){
+        let latitude = dictionary["latitude"] as! Double
+        let longitude = dictionary["longitude"] as! Double
         let date: Date = Location.dateFormatter.date(from: dictionary["datetime"] as! String)!
+        self.init(latitude:latitude, longitude:longitude, date:date)
+    }
+    
+    init(latitude: Double, longitude:Double, date:Date){
+        self.latitude = latitude
+        self.longitude = longitude
         self.date = date
-
     }
     
     func toDictionary() -> [String:Any] {
         return ["latitude" : latitude, "longitude": longitude, "date": Location.dateFormatter.string(from: date)]
     }
+    
     
 }

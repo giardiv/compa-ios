@@ -13,21 +13,24 @@ class User {
     
 
     let id, login, name : String
+    let ghostMode : Bool
     let lastLocation : Location
         
-    init(login: String, location:Location, name:String, id:String){
+    init(login: String, location:Location, name:String, id:String, ghostMode:Bool){
         self.login = login
         self.name = name
         self.id = id
         self.lastLocation = location
+        self.ghostMode = ghostMode
     }
     
     convenience init?(dictionary: [String:Any]) {
         let name = dictionary["name"]! as! String
         let login = dictionary["login"]! as! String
         let id = dictionary["id"]! as! String
+        let ghostMode = dictionary["ghostMode"]! as! Bool
         let location = Location(dictionary: dictionary["lastLocation"]! as! [String:Any])
-        self.init(login:login, location: location, name:name, id:id)
+        self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode)
     }
 
     
@@ -39,7 +42,7 @@ class User {
         func randomCoordinate() -> Double {
             return Double(arc4random_uniform(140)) * 0.0001
         }
-        
+    
         
         var dic = [Date:CLLocation]();
         
