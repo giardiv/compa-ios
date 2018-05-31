@@ -58,7 +58,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         
                     })
                 },
-                
+
                 error: {error in
                     
                     if (ctrl.checkToken(error: error)) {

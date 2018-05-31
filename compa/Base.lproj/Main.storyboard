@@ -205,9 +205,18 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </searchBar>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" id="kln-Gt-kB4">
+                                        <searchBar key="customView" contentMode="redraw" id="YCo-wq-hCp">
+                                            <rect key="frame" x="26" y="0.0" width="305" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </searchBar>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" id="4Vn-jJ-pLZ">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3vr-C6-jb7">
-                                            <rect key="frame" x="26" y="-15.5" width="75" height="75"/>
+
+                                            <rect key="frame" x="341" y="7" width="30" height="30"/>
+
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="person-profile"/>
                                             <connections>
@@ -341,7 +350,6 @@
                                         <connections>
                                             <outlet property="cellImage" destination="whu-b5-Y1e" id="9bZ-Hv-9Fu"/>
                                             <outlet property="cellName" destination="jQt-nJ-jml" id="BHg-s8-StV"/>
-                                            <segue destination="L59-FY-dpG" kind="show" id="F4P-vl-YWr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -575,7 +583,6 @@
                                         <connections>
                                             <outlet property="cellImage" destination="Tui-YC-fmG" id="Y81-C6-3mR"/>
                                             <outlet property="cellName" destination="KfO-Wc-WqK" id="S8p-m3-VCb"/>
-                                            <segue destination="L59-FY-dpG" kind="presentation" identifier="profileToFriend" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -665,7 +672,7 @@
         <!--Friend Profile-->
         <scene sceneID="Dpr-cx-aal">
             <objects>
-                <viewController id="L59-FY-dpG" customClass="FriendProfileViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FriendProfile" id="L59-FY-dpG" customClass="FriendProfileViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DSm-xW-fvR"/>
                         <viewControllerLayoutGuide type="bottom" id="dSh-tg-GFB"/>
@@ -1000,7 +1007,9 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vXM-Wg-3fK" id="fTw-h0-e3Y">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUB-IF-yyh">
@@ -1241,9 +1250,10 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PFK-4q-5Qg"/>
-        <segue reference="dl2-hW-yBp"/>
-        <segue reference="JFp-YO-U8U"/>
-        <segue reference="2Bf-pI-RUP"/>
+
+        <segue reference="5LN-nT-Qab"/>
+        <segue reference="3dl-p5-R8B"/>
+        <segue reference="N7e-Bk-iOK"/>
+
     </inferredMetricsTieBreakers>
 </document>
