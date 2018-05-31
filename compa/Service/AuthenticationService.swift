@@ -18,7 +18,7 @@ class AuthenticationService {
         self.http = http
     }
     
-    func checkAuth(login : String, pwd : String, result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
+    func checkAuth(login : String, pwd : String, result: @escaping (_ data: String )->Void, error: @escaping (_ data: [String:Any] )->Void){
     
         http.post(
             isRelative: true,
@@ -30,23 +30,15 @@ class AuthenticationService {
                     result(token)
                 }
                 else{
-                    error("Something went wrong")
+                   error(["message" : "Something went wrong"])
                 }
             },
-            error: { errorObj in
-                
-                if let errorMsg = errorObj["message"] as? String {
-                    error(errorMsg)
-                }
-                else{
-                    error("Something went wrong")
-                }
-            }
+            error: error
         )       
         
     }
     
-    func register(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: String )->Void){
+    func register(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: [String:Any] )->Void){
         
         http.post(
             isRelative: true,
@@ -58,18 +50,10 @@ class AuthenticationService {
                   result(token)
                 }
                 else{
-                    error("Something went wrong")
+                    error(["message" : "Something went wrong"])
                 }
             },
-            error: { errorObj in
-                
-                if let errorMsg = errorObj["message"] as? String {
-                    error(errorMsg)
-                }
-                else{
-                    error("Something went wrong")
-                }
-            }
+            error: error
         )
 
     }

@@ -57,7 +57,7 @@ class RegisterViewController: UIViewController {
         auth.register(
             
             credentials: dict,
-            result: { token -> Void in
+            result: { token in
                 
                 UserDefaults.standard.set(token, forKey: "token");
                 UserDefaults.standard.synchronize();
@@ -69,10 +69,10 @@ class RegisterViewController: UIViewController {
                 })
 
             },
-            error: { msg -> Void in
+            error: { error in
                 
                 DispatchQueue.main.async(execute: {
-                    ctrl.alert(msg)
+                    ctrl.alert(error["message"] as! String)
                 })
                 
             }

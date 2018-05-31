@@ -34,33 +34,58 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.requestWhenInUseAuthorization()
     }
     
-    override func viewDidAppear(_ animated: Bool){
+    
+    weak var timer: Timer?
+    
+    func startTimer() {
+        let ctrl = self
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            ctrl.repo.getFriends (
+                result: { data in
+                    DispatchQueue.main.async(execute: {
+                        print(data)
+                        for user in data {
+                            
+                            let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
+                            
+                            print(lastLocation)
+                            let annotation = MKPointAnnotation()
+                            annotation.coordinate = lastLocation
+                            annotation.title = user.name
+                            ctrl.map.addAnnotation(annotation)
+                        }
+                        
+                    })
+                },
 
-        repo.getFriends (
-            result: { data in
-                //check error
-                DispatchQueue.main.async(execute: {
+                error: {error in
                     
-                    for user in data {
-                        
-                        let lastLocation = CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
-                        
-                        print(lastLocation)
-                        let annotation = MKPointAnnotation()
-                        annotation.coordinate = lastLocation
-                        annotation.title = user.name
-                        self.map.addAnnotation(annotation)
+                    if (ctrl.checkToken(error: error)) {
+                        ctrl.alert(error["message"] as! String)
                     }
-                    
-                })
-            },
-            error: {error in
-                
-            }
-        )
 
+                    
+                }
+            )
+            
+        }
+        
+        timer?.fire()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        startTimer()
+        print("started")
+    
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+        
+    }
     
     @IBAction func centerTapped(_ sender: Any) {
         map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)

@@ -41,16 +41,23 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         repo.getAuthUser(
             result: { user in
-            
                 DispatchQueue.main.async(execute: {
                     ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
                     ctrl.login.text = user.name
-                    
+                    UIViewController.removeSpinner(spinner: sv)
                 })
                 
             },
-            error: {error in
             
+            error: {error in
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
             }
         )
         
@@ -67,10 +74,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             },
             error: {error in
                 
-                DispatchQueue.main.async(execute: {
-                    UIViewController.removeSpinner(spinner: sv)
-                    self.alert("error getting friends") //TODO check error msg
-                })
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
                 
             }
         )
@@ -97,15 +108,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let selectedFriend = userArray[indexPath.row]
-        let vc = FriendProfileViewController()
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
         vc.friendId = selectedFriend.id
-        DispatchQueue.main.async(execute: {
-            self.performSegue(withIdentifier: "profileToFriend", sender: self)
-        })
-
-
+        vc.status = "Accepted"
+        self.present(vc, animated: true, completion: nil)
     }
     
     //Fin Table

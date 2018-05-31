@@ -10,6 +10,7 @@ import UIKit
 
 
 extension UIViewController {
+    
     class func displaySpinner(onView : UIView) -> UIView {
         let spinnerView = UIView.init(frame: onView.bounds)
         spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
@@ -35,6 +36,23 @@ extension UIViewController {
         let myAlert = UIAlertController(title:"Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
         myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default, handler: handler));
         self.present(myAlert, animated:true, completion:nil);
+    }
+    
+    func checkToken(error: [String:Any], spinner: UIView? = nil) -> Bool{
+        let code : Int = error["code"] as! Int
+        
+        if(code == 3002) {
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainView: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "mainView")
+            self.present(mainView, animated: true, completion: nil)
+            if let spinner = spinner {
+                UIViewController.removeSpinner(spinner: spinner)
+            }
+            return false
+        }
+        print(code)
+        return true
+    
     }
     
 }

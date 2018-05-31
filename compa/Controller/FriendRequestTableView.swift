@@ -43,7 +43,14 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                 
             },
             error: {error in
-                
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
             }
         )
     }
@@ -66,16 +73,14 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let selectedFriend = userArray[indexPath.row]
-        let vc = FriendProfileViewController()
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
         vc.friendId = selectedFriend.id
-        DispatchQueue.main.async(execute: {
-            self.performSegue(withIdentifier: "profileToFriend", sender: self)
-        })
-        
-        
+        vc.status = "Awaiting"
+        self.present(vc, animated: true, completion: nil)
     }
     
     
