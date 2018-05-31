@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped(_ sender: UIButton) {
        
-        guard (!(userEmailTextField?.text!.isEmpty)!) || (!(userPasswordTextField?.text!.isEmpty)!) else {
+        guard (!(userEmailTextField.text!.isEmpty)) || (!(userPasswordTextField.text!.isEmpty)) else {
             alert("All fields are required")
             return
         }
@@ -57,7 +57,7 @@ class LoginViewController: UIViewController {
             error: { error in
                 DispatchQueue.main.async(execute: {
                     UIViewController.removeSpinner(spinner: sv)
-                    self.alert(error)
+                    self.alert(error["message"] as! String)
                 })
                 
             }

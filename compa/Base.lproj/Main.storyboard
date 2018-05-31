@@ -214,7 +214,9 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="4Vn-jJ-pLZ">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3vr-C6-jb7">
+
                                             <rect key="frame" x="341" y="7" width="30" height="30"/>
+
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="person-profile"/>
                                             <connections>
@@ -1009,7 +1011,9 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vXM-Wg-3fK" id="fTw-h0-e3Y">
+
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUB-IF-yyh">

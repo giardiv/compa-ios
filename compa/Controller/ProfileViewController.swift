@@ -41,7 +41,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         repo.getAuthUser(
             result: { user in
-            
                 DispatchQueue.main.async(execute: {
                     ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
                     ctrl.login.text = user.name
@@ -49,8 +48,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 })
                 
             },
-            error: {error in
             
+            error: {error in
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
             }
         )
         
@@ -67,10 +74,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             },
             error: {error in
                 
-                DispatchQueue.main.async(execute: {
-                    UIViewController.removeSpinner(spinner: sv)
-                    self.alert("error getting friends") //TODO check error msg
-                })
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
                 
             }
         )

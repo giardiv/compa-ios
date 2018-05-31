@@ -16,7 +16,7 @@ class LocationRepository {
     
     func get(identifier:String, result: @escaping (_ data: Location )->Void){}
     
-    func create(object: Location, result: @escaping (_ data: Bool )->Void){
+    func create(object: Location, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void){
         
         http.post(
             isRelative: true,
@@ -26,9 +26,7 @@ class LocationRepository {
             success: { data in
                 
             },
-            error: {data in
-                
-            }
+            error: error
         )
     }
     
