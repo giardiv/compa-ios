@@ -13,7 +13,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mainView" id="BYZ-38-t0r" customClass="MainViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -581,6 +581,7 @@
                                         <connections>
                                             <outlet property="cellImage" destination="Tui-YC-fmG" id="Y81-C6-3mR"/>
                                             <outlet property="cellName" destination="KfO-Wc-WqK" id="S8p-m3-VCb"/>
+                                            <segue destination="L59-FY-dpG" kind="presentation" identifier="profileToFriend" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -841,6 +842,9 @@
                                     <constraint firstAttribute="width" constant="60" id="HgE-2T-FMG"/>
                                 </constraints>
                                 <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="onLogOutButtonTapped:" destination="lMW-kr-bl0" eventType="touchUpInside" id="tg8-py-MBo"/>
+                                </connections>
                             </button>
                             <button alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqk-TU-1AY">
                                 <rect key="frame" x="125" y="165" width="125" height="125"/>
@@ -1246,8 +1250,8 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5LN-nT-Qab"/>
-        <segue reference="3dl-p5-R8B"/>
-        <segue reference="N7e-Bk-iOK"/>
+        <segue reference="JFp-YO-U8U"/>
+        <segue reference="dl2-hW-yBp"/>
+        <segue reference="PFK-4q-5Qg"/>
     </inferredMetricsTieBreakers>
 </document>

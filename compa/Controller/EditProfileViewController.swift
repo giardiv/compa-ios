@@ -32,4 +32,22 @@ class EditProfileViewController: UIViewController{
         self.dismiss(animated: true, completion: nil)
     }
 
+    
+    @IBAction func onLogOutButtonTapped(_ sender: UIButton) {
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        let auth = AuthenticationService()
+        let ctrl = self
+        auth.logout(result: { data in
+            let vc = ctrl.storyboard?.instantiateViewController(withIdentifier: "mainView") as! MainViewController
+            ctrl.present(vc, animated: true, completion: nil)
+            UIViewController.removeSpinner(spinner: sv)
+        }, error: { error in
+            DispatchQueue.main.async(execute: {
+                UIViewController.removeSpinner(spinner: sv)
+                self.alert(error)
+                print(error)
+            })
+        })
+        
+    }
 }
