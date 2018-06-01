@@ -108,10 +108,16 @@ class UserRepository {
     }
     
     func search(text:String, result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        var components = URLComponents()
+        components.path = "/friend/search"
+        components.queryItems = [URLQueryItem(name:"tag", value: text)]
+        let url = components.url!.relativeString
+        
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/search/" + text,
+            url: url,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },

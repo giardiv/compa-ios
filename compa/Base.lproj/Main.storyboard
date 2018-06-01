@@ -597,7 +597,11 @@
                                         </textField>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="C9a-YF-PKs"/>
-                                    <barButtonItem style="plain" systemItem="add" id="vQ2-Rz-hiT"/>
+                                    <barButtonItem style="plain" systemItem="add" id="vQ2-Rz-hiT">
+                                        <connections>
+                                            <action selector="searchButtonTapped:" destination="qS9-xK-awV" id="d0y-Nc-uyY"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9F-YK-Vkf">
@@ -633,6 +637,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Friends" id="HC4-mS-Bin"/>
                     <connections>
+                        <outlet property="addUserButton" destination="vQ2-Rz-hiT" id="2pG-bc-EYV"/>
                         <outlet property="login" destination="VNT-2e-SYb" id="WFa-uw-v3U"/>
                         <outlet property="profileImage" destination="p6e-35-6MZ" id="JsW-yd-7Mi"/>
                         <outlet property="search" destination="RHm-Ws-o4w" id="2r2-1u-Bat"/>

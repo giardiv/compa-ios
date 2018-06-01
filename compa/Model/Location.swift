@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreLocation
 
 class Location {
     
@@ -35,6 +35,10 @@ class Location {
     
     func toDictionary() -> [String:Any] {
         return ["latitude" : latitude, "longitude": longitude, "date": Location.dateFormatter.string(from: date)]
+    }
+    
+    func toCoordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude:latitude, longitude:longitude)
     }
     
     
