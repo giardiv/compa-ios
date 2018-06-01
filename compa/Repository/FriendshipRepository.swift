@@ -21,11 +21,23 @@ class FriendshipRepository{
                 "status": status,
                 "friend_id": friendId
             ],
-            success: <#T##([String : Any]) -> Void#>,
-            error: <#T##([String : Any]) -> Void#>)
+            success: result,
+            error: error)
     }
     
     func confirmFriendshipRequest(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
+        self.setFriendshipStatus(friendId: friendId, status: "Accepted", result: result, error: error)
+    }
+    
+    func rejectFriendshipRequest(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
+        self.setFriendshipStatus(friendId: friendId, status: "Refused", result: result, error: error)
+    }
+    
+    func blockUser(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
+        self.setFriendshipStatus(friendId: friendId, status: "Blocked", result: result, error: error)
+    }
+    
+    func deblockUser(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
         self.setFriendshipStatus(friendId: friendId, status: "Accepted", result: result, error: error)
     }
     
