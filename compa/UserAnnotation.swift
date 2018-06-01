@@ -13,7 +13,7 @@ import MapKit
 class UserAnnotation: NSObject, MKAnnotation {
     var user: User
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: user.lastLocation.latitude, longitude: user.lastLocation.longitude)
+        return CLLocationCoordinate2D(latitude: user.lastLocation!.latitude, longitude: user.lastLocation!.longitude)
     }
     
     init(user: User) {

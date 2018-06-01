@@ -9,7 +9,8 @@
 import UIKit
 
 protocol UserDetailMapViewDelegate: class {
-    func detailsRequestedForUser(User: User)
+    func detailsRequestedForUser(user: User)
+    func dealWithTapped(user:User)
 }
 
 class UserDetailMapView: UIView {
@@ -20,7 +21,7 @@ class UserDetailMapView: UIView {
     @IBOutlet weak var seeDetailsButton: UIButton!
     
     // data
-    var User: User!
+    var user: User!
     weak var delegate: UserDetailMapViewDelegate?
     
     override func awakeFromNib() {
@@ -28,11 +29,16 @@ class UserDetailMapView: UIView {
     }
     
     @IBAction func seeDetails(_ sender: Any) {
-        delegate?.detailsRequestedForUser(User: User)
+        delegate?.detailsRequestedForUser(user: user)
     }
     
+    @IBAction func detailsButtonTapped(_ sender: UIButton) {
+        delegate?.dealWithTapped(user : user!)
+    }
+    
+    
     func configureWithUser(User: User) {
-        self.User = User
+        self.user = User
         UserImageView.image = #imageLiteral(resourceName: "person-profile")
         UserName.text = User.name
     }

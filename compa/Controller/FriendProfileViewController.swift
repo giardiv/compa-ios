@@ -39,7 +39,10 @@ class FriendProfileViewController: UIViewController {
             DispatchQueue.main.async(execute: {
                 ctrl.friendImage.image = #imageLiteral(resourceName: "images") //TODO
                 ctrl.friendName.text = user.name
-                ctrl.friendLastLocation.text = String(user.lastLocation.latitude)
+                if let location = user.lastLocation {
+                   ctrl.friendLastLocation.text = String(location.latitude)
+                }
+                
                 ctrl.friendStatus.text = ctrl.status
                 UIViewController.removeSpinner(spinner: sv)
             })

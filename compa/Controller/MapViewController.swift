@@ -9,13 +9,12 @@
 import UIKit
 import MapKit
 
-
 private let kUserAnnotationName = "kUserAnnotationName"
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UserDetailMapViewDelegate {
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var searchBar: SearchTextField!
     
     var mapUpdateTimer: Timer?
     
@@ -24,6 +23,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 10000
     var lastUpdatedTime = Date()
+    var users : [User] = []
+    
     var selectedUser: User?
     
     static let dateFormatter = { () -> DateFormatter in
@@ -32,13 +33,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return dateFormatter
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         map.showsUserLocation = true
         locationManager.delegate = self
         map.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        
+        
+        searchBar.itemSelectionHandler = { data, index in
+            
+            let user = data[index].user!
+            
+            if let location = user.lastLocation {
+                
+                let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                
+                self.map.setCenter(coordinate, animated: true)
+                
+                for annotation in self.map.annotations {
+                    if annotation.coordinate.latitude == coordinate.latitude &&
+                        annotation.coordinate.longitude == coordinate.longitude {
+                        self.map.selectAnnotation(annotation, animated: false)
+                 
+                    }
+                }
+               
+            }
+           
+        }
+ 
     }
     
     func startMapTimer() {
@@ -52,6 +76,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 print("updating map")
                 ctrl.userRep.getFriends (
                     result: { data in
+                        
+                        self.users = data
+                        
                         DispatchQueue.main.async(execute: {
                      
                             let annotations = data.map {UserAnnotation(user:$0)}
@@ -59,6 +86,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                             self.map.addAnnotations(annotations)
                         
                         })
+                        
+                        self.searchBar.filterItems(data.map {SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: nil, user : $0)})
                     },
 
                     error: { error in
@@ -207,10 +236,38 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    func detailsRequestedForUser(User: User) {
-        self.selectedUser = User
-        self.performSegue(withIdentifier: "UserDetails", sender: nil)
+    func detailsRequestedForUser(user: User) {
+        self.selectedUser = user
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "UserDetails", sender: nil)
+        }
     }
+    
+    func dealWithTapped(user: User){
+    
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
+        vc.friendId = user.id
+        vc.status = "Accepted"
+        
+         DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+        
+    }
+    
+    
+     // Hide keyboard when touching the screen
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    
+    
+       
+    
+    
     
 }
 

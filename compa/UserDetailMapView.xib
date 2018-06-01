@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view tag="1000" contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserDetailMapView" customModule="CustomPinsMap" customModuleProvider="target">
+        <view tag="1000" contentMode="scaleToFill" id="iN0-l3-epB" customClass="UserDetailMapView" customModule="compa" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="240" height="179"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -51,6 +51,9 @@
                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="See Details"/>
+                    <connections>
+                        <action selector="detailsButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="NVV-8u-aCo"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -83,6 +86,6 @@
         </view>
     </objects>
     <resources>
-        <image name="person-profile" width="42" height="42"/>
+        <image name="person-profile" width="75" height="75"/>
     </resources>
 </document>
