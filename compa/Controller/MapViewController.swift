@@ -39,7 +39,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         map.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        
+        createPolyline()
         
         searchBar.itemSelectionHandler = { data, index in
             
@@ -63,6 +63,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
            
         }
  
+    }
+    
+    func createPolyline() {
+        let locations = [
+            CLLocationCoordinate2DMake(-7.761105, 41.017791),
+            CLLocationCoordinate2DMake(-73.760701, 41.019348),
+            CLLocationCoordinate2DMake(-30.757201, 11.019267),
+            CLLocationCoordinate2DMake(-103.757482, 1.016375),
+            CLLocationCoordinate2DMake(-43.761105, 49.017791)
+        ]
+        let polyline = MKPolyline(coordinates: locations, count: locations.count)
+        map.add(polyline)
     }
     
     func startMapTimer() {
@@ -132,6 +144,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mapUpdateTimer?.invalidate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        createPolyline(mapView: map)
     }
     
     @IBAction func centerTapped(_ sender: Any) {
@@ -234,6 +251,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         return annotationView
         
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if(overlay is MKPolyline) {
+            let polylineReader = MKPolylineRenderer(overlay: overlay)
+            polylineReader.strokeColor = UIColor.red
+            polylineReader.lineWidth = 5
+            
+            return polylineReader
+        }
+        
+        return
     }
     
     func detailsRequestedForUser(user: User) {
