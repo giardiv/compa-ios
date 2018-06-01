@@ -107,5 +107,18 @@ class UserRepository {
         get(identifier: "", result:result, error:error)
     }
     
+    func search(text:String, result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/friend/search/" + text,
+            success: { data in
+                result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
+            },
+            
+            error: error
+            )
+    }
+    
 }
 

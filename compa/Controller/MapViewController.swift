@@ -9,13 +9,12 @@
 import UIKit
 import MapKit
 
-
 private let kUserAnnotationName = "kUserAnnotationName"
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UserDetailMapViewDelegate {
     
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var searchBar: SearchTextField!
     
     var mapUpdateTimer: Timer?
     
@@ -24,14 +23,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 10000
     var lastUpdatedTime = Date()
-    var selectedUser: User?
+    var users : [User] = []
     
-    static let dateFormatter = { () -> DateFormatter in
+    var selectedUser: User?
+        static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         return dateFormatter
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +38,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         map.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        
+        
+        searchBar.itemSelectionHandler = { data, index in
+            
+            let user = data[index].user!
+            
+            if let location = user.lastLocation {
+                
+                let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                
+                self.map.setCenter(coordinate, animated: true)
+                
+                for annotation in self.map.annotations {
+                    if annotation.coordinate.latitude == coordinate.latitude &&
+                        annotation.coordinate.longitude == coordinate.longitude {
+                        self.map.selectAnnotation(annotation, animated: false)
+                 
+                    }
+                }
+               
+            }
+           
+        }
+ 
     }
     
     func startMapTimer() {
@@ -52,6 +75,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 print("updating map")
                 ctrl.userRep.getFriends (
                     result: { data in
+                        
+                        self.users = data
+                        
                         DispatchQueue.main.async(execute: {
                      
                             let annotations = data.map {UserAnnotation(user:$0)}
@@ -59,6 +85,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                             self.map.addAnnotations(annotations)
                         
                         })
+                        
+                        self.searchBar.filterItems(data.map {SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: nil, user : $0)})
                     },
 
                     error: { error in
@@ -211,6 +239,36 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.selectedUser = User
         self.performSegue(withIdentifier: "UserDetails", sender: nil)
     }
+    
+    
+     // Hide keyboard when touching the screen
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    
+    
+        /*userRep.search(
+            text: criteria,
+            result: { data in
+            
+                var results = [SearchTextFieldItem]()
+                for user in data {
+                    results.append(SearchTextFieldItem(title: user.login) as! String, subtitle: criteria.uppercased(), image: UIImage(named: "acronym_icon")))
+                }
+             
+                
+            },
+            
+            error:{ error in
+                
+                DispatchQueue.main.async {
+                    callback([])
+                }
+            }*/
+    
+    
+    
     
 }
 

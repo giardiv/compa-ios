@@ -9,12 +9,12 @@
 import Foundation
 import CoreLocation
 
-class User {
+public class User {
     
 
     let id, login, name : String
     let ghostMode : Bool
-    let lastLocation : Location
+    let lastLocation : Location?
         
     init(login: String, location:Location, name:String, id:String, ghostMode:Bool){
         self.login = login
