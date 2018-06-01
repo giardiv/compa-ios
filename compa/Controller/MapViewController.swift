@@ -21,7 +21,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let userRep = UserRepository()
     let locationRep = LocationRepository()
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 10000
+    let regionRadius: CLLocationDistance = 1000
     var lastUpdatedTime = Date()
     var users : [User] = []
 
@@ -37,28 +37,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         map.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        
-        
+        map.setCenter(map.userLocation.coordinate, animated: false)
         searchBar.itemSelectionHandler = { data, index in
             
             let user = data[index].user!
             
             if let location = user.lastLocation {
                 
-                let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-                
-                self.map.setCenter(coordinate, animated: true)
-                
-                for annotation in self.map.annotations {
-                    if annotation.coordinate.latitude == coordinate.latitude &&
-                        annotation.coordinate.longitude == coordinate.longitude {
-                        self.map.selectAnnotation(annotation, animated: false)
-                 
-                    }
+                self.map.setCenter(location.toCoordinate(), animated: true)
+            
+                let annotations : [UserAnnotation] = self.map.annotations as! [UserAnnotation]
+            
+                if let userAnnotation = annotations.first(where: {$0.user.id == user.id}) {
+                    self.map.selectAnnotation(userAnnotation, animated: false)
                 }
-               
+                
             }
-           
+            
         }
  
     }
@@ -133,7 +128,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func centerTapped(_ sender: Any) {
-        map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)
+        map.setCenter(map.userLocation.coordinate, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -164,7 +159,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
         
-        
+ 
         let ctrl = self
         if let location = locations.last {
             print(location)
@@ -172,8 +167,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 
                 self.lastUpdatedTime = Date()
                 
+                print("weeeeee")
                 if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
-                    print("not ghosted")
+                    
                     
                     let obj = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, date: Date())
                     
@@ -188,11 +184,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                             }
                         }
                     )
-                    
                 }
-                
             }
-
         }
         
         
@@ -259,11 +252,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
-    
-    
-       
-    
     
     
 }
