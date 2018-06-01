@@ -13,6 +13,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var table: UITableView!
     
     let repo = UserRepository()
+    let friendshipRepo = FriendshipRepository()
     
     var userArray : [User] = []
     
@@ -28,7 +29,10 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        reloadTable()
+    }
+    
+    func reloadTable () {
         let sv = UIViewController.displaySpinner(onView: self.view)
         
         repo.getAwaiting (
@@ -51,6 +55,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         )
+
     }
 
     
@@ -71,8 +76,34 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         let ctrl = self
         cell.cellName?.text = userArray[indexPath.row].name
         cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
-        cell.confirmRequestAction = {_ in
-            print(ctrl.userArray[indexPath.row].id)
+        cell.requestAction = {action in
+            if(action == "confirm"){
+                ctrl.friendshipRepo.confirmFriendshipRequest(friendId: ctrl.userArray[indexPath.row].id, result: { data in
+                    DispatchQueue.main.async {
+                        ctrl.alert("accepté")
+                        ctrl.reloadTable()
+                    }
+                }, error: { error in
+                 
+                    ctrl.alert(error["message"] as! String)
+                })
+            } else if (action == "reject"){
+                ctrl.friendshipRepo.rejectFriendshipRequest(
+                    friendId: ctrl.userArray[indexPath.row].id,
+                    result: { data in
+                        DispatchQueue.main.async {
+                            ctrl.alert("refus")
+                            ctrl.reloadTable()
+                        }
+                    },
+                    error: { error in
+                        ctrl.alert(error["message"] as! String)
+                    }
+                )
+            }
+        
+            
+            
         }
         return cell
     }

@@ -303,6 +303,9 @@
                                                         <constraint firstAttribute="width" constant="28" id="1hs-7W-tjw"/>
                                                     </constraints>
                                                     <state key="normal" title="❌"/>
+                                                    <connections>
+                                                        <action selector="rejectRequest:" destination="VHT-J8-2by" eventType="touchUpInside" id="0gV-q9-xQ3"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dpy-3g-OsV">
                                                     <rect key="frame" x="303" y="7" width="28" height="28"/>
@@ -1070,6 +1073,5 @@
         <segue reference="PFK-4q-5Qg"/>
         <segue reference="dl2-hW-yBp"/>
         <segue reference="5LN-nT-Qab"/>
-
     </inferredMetricsTieBreakers>
 </document>

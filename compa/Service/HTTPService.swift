@@ -72,8 +72,8 @@ class HTTPService {
                 
             else{
                 do {
-                    //print(String(data: data!, encoding: String.Encoding.utf8)!)
-                    
+                    print(String(data: data!, encoding: String.Encoding.utf8)!)
+                
                     let json = try JSONSerialization.jsonObject(with: data!)
                     let handler = statusCode >= 400 ? errorHandler : successHandler
                     
