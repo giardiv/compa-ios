@@ -131,12 +131,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendCell  else {
             fatalError()
         }
-        
-     
         cell.cellName?.text = userArray[indexPath.row].name
         cell.cellImage?.image = #imageLiteral(resourceName: "person-profile") //TODO
         
@@ -147,7 +144,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFriend = userArray[indexPath.row]
-        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
         vc.friendId = selectedFriend.id
         vc.status = "Accepted"
         self.present(vc, animated: true, completion: nil)

@@ -34,7 +34,7 @@ class FriendshipRepository{
     }
     
     func blockUser(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
-        self.setFriendshipStatus(friendId: friendId, status: "Blocked", result: result, error: error)
+        self.setFriendshipStatus(friendId: friendId, status: "Blocker", result: result, error: error)
     }
     
     func deblockUser(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
