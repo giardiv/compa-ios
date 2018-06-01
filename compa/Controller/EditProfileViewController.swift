@@ -8,21 +8,48 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController{
+class EditProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    
     
     let repo = UserRepository()
-    @IBOutlet weak var updateUserImage: UIButton!
+
     @IBOutlet weak var editNameField: UITextField!
     @IBOutlet weak var ghostMode: UISwitch!
+    
+    
+    @IBOutlet var updateUserImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    @IBAction func openCameraButton(_ sender: Any) {
+        /*print("in openCameraButton")
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let updateUserImage = UIImagePickerController()
+            updateUserImage.delegate = self
+            updateUserImage.sourceType = .camera
+            updateUserImage.allowsEditing = true
+            self.present(updateUserImage, animated: true, completion: nil)
+        }*/
+        
+        /*if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            var imagePicker = UIImagePickerController()
+            updateUserImage.delegate = self
+            updateUserImage.sourceType = .photoLibrary;
+            updateUserImage.allowsEditing = true
+            self.presentViewController(updateUserImage, animated: true, completion:nil)
+        }*/
+        
+    }
+
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         let sv = UIViewController.displaySpinner(onView: self.view)
-        self.updateUserImage.layer.cornerRadius = self.updateUserImage.frame.size.width / 2
+        //self.updateUserImage.layer.cornerRadius = self.updateUserImage.frame.size.width / 2
         //TODO initialisé en récupérant le login et l'image de profil de l'user connecté
         
         let ctrl = self
@@ -30,7 +57,7 @@ class EditProfileViewController: UIViewController{
         repo.getAuthUser(
             result: { user in
                 DispatchQueue.main.async(execute: {
-                    ctrl.updateUserImage.setBackgroundImage(#imageLiteral(resourceName: "images"), for: UIControlState.normal)//TODO
+                    //ctrl.updateUserImage.setBackgroundImage(#imageLiteral(resourceName: "images"), for: UIControlState.normal)//TODO
                     ctrl.editNameField.placeholder = user.name
                     ctrl.ghostMode.setOn(user.ghostMode, animated: false)
                     UIViewController.removeSpinner(spinner: sv)
