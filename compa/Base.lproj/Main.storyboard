@@ -311,7 +311,7 @@
                                                     </constraints>
                                                     <state key="normal" title="✅"/>
                                                     <connections>
-                                                        <action selector="onConfirmButtonTapped:" destination="a8g-AU-1RK" eventType="touchUpInside" id="Jxp-vN-4SV"/>
+                                                        <action selector="confirmRequest:" destination="VHT-J8-2by" eventType="touchUpInside" id="xqS-aR-PwX"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQt-nJ-jml">
@@ -339,7 +339,6 @@
                                         <connections>
                                             <outlet property="cellImage" destination="whu-b5-Y1e" id="9bZ-Hv-9Fu"/>
                                             <outlet property="cellName" destination="jQt-nJ-jml" id="BHg-s8-StV"/>
-                                            <outlet property="confirmButton" destination="Dpy-3g-OsV" id="zke-in-N2r"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1068,8 +1067,9 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dl2-hW-yBp"/>
         <segue reference="PFK-4q-5Qg"/>
-        <segue reference="6tK-gS-NTJ"/>
+        <segue reference="dl2-hW-yBp"/>
+        <segue reference="5LN-nT-Qab"/>
+
     </inferredMetricsTieBreakers>
 </document>

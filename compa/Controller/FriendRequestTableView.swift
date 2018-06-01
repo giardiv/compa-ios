@@ -55,20 +55,25 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
 
     
     //TableView
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userArray.count
     }
     
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Friend Request"
+    }
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "requestCell", for: indexPath) as? RequestCell  else {
             fatalError("not sure what's happening.")
         }
-        
+        let ctrl = self
         cell.cellName?.text = userArray[indexPath.row].name
         cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
-        cell.confirmButton?.setValue(userArray[indexPath.row].id, forKey: "friendId")
-        
+        cell.confirmRequestAction = {_ in
+            print(ctrl.userArray[indexPath.row].id)
+        }
         return cell
     }
     
@@ -80,11 +85,6 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         vc.friendId = selectedFriend.id
         vc.status = "Awaiting"
         self.present(vc, animated: true, completion: nil)
-    }
-    
-    @IBAction func onConfirmButtonTapped(_ sender: UIButton) {
-        let friendId = sender.value(forKey: "friendId")
-        print(friendId)
     }
     
 }

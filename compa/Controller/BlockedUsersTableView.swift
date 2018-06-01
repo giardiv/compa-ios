@@ -62,6 +62,10 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
         return userArray.count
     }
     
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Blocked Users"
+    }
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "blockedCell", for: indexPath) as? BlockedCell  else {
