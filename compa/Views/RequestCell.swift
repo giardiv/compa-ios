@@ -13,5 +13,10 @@ class RequestCell: UITableViewCell {
 
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var cellName: UILabel!
-    @IBOutlet weak var confirmButton: UIButton!
+    
+    var confirmRequestAction: (() -> Void)? = nil
+    
+    @IBAction func confirmRequest(_ sender: Any) {
+        confirmRequestAction!();
+    }
 }
