@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var profileImage: UIImageView!
     
     @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var newFriendUsername: UITextField!
+    @IBOutlet weak var search: SearchTextField!
     
     let repo = UserRepository()
     
@@ -23,7 +23,41 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+      
+        
+        search.theme.bgColor = UIColor.white.withAlphaComponent(1)
+        search.theme.borderColor = UIColor.black.withAlphaComponent(0.5)
+        
+        search.userStoppedTypingHandler = {
+            if let criteria = self.search.text {
+                if criteria.characters.count > 1 {
+                    
+                    self.search.showLoadingIndicator()
+                    
+                    self.repo.search(
+                        text: criteria,
+                        result: { data in
+                            
+                            let results = data.map { SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: nil, user:$0) }
+                            
+                            DispatchQueue.main.async {
+                                self.search.filterItems(results)
+                                self.search.stopLoadingIndicator()
+                            }
+                    },
+                        
+                        error:{ error in
+                            
+                            DispatchQueue.main.async {
+                                self.search.filterItems([])
+                            }
+                    }
+                    )
+                    
+                }
+            }
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,20 +152,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     //Fin Table
     
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {
-        //TODO tester si le field n'est pas vide, envoyer une requète en base pour ajouter le nouvelle amis. En param user.login, friendUsername.
-        //Si tout est bon afficher une popup "votre demande d'ami à bien été envoyer."
-        //Sinon afficher une popup "utilisateur introuvable, veuillez réesayer."
-        guard (!(newFriendUsername.text!.isEmpty)) else {
+        
+        guard !search.text!.isEmpty else {
             alert("All fields are required")
             return
         }
-        
-        let friendName = newFriendUsername?.text
         
     }
     
     @IBAction func mapButtonTapped(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "profileToMap", sender: self)
     }
+ 
 }

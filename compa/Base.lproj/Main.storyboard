@@ -212,7 +212,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="person-profile"/>
                                             <connections>
-                                                <segue destination="QhC-cl-Upr" kind="presentation" id="fHI-pt-VXc"/>
+                                                <segue destination="QhC-cl-Upr" kind="presentation" identifier="mapToView" id="fHI-pt-VXc"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -586,7 +586,7 @@
                                 <rect key="frame" x="0.0" y="286" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="XSU-0a-0ky">
-                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Friend" textAlignment="natural" minimumFontSize="17" id="RHm-Ws-o4w">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a Friend" textAlignment="natural" minimumFontSize="17" id="RHm-Ws-o4w" customClass="SearchTextField" customModule="compa" customModuleProvider="target">
                                             <rect key="frame" x="16" y="7" width="310" height="30"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <nil key="textColor"/>
@@ -632,8 +632,8 @@
                     <tabBarItem key="tabBarItem" title="Friends" id="HC4-mS-Bin"/>
                     <connections>
                         <outlet property="login" destination="VNT-2e-SYb" id="WFa-uw-v3U"/>
-                        <outlet property="newFriendUsername" destination="RHm-Ws-o4w" id="9F5-tv-yXY"/>
                         <outlet property="profileImage" destination="p6e-35-6MZ" id="JsW-yd-7Mi"/>
+                        <outlet property="search" destination="RHm-Ws-o4w" id="2r2-1u-Bat"/>
                         <outlet property="table" destination="qDy-bB-edq" id="OIT-OH-Y9e"/>
                     </connections>
                 </viewController>
@@ -1068,8 +1068,8 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PFK-4q-5Qg"/>
-        <segue reference="JFp-YO-U8U"/>
         <segue reference="dl2-hW-yBp"/>
+        <segue reference="PFK-4q-5Qg"/>
+        <segue reference="6tK-gS-NTJ"/>
     </inferredMetricsTieBreakers>
 </document>

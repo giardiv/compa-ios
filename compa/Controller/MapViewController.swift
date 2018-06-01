@@ -26,7 +26,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var users : [User] = []
     
     var selectedUser: User?
-        static let dateFormatter = { () -> DateFormatter in
+    
+    static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         return dateFormatter
@@ -235,9 +236,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    func detailsRequestedForUser(User: User) {
-        self.selectedUser = User
-        self.performSegue(withIdentifier: "UserDetails", sender: nil)
+    func detailsRequestedForUser(user: User) {
+        self.selectedUser = user
+        
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "UserDetails", sender: nil)
+        }
+    }
+    
+    func dealWithTapped(user: User){
+    
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
+        vc.friendId = user.id
+        vc.status = "Accepted"
+        
+         DispatchQueue.main.async {
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+        
     }
     
     
@@ -248,25 +265,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     
-        /*userRep.search(
-            text: criteria,
-            result: { data in
-            
-                var results = [SearchTextFieldItem]()
-                for user in data {
-                    results.append(SearchTextFieldItem(title: user.login) as! String, subtitle: criteria.uppercased(), image: UIImage(named: "acronym_icon")))
-                }
-             
-                
-            },
-            
-            error:{ error in
-                
-                DispatchQueue.main.async {
-                    callback([])
-                }
-            }*/
-    
+       
     
     
     
