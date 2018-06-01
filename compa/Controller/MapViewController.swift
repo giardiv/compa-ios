@@ -24,9 +24,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     let regionRadius: CLLocationDistance = 10000
     var lastUpdatedTime = Date()
     var users : [User] = []
-    
-    var selectedUser: User?
-    
+
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
@@ -237,8 +235,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func detailsRequestedForUser(user: User) {
-        self.selectedUser = user
-        
+       
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "UserDetails", sender: nil)
         }
