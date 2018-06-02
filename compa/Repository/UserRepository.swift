@@ -127,5 +127,20 @@ class UserRepository {
         )
     }
     
+    
+    func resetPassword(email:String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/forgotPassword",
+            data: ["email" : email],
+            success: result,
+            error: error
+        )
+    }
+    
+
+    
 }
 

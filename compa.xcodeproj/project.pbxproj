@@ -33,6 +33,7 @@
 		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
 		D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCDE20AC489700B81545 /* AuthenticationService.swift */; };
 		D676FA2920B45C0A00B46CCF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D676FA2820B45C0A00B46CCF /* Location.swift */; };
+		D678DF1F20C2EAF200B2C68B /* ForgottenPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D678DF1E20C2EAF200B2C68B /* ForgottenPasswordViewController.swift */; };
 		D68116E920BC869F00E41866 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68116E820BC869F00E41866 /* UIViewControllerExtension.swift */; };
 		D68116EA20BC87A300E41866 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD820AC411B00B81545 /* LoginViewController.swift */; };
 		D6E9182320C16BE100B37135 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9182220C16BE100B37135 /* SearchTextField.swift */; };
@@ -92,6 +93,7 @@
 		D665FCD920AC411B00B81545 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		D665FCDE20AC489700B81545 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		D676FA2820B45C0A00B46CCF /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D678DF1E20C2EAF200B2C68B /* ForgottenPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgottenPasswordViewController.swift; sourceTree = "<group>"; };
 		D68116E820BC869F00E41866 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D6E9182220C16BE100B37135 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				D6E9CBDA20AEF37000DF5CE0 /* ProfileViewController.swift */,
 				D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */,
 				D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */,
+				D678DF1E20C2EAF200B2C68B /* ForgottenPasswordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */,
 				D6289B1020C07501000C1DF1 /* UserAnnotation.swift in Sources */,
 				D6E9CBDB20AEF37000DF5CE0 /* ProfileViewController.swift in Sources */,
+				D678DF1F20C2EAF200B2C68B /* ForgottenPasswordViewController.swift in Sources */,
 				D6FA2B0A20B588350009686E /* EditProfileViewController.swift in Sources */,
 				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
