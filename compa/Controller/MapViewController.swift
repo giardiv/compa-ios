@@ -75,8 +75,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                         self.users = data
                         
                         DispatchQueue.main.async(execute: {
-                     
-                            let annotations = data.map {UserAnnotation(user:$0)}
+                    
+                            let users = data.filter { $0.ghostMode }
+                            let annotations = users.map {UserAnnotation(user:$0)}
                             self.map.removeAnnotations(self.map.annotations)
                             self.map.addAnnotations(annotations)
                         
