@@ -51,6 +51,19 @@ class FriendshipRepository{
     }
     
     
+    func requestFriendship(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void) {
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/friend",
+            data: ["friend_id":friendId],
+            success: result,
+            error: error
+        )
+        
+    }
+    
 }
 
 

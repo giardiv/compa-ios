@@ -16,16 +16,14 @@ class LocationRepository {
     
     func get(identifier:String, result: @escaping (_ data: Location )->Void){}
     
-    func create(object: Location, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void){
+    func create(object: Location, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
         
         http.post(
             isRelative: true,
             isAuthenticated: true,
             url: "/location",
             data: object.toDictionary(),
-            success: { data in
-                
-            },
+            success: result,
             error: error
         )
     }
