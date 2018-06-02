@@ -251,7 +251,7 @@
         <!--Map View Controller-->
         <scene sceneID="5N6-LE-vdL">
             <objects>
-                <viewController id="1jO-S9-3jx" customClass="MapViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapView" id="1jO-S9-3jx" customClass="MapViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5ZI-5B-FpC"/>
                         <viewControllerLayoutGuide type="bottom" id="gWC-AK-YWZ"/>
@@ -644,7 +644,6 @@
                                         <connections>
                                             <outlet property="cellImage" destination="Tui-YC-fmG" id="Y81-C6-3mR"/>
                                             <outlet property="cellName" destination="KfO-Wc-WqK" id="S8p-m3-VCb"/>
-                                            <segue destination="L59-FY-dpG" kind="presentation" identifier="profileToFriend" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1136,8 +1135,10 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
+
         <segue reference="ZzN-LT-qGr"/>
         <segue reference="3dl-p5-R8B"/>
         <segue reference="N7e-Bk-iOK"/>
+
     </inferredMetricsTieBreakers>
 </document>

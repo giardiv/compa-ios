@@ -64,6 +64,8 @@ class EditProfileViewController: UIViewController{
         let ctrl = self
         auth.logout(result: { data in
             UIViewController.removeSpinner(spinner: sv)
+            UserDefaults.standard.removeObject(forKey: "token")
+            UserDefaults.standard.synchronize()
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let mainView: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "mainView")
             ctrl.present(mainView, animated: true, completion: nil)
