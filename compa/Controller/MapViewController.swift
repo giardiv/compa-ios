@@ -57,7 +57,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
             
         }
- 
+        
     }
     
     func startMapTimer() {
@@ -225,9 +225,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         map.setRegion(map.regionThatFits(coordinateRegion), animated: true)
     }
 
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+    /*func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         centerMapOnLocation(location: userLocation.coordinate)
-    }
+    }*/
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }

@@ -16,7 +16,7 @@ public class User {
     let ghostMode : Bool
     let lastLocation : Location?
         
-    init(login: String, location:Location, name:String, id:String, ghostMode:Bool){
+    init(login: String, location:Location?, name:String, id:String, ghostMode:Bool){
         self.login = login
         self.name = name
         self.id = id
@@ -29,7 +29,13 @@ public class User {
         let login = dictionary["login"]! as! String
         let id = dictionary["id"]! as! String
         let ghostMode = dictionary["ghostMode"]! as! Bool
-        let location = Location(dictionary: dictionary["lastLocation"]! as! [String:Any])
+        
+        var location : Location?
+        
+        if let dic = dictionary["lastLocation"] as? [String:Any] {
+            location = Location(dictionary: dic)
+        }
+      
         self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode)
     }
 
