@@ -34,13 +34,35 @@ class FriendshipRepository{
     }
     
     func blockUser(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
-        self.setFriendshipStatus(friendId: friendId, status: "Blocked", result: result, error: error)
+        self.setFriendshipStatus(friendId: friendId, status: "Blocker", result: result, error: error)
     }
     
     func deblockUser(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void){
         self.setFriendshipStatus(friendId: friendId, status: "Accepted", result: result, error: error)
     }
     
+    func deleteFriendship(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void) {
+        http.delete(isRelative: true,
+                    isAuthenticated: true,
+                    url: "/friend",
+                    data: ["friend_id" : friendId],
+                    success: result,
+                    error: error)
+    }
+    
+    
+    func requestFriendship(friendId: String, result: @escaping (_ data: [String:Any]) -> Void, error: @escaping (_ data: [String:Any]) -> Void) {
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/friend",
+            data: ["friend_id":friendId],
+            success: result,
+            error: error
+        )
+        
+    }
     
 }
 

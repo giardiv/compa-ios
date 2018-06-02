@@ -80,7 +80,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
             if(action == "confirm"){
                 ctrl.friendshipRepo.confirmFriendshipRequest(friendId: ctrl.userArray[indexPath.row].id, result: { data in
                     DispatchQueue.main.async {
-                        ctrl.alert("accepté")
+                        ctrl.alert("You are now friend with " + ctrl.userArray[indexPath.row].name + " !")
                         ctrl.reloadTable()
                     }
                 }, error: { error in
@@ -92,7 +92,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                     friendId: ctrl.userArray[indexPath.row].id,
                     result: { data in
                         DispatchQueue.main.async {
-                            ctrl.alert("refus")
+                            ctrl.alert("The friend request has been rejected :)")
                             ctrl.reloadTable()
                         }
                     },

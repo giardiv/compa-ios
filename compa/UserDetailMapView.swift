@@ -19,6 +19,7 @@ class UserDetailMapView: UIView {
     @IBOutlet weak var UserImageView: UIImageView!
     @IBOutlet weak var UserName: UILabel!
     @IBOutlet weak var seeDetailsButton: UIButton!
+    @IBOutlet weak var subtitle: UILabel!
     
     // data
     var user: User!
@@ -37,10 +38,11 @@ class UserDetailMapView: UIView {
     }
     
     
-    func configureWithUser(User: User) {
-        self.user = User
+    func configureWithUser(givenUser: User) {
+        self.user = givenUser
         UserImageView.image = #imageLiteral(resourceName: "person-profile")
-        UserName.text = User.name
+        UserName.text = givenUser.name
+        subtitle.text = givenUser.login
     }
     
 

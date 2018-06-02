@@ -64,7 +64,8 @@ class UserRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/awaiting",
+            url: "/friend/awaiting"
+            ,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -108,10 +109,16 @@ class UserRepository {
     }
     
     func search(text:String, result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        var components = URLComponents()
+        components.path = "/friend/search"
+        components.queryItems = [URLQueryItem(name:"tag", value: text)]
+        let url = components.url!.relativeString
+        
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/search/" + text,
+            url: url,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -119,6 +126,21 @@ class UserRepository {
             error: error
         )
     }
+    
+    
+    func resetPassword(email:String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/forgotPassword",
+            data: ["email" : email],
+            success: result,
+            error: error
+        )
+    }
+    
+
     
 }
 
