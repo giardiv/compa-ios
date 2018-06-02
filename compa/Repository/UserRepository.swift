@@ -140,6 +140,16 @@ class UserRepository {
         )
     }
     
+    func setGhostMode(ghostMode: Bool, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void) {
+        http.put(isRelative: true,
+                 isAuthenticated: true,
+                 url: "/user/ghostmode",
+                 data: ["mode" : ghostMode],
+                 success: result,
+                 error: error
+        )
+    }
+    
 
     
 }

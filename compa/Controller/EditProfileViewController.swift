@@ -224,6 +224,22 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     
+    @IBAction func ghostModeChange(_ sender: UISwitch) {
+        self.repo.setGhostMode(ghostMode: sender.isOn,
+                            result: { data in
+                                if(sender.isOn) {
+                                    self.alert("You are now in ghost mode")
+                                } else {
+                                    self.alert("You are now in normal mode")
+                                }
+                            }, error: { error in
+                                self.alert(error["message"] as! String)
+                            }
+        )
+    }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+    }
 
     @IBAction func onCancelButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
