@@ -141,8 +141,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     //MARK: - PHOTO PICKER
     func photoLibrary(){
-        print(".=///////////////////////////////////////")
-
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             let myPickerController = UIImagePickerController()
             myPickerController.delegate = self
@@ -160,6 +158,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         
         self.dismiss(animated: true, completion: nil)
         
+        //let image_data = UIImagePNGRepresentation(ima)
+        let body = NSMutableData()
+        let file_image = "imgProfile.png"
+        let mimetype = "image/png"
         
     }
     
