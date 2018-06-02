@@ -575,7 +575,6 @@
                                         <connections>
                                             <outlet property="cellImage" destination="Tui-YC-fmG" id="Y81-C6-3mR"/>
                                             <outlet property="cellName" destination="KfO-Wc-WqK" id="S8p-m3-VCb"/>
-                                            <segue destination="L59-FY-dpG" kind="presentation" identifier="profileToFriend" id="2Bf-pI-RUP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1060,8 +1059,8 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="6tK-gS-NTJ"/>
         <segue reference="PFK-4q-5Qg"/>
         <segue reference="dl2-hW-yBp"/>
-        <segue reference="5LN-nT-Qab"/>
     </inferredMetricsTieBreakers>
 </document>
