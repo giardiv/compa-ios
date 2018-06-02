@@ -1033,6 +1033,8 @@
                     <connections>
                         <outlet property="repeatPasswordTextField" destination="5UH-rF-EqJ" id="7ra-XH-ig2"/>
                         <outlet property="userEmailTextField" destination="07H-f5-WjG" id="rLY-Qp-lkQ"/>
+                        <outlet property="userLoginTextField" destination="NRC-Ue-cpR" id="nFv-KC-3MO"/>
+                        <outlet property="userNameTextField" destination="euO-da-HsA" id="Fed-f6-0zU"/>
                         <outlet property="userPasswordTextField" destination="FlC-WE-0I0" id="nyR-CQ-BUp"/>
                         <segue destination="Bld-gP-MPd" kind="presentation" identifier="registerToLogin" id="3dl-p5-R8B"/>
                     </connections>
@@ -1065,8 +1067,8 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PFK-4q-5Qg"/>
-        <segue reference="dl2-hW-yBp"/>
         <segue reference="5LN-nT-Qab"/>
+        <segue reference="dl2-hW-yBp"/>
+        <segue reference="3dl-p5-R8B"/>
     </inferredMetricsTieBreakers>
 </document>

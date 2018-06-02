@@ -64,7 +64,8 @@ class UserRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/awaiting",
+            url: "/friend/awaiting"
+            ,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
