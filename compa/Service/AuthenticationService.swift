@@ -71,4 +71,24 @@ class AuthenticationService {
         )
     }
     
+    func photo(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: false,
+            url: "/register",
+            data: credentials,
+            success: { data in
+                if let token  = data["token"] as? String {
+                    result(token)
+                }
+                else{
+                    error(["message" : "Something went wrong"])
+                }
+        },
+            error: error
+        )
+        
+    }
+    
 }

@@ -28,7 +28,9 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+
 			<key>http://fd8acd2e.ngrok.io</key>
+
 			<dict/>
 			<key>NSIncludesSubdomains</key>
 			<true/>
@@ -57,7 +59,13 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Required for displaying your location on the map</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT-NAME)would like to access your camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT-NAME)would like to access your photo</string>
 	<key>root</key>
+
 	<string>http://fd8acd2e.ngrok.io</string>
+
 </dict>
 </plist>
