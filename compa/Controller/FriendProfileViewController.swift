@@ -16,6 +16,7 @@ class FriendProfileViewController: UIViewController {
     @IBOutlet weak var buttonStatus: UIButton!
 
     let userRepository = UserRepository()
+    let friendshipRepo = FriendshipRepository()
     var friendId = ""
     var status = ""
     
@@ -55,29 +56,67 @@ class FriendProfileViewController: UIViewController {
     }
     
     @IBAction func displayActionSheet(_ sender: Any) {
+        let ctrl = self
         let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
-        //TODO faire les actions pour chaque cas
         //VOIR POURQUOI ON NE RECUPERE PAS LE FRIEND A PARTIR DE PROFILEVIEW
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("toto has been deleted")
-        })
-        let blockAction = UIAlertAction(title: "Block", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("toto has been blocked")
-        })
-        let rejectRequestAction = UIAlertAction(title: "Reject", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("request has been deleted")
-        })
-        let confirmRequestAction = UIAlertAction(title: "Confirm", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("toto is now your friend")
+        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            ctrl.friendshipRepo.deleteFriendship(
+                friendId: ctrl.friendId,
+                result: { data in
+                    DispatchQueue.main.async {
+                        ctrl.alert((ctrl.friendName?.text)! + " is deleted")
+                        ctrl.dismiss(animated: true, completion: nil)
+                    }
+                }, error: { error in
+                    ctrl.alert(error["message"] as! String)
+                }
+            )
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
+        let blockAction = UIAlertAction(title: "Block", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            ctrl.friendshipRepo.blockUser(
+                friendId: ctrl.friendId,
+                result: { data in
+                    DispatchQueue.main.async {
+                        ctrl.alert((ctrl.friendName?.text)! + " is blocked !")
+                        ctrl.dismiss(animated: true, completion: nil)
+                    }
+                }, error: { error in
+                    ctrl.alert(error["message"] as! String)
+                }
+            )
+        })
+        
+        let rejectRequestAction = UIAlertAction(title: "Reject", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            ctrl.friendshipRepo.rejectFriendshipRequest(
+                friendId: ctrl.friendId,
+                result: { data in
+                    DispatchQueue.main.async {
+                        ctrl.alert("The friend request has been rejected :)")
+                        ctrl.dismiss(animated: true, completion: nil)
+                    }
+                }, error: { error in
+                    ctrl.alert(error["message"] as! String)
+                }
+            )
+        })
+        
+        let confirmRequestAction = UIAlertAction(title: "Confirm", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+            ctrl.friendshipRepo.confirmFriendshipRequest(
+                friendId: ctrl.friendId,
+                result: { data in
+                    DispatchQueue.main.async {
+                        ctrl.alert("You are now friend with " + (ctrl.friendName?.text)! + " !")
+                        ctrl.buttonStatus?.setTitle("▾ Accepted", for: UIControlState.normal)
+                    }
+                }, error: { error in
+                    ctrl.alert(error["message"] as! String)
+                }
+            )
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
         
