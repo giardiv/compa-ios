@@ -182,7 +182,7 @@
         <!--Map View Controller-->
         <scene sceneID="5N6-LE-vdL">
             <objects>
-                <viewController id="1jO-S9-3jx" customClass="MapViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapView" id="1jO-S9-3jx" customClass="MapViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5ZI-5B-FpC"/>
                         <viewControllerLayoutGuide type="bottom" id="gWC-AK-YWZ"/>
