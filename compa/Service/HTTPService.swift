@@ -44,11 +44,12 @@ class HTTPService {
 
         if isAuthenticated {
             guard let token = UserDefaults.standard.string(forKey: "token") else {
-                //errorHandler(NSError(coder: "you are not authenticated")) TODO
+                errorHandler(["code":3002])
                 return
             }
-            
+        
             request.addValue(token, forHTTPHeaderField: "Authorization")
+
         }
         
         
