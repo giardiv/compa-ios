@@ -17,14 +17,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var searchBar: SearchTextField!
     
     var mapUpdateTimer: Timer?
+    var locationUpdateTimer: Timer?
     
     let userRep = UserRepository()
     let locationRep = LocationRepository()
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 1000
-    var lastUpdatedTime = Date()
+    static let regionRadius: CLLocationDistance = 1000
+    static let distanceBetweenUpdates : Double = 10 //in meters
     var users : [User] = []
-
+    var lastLocationUpdate : CLLocation?
+    
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
@@ -98,6 +100,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    func startLocationTimer(){
+        locationUpdateTimer?.invalidate()
+        
+        DispatchQueue.main.async {
+            
+            self.locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { _ in
+                self.locationManager.requestLocation()
+            }
+            
+            self.locationUpdateTimer!.fire()
+            
+        }
+
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let ctrl = self
@@ -144,8 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 break
                 
             case .authorizedWhenInUse,.authorizedAlways:
-                
-                locationManager.requestLocation()
+                startLocationTimer()
                 break
                 
             case .notDetermined:
@@ -158,25 +175,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        
  
         let ctrl = self
-        if let location = locations.last {
-            print(location)
-            if(Int(self.lastUpdatedTime.timeIntervalSinceNow) > 15){
+        
+        if let location = locations.first {
+            
+            if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
                 
-                self.lastUpdatedTime = Date()
-                
-                print("weeeeee")
-                if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
+                if lastLocationUpdate == nil || abs(location.distance(from: lastLocationUpdate!)) > MapViewController.distanceBetweenUpdates {
                     
+                    self.lastLocationUpdate = location
                     
                     let obj = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, date: Date())
                     
                     locationRep.create(
                         object: obj,
                         result: { data in
-                            print("updated location heto")
+                            print("updated location to back")
                         },
                         error: { error in
                             if (ctrl.checkToken(error: error)) {
@@ -184,9 +199,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                             }
                         }
                     )
+
                 }
             }
+            
         }
+
         
         
     }
@@ -203,7 +221,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     private func centerMapOnLocation(location: CLLocationCoordinate2D) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, MapViewController.regionRadius, MapViewController.regionRadius)
         map.setRegion(map.regionThatFits(coordinateRegion), animated: true)
     }
 
@@ -255,5 +273,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
 }
+
 
 

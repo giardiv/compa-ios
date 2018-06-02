@@ -34,7 +34,7 @@ class Location {
     }
     
     func toDictionary() -> [String:Any] {
-        return ["latitude" : latitude, "longitude": longitude, "date": Location.dateFormatter.string(from: date)]
+        return ["latitude" : latitude, "longitude": longitude, "datetime": Location.dateFormatter.string(from: date)]
     }
     
     func toCoordinate() -> CLLocationCoordinate2D {

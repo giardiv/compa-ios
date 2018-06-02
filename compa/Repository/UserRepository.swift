@@ -64,7 +64,8 @@ class UserRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/awaiting",
+            url: "/friend/awaiting"
+            ,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -125,6 +126,21 @@ class UserRepository {
             error: error
         )
     }
+    
+    
+    func resetPassword(email:String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/forgotPassword",
+            data: ["email" : email],
+            success: result,
+            error: error
+        )
+    }
+    
+
     
 }
 

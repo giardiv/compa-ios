@@ -129,7 +129,10 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="151" id="Rao-Kd-HzQ"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Forgotten password ?"/>
+                                <connections>
+                                    <segue destination="TaJ-ng-QBS" kind="presentation" id="VcM-95-Ln2"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWe-sg-ttd">
                                 <rect key="frame" x="187" y="400" width="152" height="30"/>
@@ -178,6 +181,72 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fo6-Ju-QvD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5177" y="-1854"/>
+        </scene>
+        <!--Forgotten Password View Controller-->
+        <scene sceneID="vMm-g1-Ug9">
+            <objects>
+                <viewController id="TaJ-ng-QBS" customClass="ForgottenPasswordViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XFO-Gx-TgD"/>
+                        <viewControllerLayoutGuide type="bottom" id="mKG-3c-3Ys"/>
+                    </layoutGuides>
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="TgR-V6-ZbN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mYL-eR-TDm">
+                                <rect key="frame" x="43" y="320" width="301" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="301" id="P9r-1p-WAd"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter your email address, we will send you an email with a new password" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsT-p1-99b">
+                                <rect key="frame" x="43" y="170" width="286" height="152"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="152" id="UEC-sG-iFX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jf-8i-BLh">
+                                <rect key="frame" x="29" y="28" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="returnTapped:" destination="TaJ-ng-QBS" eventType="touchUpInside" id="Dpp-1f-cEu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c27-PN-3Cx">
+                                <rect key="frame" x="155" y="374" width="76" height="30"/>
+                                <state key="normal" title="Send Email"/>
+                                <connections>
+                                    <action selector="sendTapped:" destination="TaJ-ng-QBS" eventType="touchUpInside" id="klf-bN-67N"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KsT-p1-99b" firstAttribute="leading" secondItem="TgR-V6-ZbN" secondAttribute="leadingMargin" constant="27" id="MqF-Ne-f29"/>
+                            <constraint firstItem="6jf-8i-BLh" firstAttribute="leading" secondItem="TgR-V6-ZbN" secondAttribute="leadingMargin" constant="13" id="Wd0-d5-F1z"/>
+                            <constraint firstItem="KsT-p1-99b" firstAttribute="top" secondItem="TgR-V6-ZbN" secondAttribute="top" constant="170" id="f55-V1-Iio"/>
+                            <constraint firstItem="mYL-eR-TDm" firstAttribute="top" secondItem="KsT-p1-99b" secondAttribute="bottom" constant="-2" id="gP4-r8-KHS"/>
+                            <constraint firstItem="mYL-eR-TDm" firstAttribute="centerX" secondItem="c27-PN-3Cx" secondAttribute="centerX" constant="0.5" id="mgI-D9-eSJ"/>
+                            <constraint firstItem="mYL-eR-TDm" firstAttribute="leading" secondItem="TgR-V6-ZbN" secondAttribute="leadingMargin" constant="27" id="nwe-fX-MJN"/>
+                            <constraint firstItem="KsT-p1-99b" firstAttribute="top" secondItem="6jf-8i-BLh" secondAttribute="bottom" constant="112" id="pgQ-YV-8cU"/>
+                            <constraint firstItem="c27-PN-3Cx" firstAttribute="top" secondItem="mYL-eR-TDm" secondAttribute="bottom" constant="24" id="puP-Oe-9fy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KsT-p1-99b" secondAttribute="trailing" constant="30" id="wxY-dx-4IO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="emailField" destination="mYL-eR-TDm" id="cBG-mi-lCO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mnr-Zq-G5J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6004" y="-1854.4227886056974"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="5N6-LE-vdL">
@@ -1033,6 +1102,8 @@
                     <connections>
                         <outlet property="repeatPasswordTextField" destination="5UH-rF-EqJ" id="7ra-XH-ig2"/>
                         <outlet property="userEmailTextField" destination="07H-f5-WjG" id="rLY-Qp-lkQ"/>
+                        <outlet property="userLoginTextField" destination="NRC-Ue-cpR" id="nFv-KC-3MO"/>
+                        <outlet property="userNameTextField" destination="euO-da-HsA" id="Fed-f6-0zU"/>
                         <outlet property="userPasswordTextField" destination="FlC-WE-0I0" id="nyR-CQ-BUp"/>
                         <segue destination="Bld-gP-MPd" kind="presentation" identifier="registerToLogin" id="3dl-p5-R8B"/>
                     </connections>
@@ -1065,8 +1136,8 @@
         <image name="person-profile" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="PFK-4q-5Qg"/>
-        <segue reference="dl2-hW-yBp"/>
-        <segue reference="5LN-nT-Qab"/>
+        <segue reference="ZzN-LT-qGr"/>
+        <segue reference="3dl-p5-R8B"/>
+        <segue reference="N7e-Bk-iOK"/>
     </inferredMetricsTieBreakers>
 </document>
