@@ -34,14 +34,14 @@ class RegisterViewController: UIViewController {
     
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
-        let userName = userNameTextField.text
-        let userLogin = userLoginTextField.text
-        let userEmail = userEmailTextField.text
-        let userPassword = userPasswordTextField.text
-        let userRepeatPassword = repeatPasswordTextField.text
+        let userName = userNameTextField.text!
+        let userLogin = userLoginTextField.text!
+        let userEmail = userEmailTextField.text!
+        let userPassword = userPasswordTextField.text!
+        let userRepeatPassword = repeatPasswordTextField.text!
         
         
-        guard (!(userName?.isEmpty)!) || (!(userLogin?.isEmpty)!) || (!(userPassword?.isEmpty)!) || (!(userRepeatPassword?.isEmpty)!) else {
+        guard !userName.isEmpty || !userLogin.isEmpty || !userPassword.isEmpty || !userRepeatPassword.isEmpty else {
             alert("All field are required")
             return
         }
@@ -51,7 +51,7 @@ class RegisterViewController: UIViewController {
             return
         }
 
-        let dict = ["name" : userName!, "email" : userEmail!,  "login" : userEmail!, "password" : userPassword!]
+        let dict = ["name" : userName, "email" : userEmail,  "login" : userLogin, "password" : userPassword]
         let ctrl  = self
         
         auth.register(
