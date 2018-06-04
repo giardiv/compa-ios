@@ -28,6 +28,7 @@
 		D63F2B72207FA14500DC6BCB /* compaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B71207FA14500DC6BCB /* compaTests.swift */; };
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
 		D649BC9720C19210006268DD /* FriendshipRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649BC9620C19210006268DD /* FriendshipRepository.swift */; };
+		D6551D2D20C57BB6006482A5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6551D2C20C57BB6006482A5 /* ImageService.swift */; };
 		D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */; };
 		D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */; };
 		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
@@ -87,6 +88,7 @@
 		D63F2B7C207FA14500DC6BCB /* compaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = compaUITests.swift; sourceTree = "<group>"; };
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D649BC9620C19210006268DD /* FriendshipRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendshipRepository.swift; sourceTree = "<group>"; };
+		D6551D2C20C57BB6006482A5 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestTableView.swift; sourceTree = "<group>"; };
 		D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersTableView.swift; sourceTree = "<group>"; };
 		D665FCD820AC411B00B81545 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				D61E165D20A9A442003EB242 /* HTTPService.swift */,
 				D665FCDE20AC489700B81545 /* AuthenticationService.swift */,
+				D6551D2C20C57BB6006482A5 /* ImageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */,
 				D61E166620A9A482003EB242 /* UserRepository.swift in Sources */,
 				D61E166120A9A455003EB242 /* User.swift in Sources */,
+				D6551D2D20C57BB6006482A5 /* ImageService.swift in Sources */,
 				D68116E920BC869F00E41866 /* UIViewControllerExtension.swift in Sources */,
 				26E697FD20BF1A7600E1DA8B /* LocationRepository.swift in Sources */,
 				D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */,

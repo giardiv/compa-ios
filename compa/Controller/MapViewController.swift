@@ -59,6 +59,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
             
         }
+       
         
     }
     
@@ -161,7 +162,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        createPolyline(mapView: map)
+        //createPolyline(mapView: map)
     }
     
     @IBAction func centerTapped(_ sender: Any) {
@@ -264,7 +265,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    /*func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if(overlay is MKPolyline) {
             let polylineReader = MKPolylineRenderer(overlay: overlay)
             polylineReader.strokeColor = UIColor.red
@@ -274,7 +275,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         
         return
-    }
+    }*/
     
     func detailsRequestedForUser(user: User) {
        
