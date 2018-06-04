@@ -13,16 +13,18 @@ public class User {
     
 
     let id, login, name : String, email: String
+    let imgUrl : String?
     let ghostMode : Bool
     let lastLocation : Location?
         
-    init(login: String, location:Location?, name:String, id:String, ghostMode:Bool, email: String){
+    init(login: String, location:Location?, name:String, id:String, ghostMode:Bool, email: String, imgUrl: String?){
         self.login = login
         self.name = name
         self.id = id
         self.lastLocation = location
         self.ghostMode = ghostMode
         self.email = email
+        self.imgUrl = imgUrl
     }
     
     convenience init?(dictionary: [String:Any]) {
@@ -38,11 +40,13 @@ public class User {
             location = Location(dictionary: dic)
         }
       
-        self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode, email:email)
+        let imgUrl = dictionary["i"] as? String
+        
+        self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode, email:email, imgUrl:imgUrl)
     }
 
     
-    static func getMockLocationsFor(_ location: CLLocation) -> [Date:CLLocation] {    
+    /*static func getMockLocationsFor(_ location: CLLocation) -> [Date:CLLocation] {
         func getBase(number: Double) -> Double {
             return round(number * 1000)/1000
         }
@@ -65,6 +69,6 @@ public class User {
         }
         
         return dic
-    }
+    }*/
     
 }

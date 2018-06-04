@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1314" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jpu-mg-cO2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1408" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jpu-mg-cO2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -840,6 +840,98 @@
             </objects>
             <point key="canvasLocation" x="7077.6000000000004" y="942.27886056971522"/>
         </scene>
+        <!--Update Password View Controller-->
+        <scene sceneID="9f4-zQ-tg7">
+            <objects>
+                <viewController id="gT1-qz-tYN" customClass="UpdatePasswordViewController" customModule="compa" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DYp-b8-Ycb"/>
+                        <viewControllerLayoutGuide type="bottom" id="59Q-CN-XXV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pgS-La-N3k">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OW8-HF-ShL">
+                                <rect key="frame" x="299" y="40" width="46" height="30"/>
+                                <state key="normal" title="Return"/>
+                                <connections>
+                                    <action selector="returnTapped:" destination="gT1-qz-tYN" eventType="touchUpInside" id="ZEV-q6-GCX"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Be4-5t-ELN">
+                                <rect key="frame" x="158" y="186" width="180" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vfY-ze-SG7">
+                                <rect key="frame" x="158" y="224" width="180" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In order to update your password, please enter your old password and a new password" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uE6-xc-yWH">
+                                <rect key="frame" x="23" y="83" width="322" height="95"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="95" id="hif-MX-Ssh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Old Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2q-xf-TaD">
+                                <rect key="frame" x="23" y="189" width="105" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMZ-Ix-yYt">
+                                <rect key="frame" x="23" y="229" width="113" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSj-kK-aXL">
+                                <rect key="frame" x="127" y="318" width="121" height="30"/>
+                                <state key="normal" title="Update Password"/>
+                                <connections>
+                                    <action selector="updateTapped:" destination="gT1-qz-tYN" eventType="touchUpInside" id="DuQ-aK-fLU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dSj-kK-aXL" firstAttribute="centerX" secondItem="pgS-La-N3k" secondAttribute="centerX" id="75z-Py-ExG"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="leading" secondItem="GMZ-Ix-yYt" secondAttribute="leading" id="Bbo-G9-2Fe"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="centerX" secondItem="pgS-La-N3k" secondAttribute="centerX" constant="-3.5" id="COW-Li-Fg2"/>
+                            <constraint firstItem="vfY-ze-SG7" firstAttribute="centerY" secondItem="GMZ-Ix-yYt" secondAttribute="centerY" id="JDf-L0-NsX"/>
+                            <constraint firstItem="dSj-kK-aXL" firstAttribute="centerX" secondItem="pgS-La-N3k" secondAttribute="centerX" id="JNa-9u-18H"/>
+                            <constraint firstItem="dSj-kK-aXL" firstAttribute="top" secondItem="vfY-ze-SG7" secondAttribute="bottom" constant="64" id="Mcf-qP-4kc"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="leading" secondItem="Y2q-xf-TaD" secondAttribute="leading" id="Nvx-8Z-twY"/>
+                            <constraint firstItem="dSj-kK-aXL" firstAttribute="centerY" secondItem="pgS-La-N3k" secondAttribute="centerY" id="QDK-CY-Nfy"/>
+                            <constraint firstItem="vfY-ze-SG7" firstAttribute="trailing" secondItem="Be4-5t-ELN" secondAttribute="trailing" id="cVb-Xv-ksx"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="leading" secondItem="pgS-La-N3k" secondAttribute="leadingMargin" constant="7" id="cfR-2s-330"/>
+                            <constraint firstItem="vfY-ze-SG7" firstAttribute="leading" secondItem="GMZ-Ix-yYt" secondAttribute="trailing" constant="22" id="e0N-IJ-axz"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="top" secondItem="pgS-La-N3k" secondAttribute="top" constant="83" id="eBz-UK-YQl"/>
+                            <constraint firstItem="Y2q-xf-TaD" firstAttribute="baseline" secondItem="Be4-5t-ELN" secondAttribute="baseline" id="gyx-8n-wXI"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="centerX" secondItem="pgS-La-N3k" secondAttribute="centerX" constant="-3.5" id="lHh-o5-YpD"/>
+                            <constraint firstItem="vfY-ze-SG7" firstAttribute="leading" secondItem="Be4-5t-ELN" secondAttribute="leading" id="ojA-3g-Oif"/>
+                            <constraint firstItem="Be4-5t-ELN" firstAttribute="top" secondItem="uE6-xc-yWH" secondAttribute="bottom" constant="8" symbolic="YES" id="pCx-VF-uLI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vfY-ze-SG7" secondAttribute="trailing" constant="21" id="peo-lu-nDH"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="top" secondItem="OW8-HF-ShL" secondAttribute="bottom" constant="13" id="uWA-Cr-8Bc"/>
+                            <constraint firstItem="uE6-xc-yWH" firstAttribute="trailing" secondItem="OW8-HF-ShL" secondAttribute="trailing" id="wWm-qk-roB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="newPasswordField" destination="vfY-ze-SG7" id="SrQ-y5-KFR"/>
+                        <outlet property="passwordField" destination="Be4-5t-ELN" id="JUx-7d-Nq5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AlS-lu-yaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5356" y="941.37931034482767"/>
+        </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="RW8-Yf-Zby">
             <objects>
@@ -933,6 +1025,14 @@
                                     <action selector="ghostModeChange:" destination="lMW-kr-bl0" eventType="valueChanged" id="8yE-85-wsP"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSw-eH-IT3">
+                                <rect key="frame" x="16" y="567" width="121" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Update Password"/>
+                                <connections>
+                                    <segue destination="gT1-qz-tYN" kind="presentation" id="jmr-XM-kMP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

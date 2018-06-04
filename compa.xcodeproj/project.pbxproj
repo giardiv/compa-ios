@@ -29,6 +29,7 @@
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
 		D649BC9720C19210006268DD /* FriendshipRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649BC9620C19210006268DD /* FriendshipRepository.swift */; };
 		D6551D2D20C57BB6006482A5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6551D2C20C57BB6006482A5 /* ImageService.swift */; };
+		D6551D2F20C59A1E006482A5 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6551D2E20C59A1E006482A5 /* UpdatePasswordViewController.swift */; };
 		D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */; };
 		D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */; };
 		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
@@ -89,6 +90,7 @@
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D649BC9620C19210006268DD /* FriendshipRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendshipRepository.swift; sourceTree = "<group>"; };
 		D6551D2C20C57BB6006482A5 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		D6551D2E20C59A1E006482A5 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestTableView.swift; sourceTree = "<group>"; };
 		D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersTableView.swift; sourceTree = "<group>"; };
 		D665FCD820AC411B00B81545 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */,
 				D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */,
 				D678DF1E20C2EAF200B2C68B /* ForgottenPasswordViewController.swift */,
+				D6551D2E20C59A1E006482A5 /* UpdatePasswordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D68116EA20BC87A300E41866 /* LoginViewController.swift in Sources */,
 				26E697F920BF137900E1DA8B /* BlockedCell.swift in Sources */,
+				D6551D2F20C59A1E006482A5 /* UpdatePasswordViewController.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,
 				26E697FB20BF137900E1DA8B /* RequestCell.swift in Sources */,
 				D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */,
