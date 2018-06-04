@@ -7,22 +7,27 @@
 //
 
 import UIKit
+import MapKit
 
-class FriendProfileViewController: UIViewController {
+class FriendProfileViewController: UIViewController, MKMapViewDelegate {
        
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var friendName: UILabel!
     @IBOutlet weak var friendLastLocation: UILabel!
     @IBOutlet weak var friendImage: UIImageView!
     @IBOutlet weak var buttonStatus: UIButton!
 
     let userRepository = UserRepository()
+    let locationRepository = LocationRepository()
     let friendshipRepo = FriendshipRepository()
     var friendId = ""
     var status = ""
+    var friend:User?
+    
+    var friendLocations : [Location] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,6 +42,7 @@ class FriendProfileViewController: UIViewController {
         let ctrl = self
         userRepository.get(identifier: friendId, result: { user in
             DispatchQueue.main.async(execute: {
+                self.friend = user
                 ctrl.friendImage.image = #imageLiteral(resourceName: "images") //TODO
                 ctrl.friendName.text = user.name
                 if let location = user.lastLocation {
@@ -44,11 +50,25 @@ class FriendProfileViewController: UIViewController {
                 }
                 ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
                 UIViewController.removeSpinner(spinner: sv)
+                
+                let initialLocation = CLLocation(latitude: user.lastLocation!.latitude, longitude: user.lastLocation!.longitude)
+                self.centerMapOnLocation(location: initialLocation)
+                
+                self.locationRepository.getFriendLocations(identifier: self.friendId, result: {data in
+                    self.friendLocations = data
+                    DispatchQueue.main.async(execute: {
+                        self.createPolyline(data)
+                    })
+                }, error: {error in})
             })
         }, error: {error in})
-        
     }
     
+    let regionRadius: CLLocationDistance = 1000
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
 
     @IBAction func onCancelButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -136,5 +156,19 @@ class FriendProfileViewController: UIViewController {
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
+    
+    func createPolyline(_ locations: [Location]) {
+        
+        let polyline = MKPolyline(coordinates: locations.map(
+            { return $0.toCoordinate() }), count: locations.count)
+        mapView.add(polyline)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let polylineReader = MKPolylineRenderer(overlay: overlay)
+        polylineReader.strokeColor = UIColor.red
+        polylineReader.lineWidth = 5
 
+        return polylineReader
+    }
 }

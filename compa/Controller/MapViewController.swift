@@ -266,17 +266,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    /*func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if(overlay is MKPolyline) {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
             let polylineReader = MKPolylineRenderer(overlay: overlay)
             polylineReader.strokeColor = UIColor.red
             polylineReader.lineWidth = 5
             
             return polylineReader
-        }
-        
-        return
-    }*/
+    }
     
     func detailsRequestedForUser(user: User) {
        
