@@ -13,12 +13,14 @@ class UserRepository {
     let http: HTTPService = HTTPService()
 
     
-    func getFriends(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+    func getFriends(imageSize: Int? = nil, result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+
+        let url = urlWithSize(imageSize: imageSize, url: "/friend/accepted")
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/accepted",
+            url: url,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -28,12 +30,14 @@ class UserRepository {
         
     }
     
-    func getBlocked(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+    func getBlocked(imageSize: Int? = nil, result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        
+        let url = urlWithSize(imageSize: imageSize, url: "/friend/blocker")
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/blocked",
+            url: url,
             success: { data in
               result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -43,12 +47,14 @@ class UserRepository {
         
     }
     //request I have received
-    func getPending(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+    func getPending(imageSize: Int? = nil, result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        
+        let url = urlWithSize(imageSize: imageSize, url: "/friend/pending")
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/pending",
+            url: url,
             success: { data in
                result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -59,13 +65,14 @@ class UserRepository {
     }
     
     //request I have made
-    func getAwaiting(result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+    func getAwaiting(imageSize: Int? = nil, result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        
+        let url = urlWithSize(imageSize: imageSize, url: "/friend/awaiting")
         
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/awaiting"
-            ,
+            url: url,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -76,12 +83,14 @@ class UserRepository {
     }
     
     
-    func get(identifier:String, result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+    func get(imageSize: Int? = nil, identifier:String, result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
         var url = "/user"
         
         if(identifier != "") {
             url += "/" + identifier
         }
+        
+        url = urlWithSize(imageSize: imageSize, url: url)
         
         http.get(
             isRelative: true,
@@ -94,6 +103,20 @@ class UserRepository {
             error: error
         )
         
+    }
+    
+    func getAuthUser(imageSize : Int? = nil, result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ){
+        get(imageSize: imageSize, identifier: "", result:result, error:error)
+    }
+    
+    private func urlWithSize(imageSize : Int? = nil, url:String) -> String {
+        if let size = imageSize {
+            var components = URLComponents()
+            components.path = url
+            components.queryItems = [URLQueryItem(name:"image_size", value: String(size))]
+            return components.url!.relativeString
+        }
+        return url;
     }
     
     
@@ -127,16 +150,13 @@ class UserRepository {
         result(true)
     }
     
-    func getAuthUser(result: @escaping (_ data: User )->Void, error: @escaping (_ data: [String:Any] )->Void ){
-        get(identifier: "", result:result, error:error)
-    }
-    
-    func search(text:String, result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+    func search(imageSize: Int? = nil, text:String, result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void){
         
         var components = URLComponents()
         components.path = "/friend/search"
         components.queryItems = [URLQueryItem(name:"tag", value: text)]
-        let url = components.url!.relativeString
+        let url = urlWithSize(imageSize: imageSize, url: components.url!.relativeString)
+        
         
         http.get(
             isRelative: true,
