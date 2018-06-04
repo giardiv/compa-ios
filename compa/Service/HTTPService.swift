@@ -75,8 +75,9 @@ class HTTPService {
                 
             else{
                 do {
+
                     //print(String(data: data!, encoding: String.Encoding.utf8)!)
-                    
+           
                     let json = try JSONSerialization.jsonObject(with: data!)
                     let handler = statusCode >= 400 ? errorHandler : successHandler
                     
@@ -98,7 +99,6 @@ class HTTPService {
         
     }
     
-    //,,,,,,,,,,,,
     
     func postImage(isRelative:Bool, isAuthenticated: Bool, url : String, data : NSData, success: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
             return APIRequestIMG(isRelative: isRelative, isAuthenticated: isAuthenticated, url: url, method: Method.POST.rawValue, imageUpdate: data, successHandler: success, errorHandler: error)
@@ -173,7 +173,6 @@ class HTTPService {
         task.resume()
         
     }
-//,,,,,,,,,,,,,,,,,
     
 }
 
