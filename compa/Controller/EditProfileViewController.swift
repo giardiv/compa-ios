@@ -58,7 +58,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func openCameraButton(_ sender: Any) {
         print("in openCameraButton")
         
-        /*self.updateUserImage.layer.cornerRadius = self.updateUserImage.frame.size.width
+        self.updateUserImage.layer.cornerRadius = self.updateUserImage.frame.size.width
         self.updateUserImage.image = #imageLiteral(resourceName: "images") //TODO
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             var updateUserImage = UIImagePickerController()
@@ -67,7 +67,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             updateUserImage.allowsEditing = true
             self.present(updateUserImage, animated: true, completion: nil)
             
-        }*/
+        }
         
         
         let actionSheet = UIAlertController(title: Constants.actionFileTypeHeading, message: Constants.actionFileTypeDescription, preferredStyle: .actionSheet)
@@ -127,9 +127,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    
-    //MARK: - CAMERA PICKER
-    //This function is used to open camera from the iphone and
     func openCamera(){
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             let myPickerController = UIImagePickerController()
@@ -140,10 +137,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    //MARK: - PHOTO PICKER
     func photoLibrary(){
-        print(".=///////////////////////////////////////")
-
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             let myPickerController = UIImagePickerController()
             myPickerController.delegate = self
@@ -153,7 +147,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     
         let edit = info[UIImagePickerControllerOriginalImage] as?UIImage
         self.updateUserImage.contentMode = .scaleAspectFit
@@ -161,12 +155,24 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         
         self.dismiss(animated: true, completion: nil)
         
+        let image_data = UIImagePNGRepresentation(updateUserImage.image!) as NSData!
+        
+        let ctrl = self
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        repo.photo(
+            image: image_data!,
+            result: { data in
+                UIViewController.removeSpinner(spinner: sv)
+            }, error: { error in
+                UIViewController.removeSpinner(spinner: sv)
+                self.alert(error["message"] as! String)
+        })
         
     }
     
 
     
-    //MARK: - SETTINGS ALERT
+    //SETTINGS ALERT
     func addAlertForSettings(_ setPhotoTypeEnum: setPhotoType){
         var alertTitle: String = ""
         if setPhotoTypeEnum == setPhotoType.camera{
@@ -191,10 +197,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         self.present(cameraUnavailableAlertController , animated: true, completion: nil)
     }
 
-    
-    
-    
-    //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     
     override func viewWillAppear(_ animated: Bool) {
         let sv = UIViewController.displaySpinner(onView: self.view)
