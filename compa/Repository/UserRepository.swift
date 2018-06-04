@@ -9,6 +9,9 @@
 import Foundation
 
 class UserRepository {
+    
+    //TODO reprendre le code de APIRequest pour envoyer la photo et modifié le 'body = data' en parsant l'image.
+    //CF https://stackoverflow.com/questions/16434537/post-image-to-server-in-iphone
 
     let http: HTTPService = HTTPService()
 
@@ -124,8 +127,13 @@ class UserRepository {
 
     
 
-    func update( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
-        result(true)
+    func updateProfile(name: String, email: String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        http.put(isRelative: true,
+                 isAuthenticated: true,
+                 url: "/user/updateProfile",
+                 data: ["name": name, "email": email],
+                 success: result,
+                 error: error)
     }
 
     func delete( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void  ) {
@@ -174,6 +182,7 @@ class UserRepository {
                  error: error
         )
     }
+    
     
 
     func photo(image: NSData, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
