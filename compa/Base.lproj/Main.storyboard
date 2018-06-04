@@ -969,6 +969,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="editMailField" destination="93U-f5-reV" id="MG5-Vq-mBC"/>
                         <outlet property="editNameField" destination="X4S-Az-ZcL" id="lho-eP-ps8"/>
                         <outlet property="ghostMode" destination="H0w-qa-Hk7" id="CqY-W7-IS1"/>
                         <outlet property="updateUserImage" destination="wqO-i6-DQ4" id="vuD-Vu-K0F"/>

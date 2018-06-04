@@ -36,7 +36,7 @@ class UserRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/blocked",
+            url: "/friend/blocker",
             success: { data in
               result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -99,9 +99,13 @@ class UserRepository {
         
     }
 
-    func update( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
-        
-        result(true)
+    func updateProfile(name: String, email: String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
+        http.put(isRelative: true,
+                 isAuthenticated: true,
+                 url: "/user/updateProfile",
+                 data: ["name": name, "email": email],
+                 success: result,
+                 error: error)
     }
 
     func delete( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void  ) {

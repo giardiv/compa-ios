@@ -25,6 +25,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         case photoLibrary
     }
 
+    @IBOutlet weak var editMailField: UITextField!
     @IBOutlet weak var editNameField: UITextField!
     @IBOutlet weak var ghostMode: UISwitch!
     
@@ -207,6 +208,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 DispatchQueue.main.async(execute: {
                     //ctrl.updateUserImage.setBackgroundImage(#imageLiteral(resourceName: "images"), for: UIControlState.normal)//TODO
                     ctrl.editNameField.placeholder = user.name
+                    ctrl.editMailField.placeholder = user.email
                     ctrl.ghostMode.setOn(user.ghostMode, animated: false)
                     UIViewController.removeSpinner(spinner: sv)
                 })
@@ -238,7 +240,46 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         )
     }
     
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
     @IBAction func saveButtonTapped(_ sender: Any) {
+        guard ((!editNameField.text!.isEmpty) || (!editMailField.text!.isEmpty)) else {
+            alert("All fields are required")
+            return
+        }
+        
+        guard (isValidEmail(testStr: editMailField.text!)) else {
+            alert("Please enter a valid mail adress")
+            return
+        }
+        
+        let ctrl = self
+        var name = editNameField?.placeholder
+        var email = editMailField?.placeholder
+        
+        if (!editNameField.text!.isEmpty){
+            name = editNameField.text
+        }
+        
+        if (!editMailField.text!.isEmpty){
+            email = editMailField.text
+        }
+        let sv = UIViewController.displaySpinner(onView: self.view)
+        self.repo.updateProfile(
+            name: name!,
+            email: email!,
+            result: { data in
+                ctrl.dismiss(animated: true, completion: nil)
+                UIViewController.removeSpinner(spinner: sv)
+            }, error: { error in
+                self.alert(error["message"] as! String)
+                UIViewController.removeSpinner(spinner: sv)
+        })
     }
 
     @IBAction func onCancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -258,10 +299,8 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             let mainView: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "mainView")
             ctrl.present(mainView, animated: true, completion: nil)
         }, error: { error in
-            DispatchQueue.main.async(execute: {
-                UIViewController.removeSpinner(spinner: sv)
-                self.alert(error["message"] as! String)
-            })
+            UIViewController.removeSpinner(spinner: sv)
+            self.alert(error["message"] as! String)
         })
         
     }
