@@ -14,7 +14,8 @@ class FriendProfileViewController: UIViewController {
     @IBOutlet weak var friendLastLocation: UILabel!
     @IBOutlet weak var friendImage: UIImageView!
     @IBOutlet weak var buttonStatus: UIButton!
-
+    
+    let imageService = ImageService()
     let userRepository = UserRepository()
     let friendshipRepo = FriendshipRepository()
     var friendId = ""
@@ -32,20 +33,54 @@ class FriendProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool){
         let sv = UIViewController.displaySpinner(onView: self.view)
-        self.friendImage.layer.cornerRadius = self.friendImage.frame.size.width / 2
-        print("toto " + friendId)
         let ctrl = self
-        userRepository.get(identifier: friendId, result: { user in
-            DispatchQueue.main.async(execute: {
-                ctrl.friendImage.image = #imageLiteral(resourceName: "images") //TODO
-                ctrl.friendName.text = user.name
-                if let location = user.lastLocation {
-                   ctrl.friendLastLocation.text = String(location.latitude)
+       
+        userRepository.get(
+            identifier: friendId,
+            result: { user in
+                DispatchQueue.main.async {
+                    
+                    ctrl.friendName.text = user.name
+                    if let location = user.lastLocation {
+                       ctrl.friendLastLocation.text = String(location.latitude)
+                    }
+                    
+                    ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
+                    UIViewController.removeSpinner(spinner: sv)
                 }
-                ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
-                UIViewController.removeSpinner(spinner: sv)
-            })
-        }, error: {error in})
+                
+                
+                
+                if let img = user.imgUrl {
+                    print(img)
+                    self.imageService.downloadImage(
+                        url: img,
+                        successHandler: {data in
+                            DispatchQueue.main.async {
+                                ctrl.friendImage.image = data
+                                ctrl.friendImage.layer.cornerRadius = ctrl.friendImage.frame.size.width / 2 //DOESNT WORK
+                            }
+                        },
+                        errorHandler: {error in
+                        }
+                    )
+                }
+                
+            },
+            error: {error in
+        
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    
+                    DispatchQueue.main.async(execute: {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    })
+                    
+                }
+
+            }
+        )
+
         
     }
     

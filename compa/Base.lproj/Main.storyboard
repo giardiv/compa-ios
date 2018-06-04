@@ -34,7 +34,7 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
-                                    <action selector="loginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xbM-PZ-yh7"/>
+                                    <segue destination="f9l-de-wJk" kind="presentation" id="lsM-XD-Ptb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPx-px-dwC">
@@ -43,8 +43,7 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <action selector="registerButtonTapped:" destination="f9l-de-wJk" eventType="touchUpInside" id="dje-GV-uZy"/>
-                                    <action selector="registerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rVb-pm-Ro6"/>
+                                    <segue destination="Bld-gP-MPd" kind="presentation" id="zX1-ya-Bqg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -64,8 +63,6 @@
                     <navigationItem key="navigationItem" id="1eA-RV-w55"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <segue destination="Bld-gP-MPd" kind="presentation" identifier="mainToLogin" id="PFK-4q-5Qg"/>
-                        <segue destination="f9l-de-wJk" kind="presentation" identifier="mainToRegister" id="dl2-hW-yBp"/>
                         <segue destination="1jO-S9-3jx" kind="presentation" identifier="mainToMap" id="JFp-YO-U8U"/>
                     </connections>
                 </viewController>
@@ -138,7 +135,7 @@
                                 <rect key="frame" x="187" y="400" width="152" height="30"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <action selector="registerButtonTapped:" destination="Bld-gP-MPd" eventType="touchUpInside" id="6KS-I2-2WQ"/>
+                                    <segue destination="f9l-de-wJk" kind="presentation" id="OOo-dR-4AI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -175,7 +172,6 @@
                         <outlet property="userEmailTextField" destination="rXM-Rt-4bq" id="08V-Yg-4QT"/>
                         <outlet property="userPasswordTextField" destination="3TB-cF-NLC" id="nW7-Iz-VwX"/>
                         <segue destination="1jO-S9-3jx" kind="presentation" identifier="loginToMap" id="ZzN-LT-qGr"/>
-                        <segue destination="f9l-de-wJk" kind="presentation" identifier="loginToRegister" id="N7e-Bk-iOK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fo6-Ju-QvD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1147,14 +1143,14 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <action selector="registerButtonTapped:" destination="f9l-de-wJk" eventType="touchUpInside" id="GqN-MM-4bp"/>
+                                    <action selector="registerButtonTapped:" destination="f9l-de-wJk" eventType="touchUpInside" id="X38-sj-qaA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MR8-r5-RTF">
                                 <rect key="frame" x="36" y="541" width="303" height="30"/>
                                 <state key="normal" title="I have an account. Let me login"/>
                                 <connections>
-                                    <action selector="loginButtonTapped:" destination="f9l-de-wJk" eventType="touchUpInside" id="CZo-J1-bbP"/>
+                                    <segue destination="Bld-gP-MPd" kind="presentation" id="qqt-Wi-cVR"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAL-TS-XM2">
@@ -1234,7 +1230,6 @@
                         <outlet property="userLoginTextField" destination="NRC-Ue-cpR" id="nFv-KC-3MO"/>
                         <outlet property="userNameTextField" destination="euO-da-HsA" id="Fed-f6-0zU"/>
                         <outlet property="userPasswordTextField" destination="FlC-WE-0I0" id="nyR-CQ-BUp"/>
-                        <segue destination="Bld-gP-MPd" kind="presentation" identifier="registerToLogin" id="3dl-p5-R8B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-ar-FEE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1265,7 +1260,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZzN-LT-qGr"/>
-        <segue reference="3dl-p5-R8B"/>
-        <segue reference="N7e-Bk-iOK"/>
+        <segue reference="qqt-Wi-cVR"/>
+        <segue reference="OOo-dR-4AI"/>
     </inferredMetricsTieBreakers>
 </document>

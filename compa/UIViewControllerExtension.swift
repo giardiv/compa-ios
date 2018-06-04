@@ -35,7 +35,10 @@ extension UIViewController {
     func alert(_ userMessage:String, title : String? = nil, handler: ((UIAlertAction) -> Void)? = nil){
         let myAlert = UIAlertController(title: title != nil ? title : "Alert", message:userMessage, preferredStyle: UIAlertControllerStyle.alert);
         myAlert.addAction(UIAlertAction(title:"Ok", style:UIAlertActionStyle.default, handler: handler));
-        self.present(myAlert, animated:true, completion:nil);
+        
+        DispatchQueue.main.async {
+            self.present(myAlert, animated:true, completion:nil);
+        }
     }
     
     func checkToken(error: [String:Any], spinner: UIView? = nil) -> Bool{
@@ -44,13 +47,19 @@ extension UIViewController {
         if(code == 3002) {
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let mainView: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "mainView")
-            self.present(mainView, animated: true, completion: nil)
-            UserDefaults.standard.removeObject(forKey: "token")
-            UserDefaults.standard.synchronize()
-            
-            if let spinner = spinner {
-                UIViewController.removeSpinner(spinner: spinner)
+
+            DispatchQueue.main.async {
+
+                self.present(mainView, animated: true, completion: nil)
+                UserDefaults.standard.removeObject(forKey: "token")
+                UserDefaults.standard.synchronize()
+                
+                if let spinner = spinner {
+                    UIViewController.removeSpinner(spinner: spinner)
+                }
+                
             }
+            
             return false
         }
         return true

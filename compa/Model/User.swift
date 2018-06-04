@@ -40,7 +40,7 @@ public class User {
             location = Location(dictionary: dic)
         }
       
-        let imgUrl = dictionary["i"] as? String
+        let imgUrl = dictionary["profilePicUrl"] as? String
         
         self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode, email:email, imgUrl:imgUrl)
     }

@@ -6,4 +6,17 @@
 //  Copyright © 2018 m2sar. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+class MainViewController : UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if UserDefaults.standard.value(forKey: "token") != nil {
+            self.performSegue(withIdentifier:"mainToMap", sender: self)
+        }
+    }
+    
+    
+}

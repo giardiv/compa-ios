@@ -245,10 +245,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, MapViewController.regionRadius, MapViewController.regionRadius)
         map.setRegion(map.regionThatFits(coordinateRegion), animated: true)
     }
-
-    /*func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        centerMapOnLocation(location: userLocation.coordinate)
-    }*/
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
@@ -295,10 +291,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.present(vc, animated: true, completion: nil)
         }
         
-        
     }
-    
-    
+
      // Hide keyboard when touching the screen
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

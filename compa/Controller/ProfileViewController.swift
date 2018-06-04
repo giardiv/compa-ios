@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var login: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
-    
+    @IBOutlet weak var addUserButton: UIBarButtonItem!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var search: SearchTextField!
     
@@ -22,9 +22,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var userArray : [User] = []
     
+    let imageService = ImageService()
     
-    @IBOutlet weak var addUserButton: UIBarButtonItem!
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -84,17 +84,31 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         
         let sv = UIViewController.displaySpinner(onView: self.view)
-        self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
         
         let ctrl = self
         
         repo.getAuthUser(
             result: { user in
-                DispatchQueue.main.async(execute: {
-                    ctrl.profileImage.image = #imageLiteral(resourceName: "images") //TODO
+                DispatchQueue.main.async {
                     ctrl.login.text = user.name
                     UIViewController.removeSpinner(spinner: sv)
-                })
+                }
+                
+                if let img = user.imgUrl {
+                    print(img)
+                    self.imageService.downloadImage(
+                        url: img,
+                        successHandler: {data in
+                            DispatchQueue.main.async {
+                                ctrl.profileImage.image = data
+                                ctrl.profileImage.layer.cornerRadius = ctrl.profileImage.frame.size.width / 2 //DOESNT WORK
+                            }
+                        },
+                        errorHandler: {error in
+                        }
+                    )
+                }
+                
                 
             },
             
@@ -115,7 +129,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func reloadTable(){
+    private func reloadTable(){
         
         let sv = UIViewController.displaySpinner(onView: self.view)
         
