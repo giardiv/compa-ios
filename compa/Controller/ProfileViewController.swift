@@ -17,9 +17,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var search: SearchTextField!
     
     let repo = UserRepository()
+    let friendshipRep = FriendshipRepository()
+    var selectedUser : User?
     
     var userArray : [User] = []
     
+    
+    @IBOutlet weak var addUserButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,20 +48,32 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 self.search.filterItems(results)
                                 self.search.stopLoadingIndicator()
                             }
-                    },
+                        },
                         
                         error:{ error in
                             
                             DispatchQueue.main.async {
                                 self.search.filterItems([])
                             }
-                    }
+                        }
                     )
                     
                 }
             }
         }
         
+        search.itemSelectionHandler = { data, index in
+             self.selectedUser = data[index].user!
+             self.addUserButton?.isEnabled = true
+        }
+        
+        search.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+    }
+    
+    func textFieldDidChange(_ textField: UITextField) {
+        selectedUser = nil
+        addUserButton?.isEnabled = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,7 +85,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let sv = UIViewController.displaySpinner(onView: self.view)
         self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 2
-        //TODO initialisé en récupérant le login et l'image de profil de l'user connecté
         
         let ctrl = self
         
@@ -95,6 +110,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         )
         
+      reloadTable()
+        
+    }
+    
+    
+    func reloadTable(){
+        
+        let sv = UIViewController.displaySpinner(onView: self.view)
         
         repo.getFriends (
             result: { data in
@@ -104,7 +127,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.table.reloadData()
                     UIViewController.removeSpinner(spinner: sv)
                 })
-            
+                
             },
             error: {error in
                 
@@ -131,12 +154,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendCell  else {
             fatalError()
         }
-        
-     
         cell.cellName?.text = userArray[indexPath.row].name
         cell.cellImage?.image = #imageLiteral(resourceName: "person-profile") //TODO
         
@@ -144,10 +164,29 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-
+    @IBAction func searchButtonTapped(_ sender: Any) {
+       
+        if let user = selectedUser {
+            friendshipRep.requestFriendship (
+                friendId: user.id,
+                result: { data in
+                    DispatchQueue.main.async {
+                        self.reloadTable()
+                    }
+                },
+                error: { error in
+                    DispatchQueue.main.async {
+                        self.alert(error["message"] as! String)
+                    }
+                }
+            )
+        }
+        
+    }
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedFriend = userArray[indexPath.row]
-        let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
         vc.friendId = selectedFriend.id
         vc.status = "Accepted"
         self.present(vc, animated: true, completion: nil)
@@ -160,15 +199,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.endEditing(true)
     }
     
-    @IBAction func addFriendButtonTapped(_ sender: UIBarButtonItem) {
-        
-        guard !search.text!.isEmpty else {
-            alert("All fields are required")
-            return
-        }
-        
-    }
-    
+   
     @IBAction func mapButtonTapped(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "profileToMap", sender: self)
     }

@@ -44,11 +44,12 @@ class HTTPService {
 
         if isAuthenticated {
             guard let token = UserDefaults.standard.string(forKey: "token") else {
-                //errorHandler(NSError(coder: "you are not authenticated")) TODO
+                errorHandler(["code":3002])
                 return
             }
-            
+        
             request.addValue(token, forHTTPHeaderField: "Authorization")
+
         }
         
         
@@ -72,7 +73,7 @@ class HTTPService {
                 
             else{
                 do {
-                    print(String(data: data!, encoding: String.Encoding.utf8)!)
+                    //print(String(data: data!, encoding: String.Encoding.utf8)!)
                 
                     let json = try JSONSerialization.jsonObject(with: data!)
                     let handler = statusCode >= 400 ? errorHandler : successHandler

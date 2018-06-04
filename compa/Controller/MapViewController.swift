@@ -17,15 +17,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var searchBar: SearchTextField!
     
     var mapUpdateTimer: Timer?
+    var locationUpdateTimer: Timer?
     
     let userRep = UserRepository()
     let locationRep = LocationRepository()
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 10000
-    var lastUpdatedTime = Date()
+    static let regionRadius: CLLocationDistance = 1000
+    static let distanceBetweenUpdates : Double = 10 //in meters
     var users : [User] = []
-    
-    var selectedUser: User?
+    var lastLocationUpdate : CLLocation?
     
     static let dateFormatter = { () -> DateFormatter in
         let dateFormatter = DateFormatter()
@@ -40,29 +40,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         map.delegate = self
         locationManager.requestWhenInUseAuthorization()
         createPolyline()
-        
+        map.setCenter(map.userLocation.coordinate, animated: false)
+
         searchBar.itemSelectionHandler = { data, index in
             
             let user = data[index].user!
             
             if let location = user.lastLocation {
                 
-                let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-                
-                self.map.setCenter(coordinate, animated: true)
-                
-                for annotation in self.map.annotations {
-                    if annotation.coordinate.latitude == coordinate.latitude &&
-                        annotation.coordinate.longitude == coordinate.longitude {
-                        self.map.selectAnnotation(annotation, animated: false)
-                 
-                    }
+                self.map.setCenter(location.toCoordinate(), animated: true)
+            
+                let annotations : [UserAnnotation] = self.map.annotations as! [UserAnnotation]
+            
+                if let userAnnotation = annotations.first(where: {$0.user.id == user.id}) {
+                    self.map.selectAnnotation(userAnnotation, animated: false)
                 }
-               
+                
             }
-           
+            
         }
- 
+        
     }
     
     func createPolyline() {
@@ -117,6 +114,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    func startLocationTimer(){
+        locationUpdateTimer?.invalidate()
+        
+        DispatchQueue.main.async {
+            
+            self.locationUpdateTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { _ in
+                self.locationManager.requestLocation()
+            }
+            
+            self.locationUpdateTimer!.fire()
+            
+        }
+
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let ctrl = self
@@ -152,7 +165,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func centerTapped(_ sender: Any) {
-        map.setCenter(CLLocationCoordinate2D(latitude: map.userLocation.coordinate.latitude, longitude: map.userLocation.coordinate.longitude), animated: false)
+        map.setCenter(map.userLocation.coordinate, animated: false)
     }
     
     override func didReceiveMemoryWarning() {
@@ -168,8 +181,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 break
                 
             case .authorizedWhenInUse,.authorizedAlways:
-                
-                locationManager.requestLocation()
+                startLocationTimer()
                 break
                 
             case .notDetermined:
@@ -182,24 +194,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        
-        
+ 
         let ctrl = self
-        if let location = locations.last {
-            print(location)
-            if(Int(self.lastUpdatedTime.timeIntervalSinceNow) > 15){
+        
+        if let location = locations.first {
+            
+            if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
                 
-                self.lastUpdatedTime = Date()
-                
-                if(!UserDefaults.standard.bool(forKey: "ghostMode")) {
-                    print("not ghosted")
+                if lastLocationUpdate == nil || abs(location.distance(from: lastLocationUpdate!)) > MapViewController.distanceBetweenUpdates {
+                    
+                    self.lastLocationUpdate = location
                     
                     let obj = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, date: Date())
                     
                     locationRep.create(
                         object: obj,
                         result: { data in
-                            print("updated location heto")
+                            print("updated location to back")
                         },
                         error: { error in
                             if (ctrl.checkToken(error: error)) {
@@ -207,12 +218,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                             }
                         }
                     )
-                    
-                }
-                
-            }
 
+                }
+            }
+            
         }
+
         
         
     }
@@ -229,13 +240,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     private func centerMapOnLocation(location: CLLocationCoordinate2D) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, regionRadius, regionRadius)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, MapViewController.regionRadius, MapViewController.regionRadius)
         map.setRegion(map.regionThatFits(coordinateRegion), animated: true)
     }
 
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+    /*func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         centerMapOnLocation(location: userLocation.coordinate)
-    }
+    }*/
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
@@ -266,8 +277,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func detailsRequestedForUser(user: User) {
-        self.selectedUser = user
-        
+       
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "UserDetails", sender: nil)
         }
@@ -293,11 +303,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     
-    
-       
-    
-    
-    
 }
+
 
 

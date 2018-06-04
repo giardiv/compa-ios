@@ -64,7 +64,8 @@ class UserRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/awaiting",
+            url: "/friend/awaiting"
+            ,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -94,6 +95,29 @@ class UserRepository {
         )
         
     }
+    
+    
+    func photo(credentials: [String : String], result: @escaping (_ data: String )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: false,
+            url: "/register",
+            data: credentials,
+            success: { data in
+                if let token  = data["token"] as? String {
+                    result(token)
+                }
+                else{
+                    error(["message" : "Something went wrong"])
+                }
+        },
+            error: error
+        )
+        
+    }
+
+    
 
     func update( object: User, result: @escaping (_ data: Bool )->Void, error: @escaping (_ data: [String:Any] )->Void ) {
         result(true)
@@ -108,10 +132,16 @@ class UserRepository {
     }
     
     func search(text:String, result: @escaping (_ data: [User] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        var components = URLComponents()
+        components.path = "/friend/search"
+        components.queryItems = [URLQueryItem(name:"tag", value: text)]
+        let url = components.url!.relativeString
+        
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/friend/search/" + text,
+            url: url,
             success: { data in
                 result(Array(data.values).map { User(dictionary: $0 as! [String : Any])! } )
             },
@@ -119,6 +149,31 @@ class UserRepository {
             error: error
         )
     }
+    
+    
+    func resetPassword(email:String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.post(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/forgotPassword",
+            data: ["email" : email],
+            success: result,
+            error: error
+        )
+    }
+    
+    func setGhostMode(ghostMode: Bool, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void) {
+        http.put(isRelative: true,
+                 isAuthenticated: true,
+                 url: "/user/ghostmode",
+                 data: ["mode" : ghostMode],
+                 success: result,
+                 error: error
+        )
+    }
+    
+
     
 }
 

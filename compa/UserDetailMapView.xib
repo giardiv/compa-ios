@@ -81,6 +81,7 @@
                 <outlet property="UserName" destination="lnF-qx-tkg" id="8yE-Fr-Ejr"/>
                 <outlet property="backgroundContentButton" destination="Dee-TO-2Y2" id="KLl-mw-9Zt"/>
                 <outlet property="seeDetailsButton" destination="YVU-3n-t2P" id="t6z-VE-inF"/>
+                <outlet property="subtitle" destination="Ogd-sw-ENu" id="EUA-XQ-PCs"/>
             </connections>
             <point key="canvasLocation" x="-31" y="-199.5"/>
         </view>

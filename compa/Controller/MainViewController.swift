@@ -23,6 +23,14 @@ class MainViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool){
         //self.performSegue(withIdentifier:"mainToMap", sender: self)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        let mapView = self.storyboard?.instantiateViewController(withIdentifier: "mapView") as! MapViewController
+        let token = UserDefaults.standard.value(forKey: "token")
+        if(token != nil){
+            self.present(mapView, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         self.performSegue(withIdentifier:"mainToLogin", sender: self)

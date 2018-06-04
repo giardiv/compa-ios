@@ -81,7 +81,7 @@ class UserWishListAnnotationView: MKAnnotationView {
             UserDetailMapView.delegate = self.UserDetailDelegate
             if let UserAnnotation = annotation as? UserAnnotation {
                 let User = UserAnnotation.user
-                UserDetailMapView.configureWithUser(User: User)
+                UserDetailMapView.configureWithUser(givenUser: User)
             }
             return UserDetailMapView
         }
