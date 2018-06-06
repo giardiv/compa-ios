@@ -276,7 +276,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let annotation = annotation as! UserAnnotation
         annotationView?.image = (annotation.user.image)?.resized(newWidth: 20)
         return annotationView
-    
+
     }
     
     func detailsRequestedForUser(user: User) {
