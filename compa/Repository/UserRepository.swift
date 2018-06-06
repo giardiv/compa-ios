@@ -10,11 +10,9 @@ import Foundation
 
 class UserRepository {
     
-    //TODO reprendre le code de APIRequest pour envoyer la photo et modifié le 'body = data' en parsant l'image.
-    //CF https://stackoverflow.com/questions/16434537/post-image-to-server-in-iphone
 
     let http: HTTPService = HTTPService()
-
+    let imageService = ImageService()
     
     func getFriends(imageSize: Int? = nil, result: @escaping (_ data: [User]) -> Void, error: @escaping (_ data: [String:Any] )->Void ) {
 
@@ -183,17 +181,25 @@ class UserRepository {
         )
     }
     
+    func updatePassword(oldPwd: String, newPwd:String, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void) {
+        http.put(isRelative: true,
+                 isAuthenticated: true,
+                 url: "/updatePassword",
+                 data: ["password" : oldPwd, "new_password": newPwd],
+                 success: result,
+                 error: error
+        )
+    }
     
 
-    func photo(image: NSData, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+    func uploadPhoto(image: NSData, result: @escaping (_ data: [String:Any] )->Void, error: @escaping (_ data: [String:Any] )->Void){
         
-        http.postImage(
-            isRelative: true,
+        imageService.postImage(
             isAuthenticated: true,
             url: "/user/uploadPic",
-            data: image,
-            success: result,
-            error: error)
+            imageUpdate: image,
+            successHandler: result,
+            errorHandler: error)
     }
     
 }

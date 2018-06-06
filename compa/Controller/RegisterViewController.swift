@@ -18,30 +18,15 @@ class RegisterViewController: UIViewController {
     
     let auth: AuthenticationService = AuthenticationService()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func loginButtonTapped(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "registerToLogin", sender:self)
-    }
-    
-    
     @IBAction func registerButtonTapped(_ sender: UIButton) {
-        let userName = userNameTextField.text
-        let userLogin = userLoginTextField.text
-        let userEmail = userEmailTextField.text
-        let userPassword = userPasswordTextField.text
-        let userRepeatPassword = repeatPasswordTextField.text
+        let userName = userNameTextField.text!
+        let userLogin = userLoginTextField.text!
+        let userEmail = userEmailTextField.text!
+        let userPassword = userPasswordTextField.text!
+        let userRepeatPassword = repeatPasswordTextField.text!
         
         
-        guard (!(userName?.isEmpty)!) || (!(userLogin?.isEmpty)!) || (!(userPassword?.isEmpty)!) || (!(userRepeatPassword?.isEmpty)!) else {
+        guard !userName.isEmpty || !userLogin.isEmpty || !userPassword.isEmpty || !userRepeatPassword.isEmpty else {
             alert("All field are required")
             return
         }
@@ -51,7 +36,7 @@ class RegisterViewController: UIViewController {
             return
         }
 
-        let dict = ["name" : userName!, "email" : userEmail!,  "login" : userEmail!, "password" : userPassword!]
+        let dict = ["name" : userName, "email" : userEmail,  "login" : userLogin, "password" : userPassword]
         let ctrl  = self
         
         auth.register(
@@ -62,11 +47,11 @@ class RegisterViewController: UIViewController {
                 UserDefaults.standard.set(token, forKey: "token");
                 UserDefaults.standard.synchronize();
 
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     ctrl.alert("Registration is successful. Thank you!", handler: {ACTION in
                         self.dismiss(animated: true, completion: nil)
                     })
-                })
+                }
 
             },
             error: { error in

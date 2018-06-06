@@ -16,7 +16,8 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var friendLastLocation: UILabel!
     @IBOutlet weak var friendImage: UIImageView!
     @IBOutlet weak var buttonStatus: UIButton!
-
+    
+    let imageService = ImageService()
     let userRepository = UserRepository()
     let locationRepository = LocationRepository()
     let friendshipRepo = FriendshipRepository()
@@ -37,9 +38,8 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool){
         let sv = UIViewController.displaySpinner(onView: self.view)
-        self.friendImage.layer.cornerRadius = self.friendImage.frame.size.width / 2
-        print("toto " + friendId)
         let ctrl = self
+
         userRepository.get(identifier: friendId, result: { user in
             DispatchQueue.main.async(execute: {
                 self.friend = user
@@ -48,9 +48,30 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
                 if let location = user.lastLocation {
                    ctrl.friendLastLocation.text = String(location.latitude)
                 }
+              ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
+                    UIViewController.removeSpinner(spinner: sv)
+
+                
+                
+                
+                if let img = user.imgUrl {
+                    print(img)
+                    self.imageService.downloadImage(
+                        url: img,
+                        successHandler: {data in
+                            DispatchQueue.main.async {
+                                ctrl.friendImage.image = data
+                                ctrl.friendImage.layer.cornerRadius = ctrl.friendImage.frame.size.width / 2 //DOESNT WORK
+                            }
+                        },
+                        errorHandler: {error in
+                        }
+                    )
+                }
+
                 ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
                 UIViewController.removeSpinner(spinner: sv)
-                
+
                 let initialLocation = CLLocation(latitude: user.lastLocation!.latitude, longitude: user.lastLocation!.longitude)
                 self.centerMapOnLocation(location: initialLocation)
                 
@@ -62,6 +83,7 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
                 }, error: {error in})
             })
         }, error: {error in})
+
     }
     
     let regionRadius: CLLocationDistance = 1000
