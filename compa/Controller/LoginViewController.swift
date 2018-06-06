@@ -35,10 +35,10 @@ class LoginViewController: UIViewController {
                 
                 UserDefaults.standard.set(token, forKey: "token");
                 UserDefaults.standard.synchronize();
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     UIViewController.removeSpinner(spinner: sv)
                     self.performSegue(withIdentifier: "loginToMap", sender: self)
-                })
+                }
             },
             error: { error in
                 DispatchQueue.main.async {
