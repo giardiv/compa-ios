@@ -68,7 +68,6 @@ class FriendProfileViewController: UIViewController {
 
                 ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
                 UIViewController.removeSpinner(spinner: sv)
-            })
         }, error: {error in
             UIViewController.removeSpinner(spinner: sv)
             ctrl.alert(error["message"] as! String)

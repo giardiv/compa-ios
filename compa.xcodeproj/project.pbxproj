@@ -12,6 +12,7 @@
 		26E697FB20BF137900E1DA8B /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E697F820BF137900E1DA8B /* RequestCell.swift */; };
 		26E697FD20BF1A7600E1DA8B /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E697FC20BF1A7600E1DA8B /* LocationRepository.swift */; };
 		D61E165A20A9A411003EB242 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165820A9A411003EB242 /* MapViewController.swift */; };
+		D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165920A9A411003EB242 /* MainViewController.swift */; };
 		D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E165D20A9A442003EB242 /* HTTPService.swift */; };
 		D61E166120A9A455003EB242 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E166020A9A455003EB242 /* User.swift */; };
 		D61E166620A9A482003EB242 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61E166420A9A482003EB242 /* UserRepository.swift */; };
@@ -27,8 +28,6 @@
 		D63F2B7D207FA14500DC6BCB /* compaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2B7C207FA14500DC6BCB /* compaUITests.swift */; };
 		D649BC9720C19210006268DD /* FriendshipRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649BC9620C19210006268DD /* FriendshipRepository.swift */; };
 		D6551D2D20C57BB6006482A5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6551D2C20C57BB6006482A5 /* ImageService.swift */; };
-		D6551D2F20C59A1E006482A5 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6551D2E20C59A1E006482A5 /* UpdatePasswordViewController.swift */; };
-		D6551D3320C5BF31006482A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6551D3220C5BF31006482A5 /* MainViewController.swift */; };
 		D65CF9A020B70358009CC9CD /* FriendRequestTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */; };
 		D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */; };
 		D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD920AC411B00B81545 /* RegisterViewController.swift */; };
@@ -68,6 +67,7 @@
 		26E697F820BF137900E1DA8B /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		26E697FC20BF1A7600E1DA8B /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		D61E165820A9A411003EB242 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		D61E165920A9A411003EB242 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D61E165D20A9A442003EB242 /* HTTPService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		D61E166020A9A455003EB242 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D61E166420A9A482003EB242 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -89,8 +89,6 @@
 		D63F2B7E207FA14500DC6BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D649BC9620C19210006268DD /* FriendshipRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendshipRepository.swift; sourceTree = "<group>"; };
 		D6551D2C20C57BB6006482A5 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		D6551D2E20C59A1E006482A5 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
-		D6551D3220C5BF31006482A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestTableView.swift; sourceTree = "<group>"; };
 		D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockedUsersTableView.swift; sourceTree = "<group>"; };
 		D665FCD820AC411B00B81545 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 				26E697F720BF137900E1DA8B /* FriendCell.swift */,
 				26E697F820BF137900E1DA8B /* RequestCell.swift */,
 				D692E83120C8327600A3AC49 /* RequestSendedCell.swift */,
-
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +151,7 @@
 			children = (
 				D665FCD820AC411B00B81545 /* LoginViewController.swift */,
 				D665FCD920AC411B00B81545 /* RegisterViewController.swift */,
+				D61E165920A9A411003EB242 /* MainViewController.swift */,
 				D61E165820A9A411003EB242 /* MapViewController.swift */,
 				D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */,
 				D6FA2B0920B588350009686E /* EditProfileViewController.swift */,
@@ -161,10 +159,7 @@
 				D65CF9A120B70672009CC9CD /* BlockedUsersTableView.swift */,
 				D65CF99F20B70358009CC9CD /* FriendRequestTableView.swift */,
 				D678DF1E20C2EAF200B2C68B /* ForgottenPasswordViewController.swift */,
-				D692E82F20C818C100A3AC49 /* ProfileViewController.swift */,=
-				D6551D2E20C59A1E006482A5 /* UpdatePasswordViewController.swift */,
-				D6551D3220C5BF31006482A5 /* MainViewController.swift */,
-
+				D692E82F20C818C100A3AC49 /* ProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -398,8 +393,8 @@
 				D676FA2920B45C0A00B46CCF /* Location.swift in Sources */,
 				D65CF9A220B70672009CC9CD /* BlockedUsersTableView.swift in Sources */,
 				D6FA2B0820B582B30009686E /* FriendProfileViewController.swift in Sources */,
-				D6551D3320C5BF31006482A5 /* MainViewController.swift in Sources */,
 				D649BC9720C19210006268DD /* FriendshipRepository.swift in Sources */,
+				D61E165B20A9A411003EB242 /* MainViewController.swift in Sources */,
 				D61E166620A9A482003EB242 /* UserRepository.swift in Sources */,
 				D61E166120A9A455003EB242 /* User.swift in Sources */,
 				D692E83020C818C100A3AC49 /* ProfileViewController.swift in Sources */,
@@ -416,7 +411,6 @@
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D68116EA20BC87A300E41866 /* LoginViewController.swift in Sources */,
 				26E697F920BF137900E1DA8B /* BlockedCell.swift in Sources */,
-				D6551D2F20C59A1E006482A5 /* UpdatePasswordViewController.swift in Sources */,
 				D63F2B5D207FA14500DC6BCB /* AppDelegate.swift in Sources */,
 				26E697FB20BF137900E1DA8B /* RequestCell.swift in Sources */,
 				D665FCDF20AC489700B81545 /* AuthenticationService.swift in Sources */,
