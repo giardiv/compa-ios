@@ -38,6 +38,7 @@
 		D68116E920BC869F00E41866 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68116E820BC869F00E41866 /* UIViewControllerExtension.swift */; };
 		D68116EA20BC87A300E41866 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665FCD820AC411B00B81545 /* LoginViewController.swift */; };
 		D692E83020C818C100A3AC49 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692E82F20C818C100A3AC49 /* ProfileViewController.swift */; };
+		D692E83220C8327600A3AC49 /* RequestSendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692E83120C8327600A3AC49 /* RequestSendedCell.swift */; };
 		D6E9182320C16BE100B37135 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9182220C16BE100B37135 /* SearchTextField.swift */; };
 		D6E9CBDB20AEF37000DF5CE0 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E9CBDA20AEF37000DF5CE0 /* FriendViewController.swift */; };
 		D6FA2B0820B582B30009686E /* FriendProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */; };
@@ -99,6 +100,7 @@
 		D678DF1E20C2EAF200B2C68B /* ForgottenPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgottenPasswordViewController.swift; sourceTree = "<group>"; };
 		D68116E820BC869F00E41866 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		D692E82F20C818C100A3AC49 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D692E83120C8327600A3AC49 /* RequestSendedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestSendedCell.swift; sourceTree = "<group>"; };
 		D6E9182220C16BE100B37135 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		D6E9CBDA20AEF37000DF5CE0 /* FriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		D6FA2B0720B582B30009686E /* FriendProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				26E697F720BF137900E1DA8B /* FriendCell.swift */,
 				26E697F820BF137900E1DA8B /* RequestCell.swift */,
 				D6289B0420C05F21000C1DF1 /* PinView.swift */,
+				D692E83120C8327600A3AC49 /* RequestSendedCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				D6E9CBDB20AEF37000DF5CE0 /* FriendViewController.swift in Sources */,
 				D678DF1F20C2EAF200B2C68B /* ForgottenPasswordViewController.swift in Sources */,
 				D6FA2B0A20B588350009686E /* EditProfileViewController.swift in Sources */,
+				D692E83220C8327600A3AC49 /* RequestSendedCell.swift in Sources */,
 				D665FCDC20AC411B00B81545 /* RegisterViewController.swift in Sources */,
 				D61E165E20A9A442003EB242 /* HTTPService.swift in Sources */,
 				D68116EA20BC87A300E41866 /* LoginViewController.swift in Sources */,
