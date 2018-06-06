@@ -13,6 +13,7 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var search: SearchTextField!
     
+    let imageService = ImageService()
     let repo = UserRepository()
     let friendshipRep = FriendshipRepository()
     var selectedUser : User?
@@ -39,12 +40,32 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         text: criteria,
                         result: { data in
                             
-                            let results = data.map { SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: nil, user:$0) }
+                            let group = DispatchGroup()
                             
-                            DispatchQueue.main.async {
+                            for user in data {
+                                
+                                if let img = user.imgUrl {
+                                    
+                                    group.enter()
+                                    self.imageService.downloadImage(
+                                        url: img,
+                                        successHandler: {data2 in
+                                            user.image = data2
+                                            group.leave()
+                                    },
+                                        errorHandler: {error in }
+                                    )
+                                }
+                            }
+                            
+                            group.notify(queue: DispatchQueue.main) {
+                                let results = data.map { SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: $0.image, user:$0) }
                                 self.search.filterItems(results)
                                 self.search.stopLoadingIndicator()
                             }
+
+                         
+                    
                         },
                         
                         error:{ error in
@@ -88,16 +109,35 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let sv = UIViewController.displaySpinner(onView: self.view)
         
         
-        
-        
         repo.getFriends (
             result: { data in
-                self.userArray = data
                 
-                DispatchQueue.main.async {
+                let group = DispatchGroup()
+                
+                for user in data {
+                    
+                    if let img = user.imgUrl {
+                        
+                        group.enter()
+                        self.imageService.downloadImage(
+                            url: img,
+                            successHandler: {data2 in
+                                user.image = data2
+                                group.leave()
+                        },
+                            errorHandler: {error in }
+                        )
+                        
+                    }
+                }
+                
+                group.notify(queue: DispatchQueue.main) {
+                    self.userArray = data
                     self.table.reloadData()
                     UIViewController.removeSpinner(spinner: sv)
+                    
                 }
+
                 
             },
             error: {error in
