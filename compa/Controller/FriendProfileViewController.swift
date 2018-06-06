@@ -25,8 +25,6 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
     var status = ""
     var friend:User?
     
-    var friendLocations : [Location] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -41,47 +39,50 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
         let ctrl = self
 
         userRepository.get(identifier: friendId, result: { user in
-            DispatchQueue.main.async(execute: {
-                self.friend = user
-                ctrl.friendImage.image = #imageLiteral(resourceName: "images") //TODO
-                ctrl.friendName.text = user.name
-                if let location = user.lastLocation {
-                   ctrl.friendLastLocation.text = String(location.latitude)
-                }
-              ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
-                    UIViewController.removeSpinner(spinner: sv)
-
-                
-                
                 
                 if let img = user.imgUrl {
-                    print(img)
                     self.imageService.downloadImage(
                         url: img,
                         successHandler: {data in
                             DispatchQueue.main.async {
+                                self.friend = user
                                 ctrl.friendImage.image = data
-                                ctrl.friendImage.layer.cornerRadius = ctrl.friendImage.frame.size.width / 2 //DOESNT WORK
+                                ctrl.friendName.text = user.name
+                                if let location = user.lastLocation {
+                                    ctrl.friendLastLocation.text = String(location.latitude)
+                                }
+                                
+                                ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
+                                UIViewController.removeSpinner(spinner: sv)
                             }
+                            
+                            if let location = user.lastLocation {
+                                
+                                self.centerMapOnLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
+                                
+                                if !user.ghostMode {
+                                    self.locationRepository.getFriendLocations(identifier: self.friendId, result: {data in
+                                        
+                                        DispatchQueue.main.async {
+                                            self.createPolyline(data)
+                                        }
+                                        
+                                    }, error: {error in})
+                                    
+                                }
+                                
+                            }
+                    
                         },
                         errorHandler: {error in
+                            
                         }
                     )
                 }
 
-                ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
-                UIViewController.removeSpinner(spinner: sv)
-
-                let initialLocation = CLLocation(latitude: user.lastLocation!.latitude, longitude: user.lastLocation!.longitude)
-                self.centerMapOnLocation(location: initialLocation)
-                
-                self.locationRepository.getFriendLocations(identifier: self.friendId, result: {data in
-                    self.friendLocations = data
-                    DispatchQueue.main.async(execute: {
-                        self.createPolyline(data)
-                    })
-                }, error: {error in})
-            })
+            
+            
+            
         }, error: {error in})
 
     }

@@ -13,9 +13,10 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var table: UITableView!
   
     let repo = UserRepository()
+    let imageService = ImageService()
     let friendshipRepo = FriendshipRepository()
     
-    var userArray : [User] = []
+    var blockedUsers : [User] = []
     
     
     override func viewDidLoad() {
@@ -37,15 +38,34 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
         
         repo.getBlocked(
             result: { data in
-                //check error
-                self.userArray = data
+
+                let group = DispatchGroup()
                 
-                DispatchQueue.main.async(execute: {
+                for user in data {
+                    
+                    if let img = user.imgUrl {
+                        
+                        group.enter()
+                        self.imageService.downloadImage(
+                            url: img,
+                            successHandler: {data2 in
+                                user.image = data2
+                                group.leave()
+                            },
+                            errorHandler: {error in }
+                        )
+                        
+                    }
+                }
+                
+                group.notify(queue: DispatchQueue.main) {
+                    self.blockedUsers = data
                     self.table.reloadData()
                     UIViewController.removeSpinner(spinner: sv)
-                })
+                }
+
                 
-        },
+            },
             error: { error in
                 
                 if( self.checkToken(error: error, spinner:sv) ) {
@@ -56,7 +76,7 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
                     })
                     
                 }
-        }
+            }
         )
         
     }
@@ -64,7 +84,7 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
     
     //TableView
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userArray.count
+        return blockedUsers.count
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -77,12 +97,13 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
             fatalError("not sure what's happening.")
         }
         
-        cell.cellName?.text = userArray[indexPath.row].name
-        cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
+        let user = blockedUsers[indexPath.row]
+        cell.cellName?.text = user.name
+        cell.cellImage?.image = user.image != nil ? user.image : #imageLiteral(resourceName: "person-profile")
         cell.blockUserAction = {action in
-            ctrl.friendshipRepo.deblockUser(friendId: ctrl.userArray[indexPath.row].id, result: { data in
+            ctrl.friendshipRepo.deblockUser(friendId: user.id, result: { data in
                 DispatchQueue.main.async {
-                    ctrl.alert(ctrl.userArray[indexPath.row].name + " is deblocked !")
+                    ctrl.alert(user.name + " is deblocked !")
                     ctrl.reloadTable()
                 }
             }, error: { error in
@@ -94,7 +115,7 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedFriend = userArray[indexPath.row]
+        let selectedFriend = blockedUsers[indexPath.row]
         let vc = FriendProfileViewController()
         vc.friendId = selectedFriend.id
         DispatchQueue.main.async(execute: {
