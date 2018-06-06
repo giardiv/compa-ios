@@ -230,9 +230,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         self.repo.setGhostMode(ghostMode: sender.isOn,
                             result: { data in
                                 if(sender.isOn) {
-                                    self.alert("You are now in ghost mode")
+                                    self.alert("You are now in ghost mode", title: "Sucessful")
                                 } else {
-                                    self.alert("You are now in normal mode")
+                                    self.alert("You are now in normal mode", title: "Sucessful")
                                 }
                             }, error: { error in
                                 self.alert(error["message"] as! String)
@@ -249,12 +249,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard ((!editNameField.text!.isEmpty) || (!editMailField.text!.isEmpty)) else {
-            alert("All fields are required")
+            self.alert("Fill me this pliz", title: "That's empty !", handler: nil)
             return
         }
         
         guard (isValidEmail(testStr: editMailField.text!)) else {
-            alert("Please enter a valid mail adress")
+            self.alert("Please enter a valid mail adress", title: "Wrong !", handler: nil)
             return
         }
         

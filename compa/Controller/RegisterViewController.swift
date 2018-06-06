@@ -27,12 +27,13 @@ class RegisterViewController: UIViewController {
         
         
         guard !userName.isEmpty || !userLogin.isEmpty || !userPassword.isEmpty || !userRepeatPassword.isEmpty else {
-            alert("All field are required")
+            alert("All field are required", title: "That's empty !")
+
             return
         }
         
         guard userPassword == userRepeatPassword else {
-            alert("Passwords do not match")
+            self.alert("Try again pliz", title: "Wrong !", handler: nil)
             return
         }
 
@@ -47,8 +48,9 @@ class RegisterViewController: UIViewController {
                 UserDefaults.standard.set(token, forKey: "token");
                 UserDefaults.standard.synchronize();
 
+
                 DispatchQueue.main.async {
-                    ctrl.alert("Registration is successful. Thank you!", handler: {ACTION in
+                    ctrl.alert("Registration is successful. Thank you!", title: "", handler: {ACTION in
                         self.dismiss(animated: true, completion: nil)
                     })
                 }

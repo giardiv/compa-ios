@@ -101,12 +101,12 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
         let ctrl = self
         let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { (alert: UIAlertAction!) -> Void in
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { (alert: UIAlertAction!) -> Void in
             let sv = UIViewController.displaySpinner(onView: self.view)
             ctrl.friendshipRepo.deleteFriendship(
                 friendId: ctrl.friendId,
                 result: { data in
-                    ctrl.alert((ctrl.friendName?.text)! + " is deleted", handler: {Void in
+                    ctrl.alert((ctrl.friendName?.text)! + " is deleted", title: "Sucessful", handler: {Void in
                         ctrl.dismiss(animated: true, completion: nil)
                         UIViewController.removeSpinner(spinner: sv)
                     })
@@ -122,7 +122,7 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
             ctrl.friendshipRepo.blockUser(
                 friendId: ctrl.friendId,
                 result: { data in
-                    ctrl.alert((ctrl.friendName?.text)! + " is blocked !", handler: {Void in
+                    ctrl.alert((ctrl.friendName?.text)! + " is blocked !", title: "Sucessful", handler: {Void in
                         ctrl.dismiss(animated: true, completion: nil)
                         UIViewController.removeSpinner(spinner: sv)
                     })
@@ -138,7 +138,7 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
             ctrl.friendshipRepo.rejectFriendshipRequest(
                 friendId: ctrl.friendId,
                 result: { data in
-                    ctrl.alert("The friend request has been rejected :)", handler: {Void in
+                    ctrl.alert("The friend request has been rejected :)", title: "Sucessful", handler: {Void in
                         ctrl.dismiss(animated: true, completion: nil)
                         UIViewController.removeSpinner(spinner: sv)
                     })
@@ -154,7 +154,7 @@ class FriendProfileViewController: UIViewController, MKMapViewDelegate {
             ctrl.friendshipRepo.confirmFriendshipRequest(
                 friendId: ctrl.friendId,
                 result: { data in
-                    ctrl.alert("You are now friend with " + (ctrl.friendName?.text)! + " !")
+                    ctrl.alert("You are now friend with " + (ctrl.friendName?.text)! + " !", title: "Sucessful")
                     ctrl.buttonStatus?.setTitle("▾ Accepted", for: UIControlState.normal)
                     UIViewController.removeSpinner(spinner: sv)
                 }, error: { error in

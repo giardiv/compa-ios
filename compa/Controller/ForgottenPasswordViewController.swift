@@ -21,7 +21,7 @@ class ForgottenPasswordViewController : UIViewController {
     @IBAction func sendTapped(_ sender: UIButton) {
         guard !emailField.text!.isEmpty else {
             DispatchQueue.main.async {
-                self.alert("Yo hold up")
+                self.alert("Fill me this pliz", title: "That's empty !", handler: nil)
             }
             return
         }

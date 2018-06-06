@@ -103,7 +103,7 @@ class BlockedUsersTableView: UIViewController, UITableViewDelegate, UITableViewD
         cell.blockUserAction = {action in
             ctrl.friendshipRepo.deblockUser(friendId: user.id, result: { data in
                 DispatchQueue.main.async {
-                    ctrl.alert(user.name + " is deblocked !")
+                    ctrl.alert(user.name + " is deblocked !", title: "Successful")
                     ctrl.reloadTable()
                 }
             }, error: { error in

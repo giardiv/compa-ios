@@ -157,17 +157,19 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         
         cell.requestAction = {action in
             if(action == "confirm"){
+
                 ctrl.friendshipRepo.confirmFriendshipRequest(
                     friendId: user.id,
                     result: { data in
                     
                         DispatchQueue.main.async {
-                            ctrl.alert("You are now friend with " + ctrl.requestsPending[indexPath.row].name + " !")
+                            ctrl.alert("You are now friend with " + ctrl.requestsPending[indexPath.row].name + " !", title: "Successful")
                             ctrl.reloadTable()
                         }
                     },
                     error: { error in
                         ctrl.alert(error["message"] as! String)
+
                     }
                 )
                 
@@ -177,7 +179,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                     friendId: user.id,
                     result: { data in
                         DispatchQueue.main.async {
-                            ctrl.alert("The friend request has been rejected :)")
+                            ctrl.alert("The friend request has been rejected :)", title: "Successful")
                             ctrl.reloadTable()
                         }
                     },
@@ -207,8 +209,9 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
             ctrl.friendshipRepo.deleteFriendship (
                 friendId: user.id,
                 result: { data in
+
                     DispatchQueue.main.async {
-                        ctrl.alert("The request has been deleted")
+                        ctrl.alert("The request has been deleted", title: "Successful")
                         ctrl.reloadTable()
                     }
                 },
@@ -217,6 +220,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                 }
             )
             
+
         }
         
         return cell
