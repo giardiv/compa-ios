@@ -28,7 +28,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>http://db82cd19.ngrok.io</key>
+			<key>http://44e4c803.ngrok.io</key>
 			<dict/>
 			<key>NSIncludesSubdomains</key>
 			<true/>
@@ -62,6 +62,6 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT-NAME)would like to access your photo</string>
 	<key>root</key>
-	<string>http://db82cd19.ngrok.io</string>
+	<string>http://44e4c803.ngrok.io</string>
 </dict>
 </plist>
