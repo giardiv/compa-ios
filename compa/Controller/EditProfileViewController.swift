@@ -122,8 +122,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         case .restricted:
             print("permission restricted")
             self.addAlertForSettings(setPhotoTypeEnum)
-        default:
-            break
         }
     }
     
@@ -157,9 +155,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         
         let image_data = UIImagePNGRepresentation(updateUserImage.image!) as NSData!
         
-        let ctrl = self
+ 
         let sv = UIViewController.displaySpinner(onView: self.view)
-        repo.photo(
+        repo.uploadPhoto(
             image: image_data!,
             result: { data in
                 UIViewController.removeSpinner(spinner: sv)
@@ -294,16 +292,23 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         let auth = AuthenticationService()
         let ctrl = self
         auth.logout(result: { data in
-            UIViewController.removeSpinner(spinner: sv)
-            UserDefaults.standard.removeObject(forKey: "token")
-            UserDefaults.standard.synchronize()
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainView: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "mainView")
-            ctrl.present(mainView, animated: true, completion: nil)
+            
+             DispatchQueue.main.async {
+                UIViewController.removeSpinner(spinner: sv)
+                UserDefaults.standard.removeObject(forKey: "token")
+                UserDefaults.standard.synchronize()
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainView: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "mainView")
+                ctrl.present(mainView, animated: true, completion: nil)
+             }
+            
         }, error: { error in
-            UIViewController.removeSpinner(spinner: sv)
-            self.alert(error["message"] as! String)
+            DispatchQueue.main.async {
+                UIViewController.removeSpinner(spinner: sv)
+                self.alert(error["message"] as! String)
+            }
         })
         
     }
+
 }
