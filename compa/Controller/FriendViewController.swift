@@ -87,14 +87,17 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let sv = UIViewController.displaySpinner(onView: self.view)
         
+        
+        
+        
         repo.getFriends (
             result: { data in
                 self.userArray = data
                 
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     self.table.reloadData()
                     UIViewController.removeSpinner(spinner: sv)
-                })
+                }
                 
             },
             error: {error in
@@ -125,8 +128,11 @@ class FriendViewController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendCell  else {
             fatalError()
         }
-        cell.cellName?.text = userArray[indexPath.row].name
-        cell.cellImage?.image = #imageLiteral(resourceName: "person-profile") //TODO
+        
+        let user = userArray[indexPath.row]
+        
+        cell.cellName?.text = user.name
+        cell.cellImage?.image = user.image != nil ? user.image : #imageLiteral(resourceName: "person-profile")
         
         return cell
     }
