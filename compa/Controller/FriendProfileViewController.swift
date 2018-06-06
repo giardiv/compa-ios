@@ -65,21 +65,14 @@ class FriendProfileViewController: UIViewController {
                         }
                     )
                 }
-                
-            },
-            error: {error in
-        
-                if( self.checkToken(error: error, spinner:sv) ) {
-                    
-                    DispatchQueue.main.async(execute: {
-                        UIViewController.removeSpinner(spinner: sv)
-                        self.alert(error["message"] as! String)
-                    })
-                    
-                }
 
-            }
-        )
+                ctrl.buttonStatus?.setTitle("▾ " + ctrl.status, for: UIControlState.normal)
+                UIViewController.removeSpinner(spinner: sv)
+          
+        }, error: {error in
+            UIViewController.removeSpinner(spinner: sv)
+            ctrl.alert(error["message"] as! String)
+        })
 
         
     }
