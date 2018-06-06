@@ -42,12 +42,12 @@ class RegisterViewController: UIViewController {
         
         
         guard (!(userName?.isEmpty)!) || (!(userLogin?.isEmpty)!) || (!(userPassword?.isEmpty)!) || (!(userRepeatPassword?.isEmpty)!) else {
-            alert("All field are required")
+            self.alert("Fill me this pliz", title: "That's empty !", handler: nil)
             return
         }
         
         guard userPassword == userRepeatPassword else {
-            alert("Passwords do not match")
+            self.alert("Try again pliz", title: "Wrong !", handler: nil)
             return
         }
 
@@ -63,7 +63,7 @@ class RegisterViewController: UIViewController {
                 UserDefaults.standard.synchronize();
 
                 DispatchQueue.main.async(execute: {
-                    ctrl.alert("Registration is successful. Thank you!", handler: {ACTION in
+                    ctrl.alert("Registration is successful. Thank you!", title: "", handler: {ACTION in
                         self.dismiss(animated: true, completion: nil)
                     })
                 })

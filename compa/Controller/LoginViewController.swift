@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: UIButton) {
        
         guard (!(userEmailTextField.text!.isEmpty)) || (!(userPasswordTextField.text!.isEmpty)) else {
-            alert("All fields are required")
+            self.alert("Fill me this pliz", title: "That's empty !", handler: nil)
             return
         }
         

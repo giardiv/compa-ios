@@ -129,7 +129,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
             if(action == "confirm"){
                 ctrl.friendshipRepo.confirmFriendshipRequest(friendId: ctrl.userArray[indexPath.row].id, result: { data in
                     DispatchQueue.main.async {
-                        ctrl.alert("You are now friend with " + ctrl.userArray[indexPath.row].name + " !")
+                        ctrl.alert("You are now friend with " + ctrl.userArray[indexPath.row].name + " !", title: "Successful")
                         ctrl.reloadTable()
                     }
                 }, error: { error in
@@ -141,7 +141,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
                     friendId: ctrl.userArray[indexPath.row].id,
                     result: { data in
                         DispatchQueue.main.async {
-                            ctrl.alert("The friend request has been rejected :)")
+                            ctrl.alert("The friend request has been rejected :)", title: "Successful")
                             ctrl.reloadTable()
                         }
                     },
@@ -169,7 +169,7 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
             ctrl.friendshipRepo.deleteFriendship(
                 friendId: ctrl.requestSendedArray[indexPath.row].id,
                 result: { data in
-                    ctrl.alert("The request has been deleted")
+                    ctrl.alert("The request has been deleted", title: "Successful")
                     ctrl.reloadTable()
             }, error: { error in
                 ctrl.alert(error["message"] as! String)

@@ -179,7 +179,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if CLLocationManager.locationServicesEnabled() {
             switch status {
             case .restricted, .denied:
-                self.alert("why not :(")
                 break
                 
             case .authorizedWhenInUse,.authorizedAlways:
