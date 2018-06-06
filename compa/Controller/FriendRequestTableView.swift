@@ -14,72 +14,108 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
     
     let repo = UserRepository()
     let friendshipRepo = FriendshipRepository()
-    
-    var userArray : [User] = []
-    var requestSendedArray : [User] = []
-    
-    let test = ["toto", "titi", "tata"]
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    let imageService = ImageService()
+    var requestsPending : [User] = []
+    var requestsSended : [User] = []
     
     override func viewWillAppear(_ animated: Bool) {
         reloadTable()
     }
     
-    func reloadTable () {
+    private func reloadTable() {
+        
         let sv = UIViewController.displaySpinner(onView: self.view)
+        let group = DispatchGroup()
         
-        
+        group.enter()
         repo.getAwaiting (
             result: { data in
-                self.userArray = data
-                DispatchQueue.main.async(execute: {
-                    self.table.reloadData()
-                    UIViewController.removeSpinner(spinner: sv)
-                })
+                
+                let awaitingGroup = DispatchGroup()
+                
+                for user in data {
+                    
+                    if let img = user.imgUrl {
+                        
+                        awaitingGroup.enter()
+                        self.imageService.downloadImage(
+                            url: img,
+                            successHandler: {data2 in
+                                user.image = data2
+                                awaitingGroup.leave()
+                        },
+                            errorHandler: {error in }
+                        )
+                        
+                    }
+                }
+                
+                awaitingGroup.notify(queue: DispatchQueue.main) {
+                    self.requestsPending = data
+                    group.leave()
+                }
+
                 
             },
             error: {error in
+                
+                group.leave()
+                
                 if( self.checkToken(error: error, spinner:sv) ) {
-                    //check error
-                    DispatchQueue.main.async(execute: {
+                    DispatchQueue.main.async {
                         UIViewController.removeSpinner(spinner: sv)
                         self.alert(error["message"] as! String)
-                    })
+                    }
+                }
+                
+            }
+        )
+        group.enter()
+        repo.getPending (
+            result: { data in
+                
+                let pendingGroup = DispatchGroup()
+                
+                for user in data {
+                    
+                    if let img = user.imgUrl {
+                        
+                        pendingGroup.enter()
+                        self.imageService.downloadImage(
+                            url: img,
+                            successHandler: {data2 in
+                                user.image = data2
+                                pendingGroup.leave()
+                        },
+                            errorHandler: {error in }
+                        )
+                        
+                    }
+                }
+                
+                pendingGroup.notify(queue: DispatchQueue.main) {
+                    self.requestsSended = data
+                    group.leave()
+                }
+
+            },
+            error: {error in
+                group.leave()
+                if( self.checkToken(error: error, spinner:sv) ) {
+                    DispatchQueue.main.async {
+                        UIViewController.removeSpinner(spinner: sv)
+                        self.alert(error["message"] as! String)
+                    }
                     
                 }
             }
         )
         
-        repo.getPending (
-            result: { data in
-                self.requestSendedArray = data
-                DispatchQueue.main.async(execute: {
-                    self.table.reloadData()
-                    UIViewController.removeSpinner(spinner: sv)
-                })
-                
-        },
-            error: {error in
-                if( self.checkToken(error: error, spinner:sv) ) {
-                    //check error
-                    DispatchQueue.main.async(execute: {
-                        UIViewController.removeSpinner(spinner: sv)
-                        self.alert(error["message"] as! String)
-                    })
-                    
-                }
+        
+        group.notify(queue: DispatchQueue.main) {
+            self.table.reloadData()
+            UIViewController.removeSpinner(spinner: sv)
         }
-        )
 
     }
 
@@ -91,20 +127,11 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(section == 0){
-            return userArray.count
-        } else {
-            return requestSendedArray.count
-        }
+        return section == 0 ? requestsPending.count : requestsSended.count
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if(section == 0){
-            return "Friend Request"
-        } else {
-            return "Request Sended"
-        }
-        
+        return section == 0 ?  "Friend Request" : "Request Sended"
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,25 +147,36 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "requestCell", for: indexPath) as? RequestCell  else {
             fatalError("not sure what's happening.")
         }
-        guard (self.userArray.count != 0) else {
+        guard (self.requestsPending.count != 0) else {
             return cell
         }
-        cell.cellName?.text = userArray[indexPath.row].name
-        cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
+        
+        let user = requestsPending[indexPath.row]
+        cell.cellName?.text = user.name
+        cell.cellImage?.image = user.image != nil ? user.image : #imageLiteral(resourceName: "person-profile")
+        
         cell.requestAction = {action in
             if(action == "confirm"){
-                ctrl.friendshipRepo.confirmFriendshipRequest(friendId: ctrl.userArray[indexPath.row].id, result: { data in
-                    DispatchQueue.main.async {
-                        ctrl.alert("You are now friend with " + ctrl.userArray[indexPath.row].name + " !", title: "Successful")
-                        ctrl.reloadTable()
-                    }
-                }, error: { error in
 
-                    ctrl.alert(error["message"] as! String)
-                })
+                ctrl.friendshipRepo.confirmFriendshipRequest(
+                    friendId: user.id,
+                    result: { data in
+                    
+                        DispatchQueue.main.async {
+                            ctrl.alert("You are now friend with " + ctrl.requestsPending[indexPath.row].name + " !", title: "Successful")
+                            ctrl.reloadTable()
+                        }
+                    },
+                    error: { error in
+                        ctrl.alert(error["message"] as! String)
+
+                    }
+                )
+                
             } else if (action == "reject"){
+                
                 ctrl.friendshipRepo.rejectFriendshipRequest(
-                    friendId: ctrl.userArray[indexPath.row].id,
+                    friendId: user.id,
                     result: { data in
                         DispatchQueue.main.async {
                             ctrl.alert("The friend request has been rejected :)", title: "Successful")
@@ -159,28 +197,38 @@ class FriendRequestTableView: UIViewController, UITableViewDelegate, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "requestSendedCell", for: indexPath) as? RequestSendedCell  else {
             fatalError("not sure what's happening.")
         }
-        guard (self.requestSendedArray.count != 0) else {
+        guard (self.requestsSended.count != 0) else {
             return cell
         }
         
-        cell.cellName?.text = requestSendedArray[indexPath.row].name
-        cell.cellImage?.image = #imageLiteral(resourceName: "person-profile")
+        let user = requestsSended[indexPath.row]
+        cell.cellName?.text = user.name
+        cell.cellImage?.image = user.image != nil ? user.image : #imageLiteral(resourceName: "person-profile")
         cell.action = {_ in
-            ctrl.friendshipRepo.deleteFriendship(
-                friendId: ctrl.requestSendedArray[indexPath.row].id,
+            
+            ctrl.friendshipRepo.deleteFriendship (
+                friendId: user.id,
                 result: { data in
-                    ctrl.alert("The request has been deleted", title: "Successful")
-                    ctrl.reloadTable()
-            }, error: { error in
-                ctrl.alert(error["message"] as! String)
-            })
+
+                    DispatchQueue.main.async {
+                        ctrl.alert("The request has been deleted", title: "Successful")
+                        ctrl.reloadTable()
+                    }
+                },
+                error: { error in
+                    ctrl.alert(error["message"] as! String)
+                }
+            )
+            
+
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.section == 0){
-            let selectFriend = userArray[indexPath.row]
+            let selectFriend = requestsPending[indexPath.row]
             let vc = storyboard?.instantiateViewController(withIdentifier: "FriendProfile") as! FriendProfileViewController
             vc.friendId = selectFriend.id
             vc.status = "Awaiting"

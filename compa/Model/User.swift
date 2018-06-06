@@ -6,23 +6,26 @@
 //  Copyright © 2018 m2sar. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 
 public class User {
     
 
     let id, login, name : String, email: String
+    let imgUrl : String?
     let ghostMode : Bool
     let lastLocation : Location?
-        
-    init(login: String, location:Location?, name:String, id:String, ghostMode:Bool, email: String){
+    var image : UIImage?
+    
+    init(login: String, location:Location?, name:String, id:String, ghostMode:Bool, email: String, imgUrl: String?){
         self.login = login
         self.name = name
         self.id = id
         self.lastLocation = location
         self.ghostMode = ghostMode
         self.email = email
+        self.imgUrl = imgUrl
     }
     
     convenience init?(dictionary: [String:Any]) {
@@ -38,33 +41,11 @@ public class User {
             location = Location(dictionary: dic)
         }
       
-        self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode, email:email)
+        let imgUrl = dictionary["profilePicUrl"] as? String
+        
+        self.init(login:login, location: location, name:name, id:id, ghostMode:ghostMode, email:email, imgUrl:imgUrl)
     }
 
     
-    static func getMockLocationsFor(_ location: CLLocation) -> [Date:CLLocation] {    
-        func getBase(number: Double) -> Double {
-            return round(number * 1000)/1000
-        }
-        
-        func randomCoordinate() -> Double {
-            return Double(arc4random_uniform(140)) * 0.0001
-        }
-    
-        
-        var dic = [Date:CLLocation]();
-        
-        let baseLatitude = getBase(number: location.coordinate.latitude - 0.007)
-        let baseLongitude = getBase(number: location.coordinate.longitude - 0.008)
-        
-        for i in stride(from: -10000, to: 10000, by: 1000) {
-            let date = Date(timeIntervalSinceNow: Double(i));
-            let randomLat: Double = baseLatitude + randomCoordinate()
-            let randomLong: Double = baseLongitude + randomCoordinate()
-            dic[date] = CLLocation(latitude: randomLat, longitude: randomLong)
-        }
-        
-        return dic
-    }
     
 }

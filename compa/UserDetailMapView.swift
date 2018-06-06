@@ -40,12 +40,10 @@ class UserDetailMapView: UIView {
     
     func configureWithUser(givenUser: User) {
         self.user = givenUser
-        UserImageView.image = #imageLiteral(resourceName: "person-profile")
+        UserImageView.image = user.image != nil ? user.image : #imageLiteral(resourceName: "person-profile")
         UserName.text = givenUser.name
         subtitle.text = givenUser.login
     }
-    
-
     
     // MARK: - Hit test. We need to override this to detect hits in our custom callout.
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
