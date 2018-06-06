@@ -12,7 +12,7 @@ import MapKit
 private let kUserMapPinImage = UIImage(named: "mapPin")!
 private let kUserMapAnimationTime = 0.300
 
-class UserWishListAnnotationView: MKAnnotationView {
+class UserAnnotationView: MKAnnotationView {
     // data
     weak var UserDetailDelegate: UserDetailMapViewDelegate?
     weak var customCalloutView: UserDetailMapView?
@@ -22,10 +22,10 @@ class UserWishListAnnotationView: MKAnnotationView {
     
     // MARK: - life cycle
     
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+    init(annotation: MKAnnotation?, reuseIdentifier: String?, image: UIImage? = nil) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         self.canShowCallout = false
-        self.image = kUserMapPinImage
+        self.image = image != nil ? image : kUserMapPinImage
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,8 +80,7 @@ class UserWishListAnnotationView: MKAnnotationView {
             let UserDetailMapView = views.first!
             UserDetailMapView.delegate = self.UserDetailDelegate
             if let UserAnnotation = annotation as? UserAnnotation {
-                let User = UserAnnotation.user
-                UserDetailMapView.configureWithUser(givenUser: User)
+                UserDetailMapView.configureWithUser(givenUser: UserAnnotation.user)
             }
             return UserDetailMapView
         }

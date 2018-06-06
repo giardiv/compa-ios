@@ -16,14 +16,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var searchBar: SearchTextField!
     
-    var mapUpdateTimer: Timer?
+    var userRefreshTimer: Timer?
     var locationUpdateTimer: Timer?
     
     let userRep = UserRepository()
     let locationRep = LocationRepository()
+    let imageService = ImageService()
     let locationManager = CLLocationManager()
     static let regionRadius: CLLocationDistance = 1000
-    static let distanceBetweenUpdates : Double = 10 //in meters
+    static let distanceBetweenUpdates : Double = 10 //in meters      
     var users : [User] = []
     var lastLocationUpdate : CLLocation?
     
@@ -39,7 +40,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
         map.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        createPolyline()
         map.setCenter(map.userLocation.coordinate, animated: false)
 
         searchBar.itemSelectionHandler = { data, index in
@@ -55,50 +55,63 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 if let userAnnotation = annotations.first(where: {$0.user.id == user.id}) {
                     self.map.selectAnnotation(userAnnotation, animated: false)
                 }
+                else{
+                    
+                }
                 
             }
             
         }
-       
         
     }
     
-    func createPolyline() {
-        let locations = [
-            CLLocationCoordinate2DMake(-7.761105, 41.017791),
-            CLLocationCoordinate2DMake(-73.760701, 41.019348),
-            CLLocationCoordinate2DMake(-30.757201, 11.019267),
-            CLLocationCoordinate2DMake(-103.757482, 1.016375),
-            CLLocationCoordinate2DMake(-43.761105, 49.017791)
-        ]
-        let polyline = MKPolyline(coordinates: locations, count: locations.count)
-        map.add(polyline)
-    }
-    
-    func startMapTimer() {
+    private func startUserRefreshTimer() {
         
         let ctrl = self
-        mapUpdateTimer?.invalidate()
+        userRefreshTimer?.invalidate()
 
         DispatchQueue.main.async {
             
-            self.mapUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
-                print("updating map")
+            self.userRefreshTimer = Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { _ in
+               
                 ctrl.userRep.getFriends (
                     result: { data in
                         
-                        self.users = data
+                        let group = DispatchGroup()
+                  
+                        for user in data {
+                            
+                            if let img = user.imgUrl {
+                                
+                                group.enter()
+                                self.imageService.downloadImage(
+                                    url: img,
+                                    successHandler: {data2 in
+                                        user.image = data2
+                                        group.leave()
+                                    },
+                                    errorHandler: {error in }
+                                )
+                                
+                            }
+                        }
                         
-                        DispatchQueue.main.async(execute: {
-                     
-                            let users = data.filter { $0.lastLocation != nil }
+                        group.notify(queue: DispatchQueue.main) {
+                            self.users = data
+                            
+                            //refresh map
+                            let users = self.users.filter { $0.lastLocation != nil }
                             let annotations = users.map {UserAnnotation(user:$0)}
                             self.map.removeAnnotations(self.map.annotations)
                             self.map.addAnnotations(annotations)
-                        
-                        })
-                        
-                        self.searchBar.filterItems(data.map {SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: nil, user : $0)})
+                            
+                            //refresh search bar
+                            self.searchBar.filterItems(self.users.map {
+                                return SearchTextFieldItem(title: $0.name, subtitle: $0.login, image: $0.image, user : $0)
+                            })
+
+                        }
+                       
                     },
 
                     error: { error in
@@ -112,11 +125,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             
             }
             
-            self.mapUpdateTimer!.fire()
+            self.userRefreshTimer!.fire()
         }
     }
     
-    func startLocationTimer(){
+
+    private func startLocationTimer(){
         locationUpdateTimer?.invalidate()
         
         DispatchQueue.main.async {
@@ -141,7 +155,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
                 UserDefaults.standard.set(user.ghostMode, forKey: "ghostMode");
                 UserDefaults.standard.synchronize();
-                ctrl.startMapTimer()
+                ctrl.startUserRefreshTimer()
                 
             },
             
@@ -158,7 +172,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        mapUpdateTimer?.invalidate()
+        userRefreshTimer?.invalidate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -245,38 +259,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location, MapViewController.regionRadius, MapViewController.regionRadius)
         map.setRegion(map.regionThatFits(coordinateRegion), animated: true)
     }
-
-    /*func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        centerMapOnLocation(location: userLocation.coordinate)
-    }*/
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation { return nil }
         
+        if annotation is MKUserLocation { return nil }
+
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: kUserAnnotationName)
         
         if annotationView == nil {
-            annotationView = UserWishListAnnotationView(annotation: annotation, reuseIdentifier: kUserAnnotationName)
-            (annotationView as! UserWishListAnnotationView).UserDetailDelegate = self
+            annotationView = UserAnnotationView(annotation: annotation, reuseIdentifier: kUserAnnotationName)
+            (annotationView as! UserAnnotationView).UserDetailDelegate = self
         } else {
             annotationView!.annotation = annotation
         }
         
+        let annotation = annotation as! UserAnnotation
+        annotationView?.image = (annotation.user.image)?.resized(newWidth: 20)
         return annotationView
-        
-    }
     
-    /*func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if(overlay is MKPolyline) {
-            let polylineReader = MKPolylineRenderer(overlay: overlay)
-            polylineReader.strokeColor = UIColor.red
-            polylineReader.lineWidth = 5
-            
-            return polylineReader
-        }
-        
-        return
-    }*/
+    }
     
     func detailsRequestedForUser(user: User) {
        
@@ -291,14 +292,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         vc.friendId = user.id
         vc.status = "Accepted"
         
-         DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.present(vc, animated: true, completion: nil)
         }
         
-        
     }
-    
-    
+
      // Hide keyboard when touching the screen
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -307,5 +306,37 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
 }
 
+
+extension UIImage {
+    
+    func resized(newWidth: CGFloat) -> UIImage? {
+        let scale = newWidth / self.size.width
+        let newHeight = self.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
+        self.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
+    func maskImage(mask:UIImage) ->UIImage {
+        
+        let imageReference = self.cgImage
+        let maskReference = mask.cgImage!
+        
+        let imageMask = CGImage(maskWidth: maskReference.width,
+                                height: maskReference.height,
+                                bitsPerComponent: maskReference.bitsPerComponent,
+                                bitsPerPixel: maskReference.bitsPerPixel,
+                                bytesPerRow: maskReference.bytesPerRow,
+                                provider: maskReference.dataProvider!,
+                                decode: nil,
+                                shouldInterpolate: true)
+        
+        let maskedReference = imageReference!.masking(imageMask!)
+        let maskedImage = UIImage.init(cgImage:maskedReference!)
+        return maskedImage
+    }
+}
 
 

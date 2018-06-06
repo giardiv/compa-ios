@@ -56,18 +56,7 @@ open class SearchTextField: UITextField {
     open func filterItems(_ items: [SearchTextFieldItem]) {
         filterDataSource = items
     }
-    
-    /// Set an array of strings to be used for suggestions
-    open func filterStrings(_ strings: [String]) {
-        var items = [SearchTextFieldItem]()
-        
-        for value in strings {
-            items.append(SearchTextFieldItem(title: value))
-        }
-        
-        filterItems(items)
-    }
-    
+
     /// Closure to handle when the user pick an item
     open var itemSelectionHandler: SearchTextFieldItemHandler?
     
@@ -631,7 +620,7 @@ open class SearchTextFieldItem {
     public init(title: String, subtitle: String?, image: UIImage?, user: User?) {
         self.title = title
         self.subtitle = subtitle
-        self.image = image
+        self.image = image != nil ?  image : #imageLiteral(resourceName: "person-profile")
         self.user = user
     }
     

@@ -11,22 +11,14 @@ import UIKit
 import MapKit
 
 class UserAnnotation: NSObject, MKAnnotation {
-    var user: User
+    let user: User
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: user.lastLocation!.latitude, longitude: user.lastLocation!.longitude)
+        return user.lastLocation!.toCoordinate()
     }
     
     init(user: User) {
         self.user = user
         super.init()
-    }
-    
-    var title: String? {
-        return user.name
-    }
-    
-    var subtitle: String? {
-        return user.login
     }
     
 }
