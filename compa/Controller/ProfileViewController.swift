@@ -40,7 +40,7 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
                             if let location = user.lastLocation {
                                 
                                 self.centerMapOnLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
-                                self.locationRepository.getFriendLocations(identifier: user.id, result: {data in
+                                self.locationRepository.getLocations(result: {data in
                                     
                                     DispatchQueue.main.async {
                                         self.createPolyline(data)
