@@ -26,16 +26,22 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
 
         userRepositoty.getAuthUser(
             result: { user in
+                
+        
+                DispatchQueue.main.async {
+                    ctrl.userProfileName.text = user.name
+                    UIViewController.removeSpinner(spinner: sv)
+                }
+                
                 if let img = user.imgUrl {
                   
                     self.imageService.downloadImage(
                         url: img,
                         successHandler: {data in
+
                             
                             DispatchQueue.main.async {
-                                ctrl.userProfileImage.image = data
-                                ctrl.userProfileName.text = user.name
-                                UIViewController.removeSpinner(spinner: sv)
+                            ctrl.userProfileImage.image = data
                             }
                             if let location = user.lastLocation {
                                 
@@ -51,7 +57,7 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
                                 
                             }
                     },
-                        errorHandler: {error in }
+                        errorHandler: {error in                    }
                     )
                 }
                
@@ -60,7 +66,6 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
             error: {error in
 
                 if( self.checkToken(error: error, spinner:sv)) {
-
                     UIViewController.removeSpinner(spinner: sv)
                     self.alert(error["message"] as! String)
                 }

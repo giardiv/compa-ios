@@ -162,8 +162,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             result: { data in
                 UIViewController.removeSpinner(spinner: sv)
             }, error: { error in
-                UIViewController.removeSpinner(spinner: sv)
-                self.alert(error["message"] as! String)
+                DispatchQueue.main.async {
+                    UIViewController.removeSpinner(spinner: sv)
+                
+                    self.alert(error["message"] as! String)
+                    
+                }
         })
         
     }
@@ -272,8 +276,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 ctrl.dismiss(animated: true, completion: nil)
                 UIViewController.removeSpinner(spinner: sv)
             }, error: { error in
-                self.alert(error["message"] as! String)
-                UIViewController.removeSpinner(spinner: sv)
+                DispatchQueue.main.async {
+                    self.alert(error["message"] as! String)
+                    UIViewController.removeSpinner(spinner: sv)}
         })
     }
 

@@ -248,9 +248,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if !CLLocationManager.locationServicesEnabled() {
             self.alert("location services not enabled")
         }
-        else {
-           self.alert(error.localizedDescription)
-        }
         
     }
     
