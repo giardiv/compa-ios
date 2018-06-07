@@ -163,7 +163,7 @@ class UserRepository {
         
         http.post(
             isRelative: true,
-            isAuthenticated: true,
+            isAuthenticated: false,
             url: "/forgotPassword",
             data: ["email" : email],
             success: result,
