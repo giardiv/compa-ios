@@ -229,11 +229,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBAction func ghostModeChange(_ sender: UISwitch) {
         self.repo.setGhostMode(ghostMode: sender.isOn,
                             result: { data in
-                                if(sender.isOn) {
-                                    self.alert("You are now in ghost mode", title: "Sucessful")
-                                } else {
-                                    self.alert("You are now in normal mode", title: "Sucessful")
-                                }
                             }, error: { error in
                                 self.alert(error["message"] as! String)
                             }

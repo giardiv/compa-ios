@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
     
     let userRepositoty = UserRepository()
     let imageService = ImageService()
+    let locationRepository = LocationRepository()
     
     override func viewWillAppear(_ animated: Bool) {
         let sv = UIViewController.displaySpinner(onView: self.view)
@@ -25,7 +26,6 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
 
         userRepositoty.getAuthUser(
             result: { user in
-
                 if let img = user.imgUrl {
                   
                     self.imageService.downloadImage(
@@ -37,13 +37,22 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
                                 ctrl.userProfileName.text = user.name
                                 UIViewController.removeSpinner(spinner: sv)
                             }
+                            if let location = user.lastLocation {
+                                
+                                self.centerMapOnLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
+                                self.locationRepository.getFriendLocations(identifier: user.id, result: {data in
+                                    
+                                    DispatchQueue.main.async {
+                                        self.createPolyline(data)
+                                    }
+                                    
+                                }, error: {error in})
+                                
+                            }
                     },
                         errorHandler: {error in }
                     )
-                    
                 }
-
-                
                
             },
 
@@ -61,6 +70,27 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func profileToMapTapped(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "profileToMap", sender: self)
+    }
+    
+    let regionRadius: CLLocationDistance = 1000
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        userProfileMap.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func createPolyline(_ locations: [Location]) {
+        
+        let polyline = MKPolyline(coordinates: locations.map(
+        { return $0.toCoordinate() }), count: locations.count)
+        userProfileMap.add(polyline)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let polylineReader = MKPolylineRenderer(overlay: overlay)
+        polylineReader.strokeColor = UIColor.red
+        polylineReader.lineWidth = 5
+        
+        return polylineReader
     }
 
 }
