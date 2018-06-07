@@ -67,6 +67,7 @@ class HTTPService {
             let httpResponse = response as! HTTPURLResponse
             let statusCode = httpResponse.statusCode
             
+            
             if let error = error {
                 errorHandler(["message" : error.localizedDescription, "code" : statusCode] as [String:Any])
             }

@@ -37,7 +37,6 @@ class ImageService {
 
     func postImage( isAuthenticated: Bool, url: String, imageUpdate: NSData, successHandler: @escaping (_ data: [String:Any] )->Void, errorHandler: @escaping (_ data: [String:Any] )->Void){
         
-        print("posting")
         let url = HTTPService.root + url
         var request = URLRequest(url: URL(string: url)!)
         let boundary = "unique-consistent-string"
@@ -71,14 +70,13 @@ class ImageService {
             
             let httpResponse = response as! HTTPURLResponse
             let statusCode = httpResponse.statusCode
-            
-            if let error = error {
+                      if let error = error {
                 errorHandler(["message" : error.localizedDescription, "code" : statusCode] as [String:Any])
             }
                 
             else{
                 do {
-                    //print(String(data: data!, encoding: String.Encoding.utf8)!)
+                    print(String(data: data!, encoding: String.Encoding.utf8)!)
                     
                     let json = try JSONSerialization.jsonObject(with: data!)
                     let handler = statusCode >= 400 ? errorHandler : successHandler

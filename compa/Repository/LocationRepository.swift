@@ -42,4 +42,19 @@ class LocationRepository {
         )
     }
     
+    func getLocations(result: @escaping (_ data: [Location] )->Void, error: @escaping (_ data: [String:Any] )->Void){
+        
+        http.get(
+            isRelative: true,
+            isAuthenticated: true,
+            url: "/location/getLocationsList",
+            success: { data in
+                result(Array(data.values).map { Location(dictionary: $0 as! [String : Any]) } )
+        },
+            error: error
+        )
+    }
+    
+    
+    
 }
