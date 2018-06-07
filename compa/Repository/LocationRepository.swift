@@ -47,7 +47,7 @@ class LocationRepository {
         http.get(
             isRelative: true,
             isAuthenticated: true,
-            url: "/getLocationsList",
+            url: "/location/getLocationsList",
             success: { data in
                 result(Array(data.values).map { Location(dictionary: $0 as! [String : Any]) } )
         },

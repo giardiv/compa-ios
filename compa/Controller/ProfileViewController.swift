@@ -43,6 +43,7 @@ class ProfileViewController: UIViewController, MKMapViewDelegate {
                                 self.locationRepository.getLocations(result: {data in
                                     
                                     DispatchQueue.main.async {
+                                        
                                         self.createPolyline(data)
                                     }
                                     
